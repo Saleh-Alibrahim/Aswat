@@ -1,0 +1,79 @@
+
+/*
+ * Globals
+ */
+
+
+
+/* Links */
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@500&display=swap');
+
+
+
+
+/* Custom default button */
+
+
+
+/*
+ * Base structure
+ */
+
+body {
+  height: 100%;
+  background-color: #333;
+  font-family: 'Tajawal', sans-serif;
+}
+
+.container{
+    margin: 10% auto;
+    padding: 0 10%;
+}
+
+
+.container h1{
+    margin: 2% 0;
+    text-align: center;
+    direction:RTL;
+}
+
+#poll-form ul li {
+    list-style-type: none;
+    margin-bottom: 10px ;
+}
+#poll-form ul li input{
+   
+    width: 50%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * NavBar
+ */
+
+.navbar-dark{
+    background-color:#00000091 !important;
+}
+
+
+
+/*
+ * Cover
+ */
+
+
+
+
+/*
+ * Footer
+ */

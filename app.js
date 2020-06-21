@@ -1,6 +1,8 @@
 const express = require('express')
 const path = require('path')
 const morgan = require('morgan')
+const dotenv = require('dotenv')
+const colors = require('colors');
 
 // Load config
 dotenv.config({ path: './config/config.env' })
@@ -25,9 +27,6 @@ app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')))
 
 
-
-
-
 // Routes
 app.use('/', require('./routes/index'))
 
@@ -36,7 +35,7 @@ const PORT = process.env.PORT || 3000
 
 app.listen(
   PORT,
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow)
 )
 
 module.exports = app;

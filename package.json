@@ -2,14 +2,15 @@
   "name": "strawpoll",
   "version": "0.0.0",
   "private": true,
-    "scripts": {
-    "start": "cross-env NODE_ENV=production node app",
-    "dev": "cross-env NODE_ENV=development nodemon app"
+  "scripts": {
+    "start": "nodemon -e * app.js"
   },
   "dependencies": {
+    "colors": "^1.4.0",
     "dotenv": "^8.2.0",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "mongoose": "^5.9.19",
     "morgan": "~1.9.1"
   }
 }
