@@ -1,6 +1,6 @@
 //Get the main form
 let main_form = document.getElementById('poll-form');
-main_form.addEventListener('submit', async (e) => {
+main_form.addEventListener('submit', (e) => {
     try {
         //prevent defult form submit
         e.preventDefault();
@@ -11,13 +11,17 @@ main_form.addEventListener('submit', async (e) => {
         let poll_list_values = [];
         //get only the values from the list items
         poll_list_items.forEach(item => {
-            poll_list_values.push(item.value);
+            poll_list_values.push({
+                name: item.value,
+                count: 0
+            }
+            );
         }
         );
         //get the title of the poll
         let title = document.getElementById('title').value;
         // create the poll in the server 
-        let response = await fetch('/create_poll', {
+        let response = fetch('/create_poll', {
             method: 'POST',
             body: JSON.stringify({
                 'title': title,
@@ -27,8 +31,7 @@ main_form.addEventListener('submit', async (e) => {
                 'Content-Type': 'application/json'
             }
         });
-        if (response.status != 200)
-            throw new Error(response.statusText);
+        console.log('response :>> ', response);
     }
     catch (error) {
         console.log(error);
