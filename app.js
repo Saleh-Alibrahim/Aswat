@@ -1,38 +1,42 @@
-let createError = require('http-errors');
-let express = require('express');
-let path = require('path');
-let cookieParser = require('cookie-parser');
-let logger = require('morgan');
-let indexRouter = require('./routes/index');
+const express = require('express')
+const path = require('path')
+const morgan = require('morgan')
 
-let app = express();
+// Load config
+dotenv.config({ path: './config/config.env' })
+
+
+const app = express()
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// Logging
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'))
+}
 
-app.use('/', indexRouter);
+// Body parser
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
-});
+// Static Folder
+app.use(express.static(path.join(__dirname, 'public')))
 
-// error handler
-app.use(function (err, req, res) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+
+
+
+// Routes
+app.use('/', require('./routes/index'))
+
+
+const PORT = process.env.PORT || 3000
+
+app.listen(
+  PORT,
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
+)
 
 module.exports = app;
