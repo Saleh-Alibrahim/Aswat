@@ -29,14 +29,14 @@
 
 
     <div class="container">
-        <h1 id="title"><input type="text" placeholder="العنوان"></h1>
+        <h1><input id="title" type="text" placeholder="العنوان"></h1>
         <div class="jumbotron text-center">
 
             <form id="poll-form">
-                <ul id="items-list">
-                    <li><input type="text"></li>
-                    <li><input type="text"></li>
-                    <li><input type="text"></li>
+                <ul>
+                    <li><input class="item-list" type="text"></li>
+                    <li><input class="item-list" type="text"></li>
+                    <li><input class="item-list" type="text"></li>
                 </ul>
                 <button type="submit" class="btn btn-dark btn-lg">انشاء التصويت</button>
             </form>
@@ -44,4 +44,5 @@
         </div>
     </div>
 
+    <script src="javascripts/main.js"></script>
     <%- include('partials/footer') %>

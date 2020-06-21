@@ -9,8 +9,9 @@ router.get('/', function (req, res) {
 
 // @desc    Landing page
 // @route   POST /create_poll
-router.get('/create_poll', function (req, res, next) {
-  res.render('index', { title: 'Express' });
+router.post('/create_poll', function (req, res, next) {
+  const { title, poll_list } = req.body;
+
 });
 
 
