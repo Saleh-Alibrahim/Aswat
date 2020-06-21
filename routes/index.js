@@ -16,10 +16,11 @@ router.post('/create_poll', async (req, res, next) => {
   res.redirect(`/result/${new_poll.id}`);
 });
 
+// @desc    Show the result
+// @route   GET /result/:id
 router.get('/result/:id', async (req, res) => {
   const id = req.params.id;
-  console.log('id :>> ', id);
-  res.render('main');
+  res.send('main');
 });
 
 
