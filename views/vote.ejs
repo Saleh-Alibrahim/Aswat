@@ -1,5 +1,5 @@
 <%- include('partials/header') %>
-<link rel="stylesheet" href="/stylesheets/main.css">
+<link rel="stylesheet" href="/stylesheets/vote.css">
 <title>التصويت</title>
 
 </head>
@@ -30,19 +30,17 @@
 
     <div class="container">
         <div class="jumbotron text-center">
-            <div id="title-alert" class="alert alert-primary hidden" role="alert">
-                الرجاء ادخال العنوان
+            <div class="form-check  text-right">
+                <h3 id="title"><%= poll_values.title %></h3>
+                <% poll_values.poll_list.forEach( function(item) { %>
+                <h4><label class="form-check-label"><%= item.name %></label>
+                    <input type="radio" class="form-check-input" name="itemList" id="<%= item.id %>">
+                </h4>
+                <% } );%>
+
             </div>
-            <div id="items-alert" class="alert alert-primary hidden" role="alert">
-                الرجاء ادخال على الاقل عنصرين لتصويت
-            </div>
-            <div id="poll-list" class="form-group">
-                <input class="form-control" id="title" type="text" placeholder="العنوان">
-                <input class="item-list form-control" type="text">
-                <input class="item-list form-control" type="text">
-                <input class="item-list form-control last-input" type="text">
-            </div>
-            <button id="submit-poll" type="button" class="btn btn-dark btn-lg">انشاء التصويت</button>
+
+            <button id="submit-poll" type="button" class="btn btn-dark btn-lg">تصويت</button>
         </div>
     </div>
 
