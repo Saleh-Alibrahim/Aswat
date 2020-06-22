@@ -52,6 +52,11 @@ body {
 }
 #poll-item h4{
   display: inline;
+   font-family: 'Tajawal', sans-serif;
+}
+#copy{
+  font-family: 'Tajawal', sans-serif !important;
+  margin-top: 10px;
 }
 
 
