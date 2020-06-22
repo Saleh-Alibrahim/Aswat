@@ -77,7 +77,12 @@ router.post('/add_vote', async (req, res) => {
 router.get('/poll/:id/res', async (req, res) => {
   try {
     const id = req.params.id;
+    // get the item with the given id
     const poll_values = await PollModel.findById(id);
+
+    //sort the items so the most votes become the first result to apper
+    poll_values.poll_list.sort((a, b) => b.numberVote - a.numberVote);
+
     res.render('res', { poll_values: poll_values });
   }
   catch (e) {
