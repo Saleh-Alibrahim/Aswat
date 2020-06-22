@@ -7,7 +7,7 @@ This Project is Simple Strawpoll Where
 
 ### Installing Dependencies
 
-Developers using this project should already have Nodejs, npminstalled.
+Developers using this project should already have Nodejs, npm installed.
 
 #### Frontend 
 
