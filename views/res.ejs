@@ -1,5 +1,5 @@
 <%- include('partials/header') %>
-<link rel="stylesheet" href="/stylesheets/vote.css">
+<link rel="stylesheet" href="/stylesheets/res.css">
 <title>التصويت</title>
 
 </head>
@@ -32,22 +32,21 @@
 
     <div class="container">
         <div class="jumbotron">
-            <div id="select-alert" class="alert alert-primary hidden text-center" role="alert">
-                الرجاء اختيار صوت لتصويت
-            </div>
             <div class="form-check  text-right">
                 <h3 id="title"><%= poll_values.title %></h3>
                 <% poll_values.poll_list.forEach( function(item) { %>
-                <h4><label for="<%= item.id %>" class="form-check-label"><%= item.name %></label>
-                    <input type="radio" class="form-check-input custom-radio" name="itemList" id="<%= item.id %>">
-                </h4>
+                <div id="poll-item">
+                    <h4><%= item.name %></h4>
+                    <h4 id="poll-item-numberVote"><%= item.numberVote %></h4>
+
+                </div>
+                <hr>
                 <% } );%>
 
             </div>
 
-            <button id="submit-vote" type="button" class="btn btn-dark btn-lg">تصويت</button>
         </div>
     </div>
 
-    <script src="/javascripts/vote.js"></script>
+    <script src="/javascripts/res.js"></script>
     <%- include('partials/footer') %>

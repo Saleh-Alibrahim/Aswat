@@ -30,11 +30,10 @@ body {
     margin: 10% auto;
     padding: 0 15%;
 }
-
 .jumbotron{
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-} 
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
 
 .navbar-nav{
   font-family: 'Tajawal', sans-serif !important;
@@ -43,30 +42,37 @@ body {
 
 #title{
     text-align: center;
-    direction:RTL;
     font-family: 'Tajawal', sans-serif;
-    padding: 5% 0;
+    margin: 5% 0;
     font-size: 2rem;
 }
 
-#submit-poll{
+#submit-vote{
   font-family: 'Tajawal', sans-serif !important;
-  margin-top: 20px ;
+  margin-top: 10px;
 }
 
-.item-list{
-    direction:RTL;
-    width: 80%;
-    margin: 10px auto;
-}
-.form-control:focus {
-  border-color: #000;
-  box-shadow: 0 0 0 0.05rem #000;
-}
 
+.form-check label{
+  font-family: 'Tajawal', sans-serif;
+  margin-right: 30px;
+  margin-bottom: 10px;
+}
+.form-check input{
+  font-family: 'Tajawal', sans-serif;
+  margin-top: 12px;
+}
 .hidden{
   display: none;
 }
+
+
+
+
+
+
+
+
 
 
 

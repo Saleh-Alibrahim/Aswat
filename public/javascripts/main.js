@@ -1,24 +1,36 @@
 //Get the main form
-let main_form = document.getElementById('poll-form');
-main_form.addEventListener('submit', async (e) => {
+let main_form = document.getElementById('submit-poll');
+main_form.addEventListener('click', async (e) => {
     try {
-        //prevent defult form submit
-        e.preventDefault();
+        //get the title of the poll
+        let title = document.getElementById('title').value;
+        //show the alert of title requierd
+        let title_alert = document.getElementById('title-alert');
+        if (!title) {
+            //show the alert and then return
+            if (title_alert.classList.contains('hidden'))
+                title_alert.classList.remove('hidden');
+            return;
+        } else {
+            //hide the alert and then continue
+            if (!title_alert.classList.contains('hidden'))
+                title_alert.classList.add('hidden');
+        }
         //get all the list of poll
         let poll_list_items = document.querySelectorAll('.item-list');
-        console.log("poll_list_items", poll_list_items);
 
         let poll_list_values = [];
         //get only the values from the list items
         poll_list_items.forEach(item => {
-            poll_list_values.push({
-                name: item.value,
-                count: 0
+            if (item.value) {
+                poll_list_values.push({
+                    name: item.value,
+                    numberVote: 0
+                }
+                );
             }
-            );
         });
-        //get the title of the poll
-        let title = document.getElementById('title').value;
+
         // create the poll in the server 
         let response = await fetch('/create_poll', {
             method: 'POST',
@@ -32,11 +44,11 @@ main_form.addEventListener('submit', async (e) => {
             }
         });
 
-        //
-        if (response.redirected) {
-            window.location.href = response.url;
-        }
+        let response_data = await response.json();
 
+        //render the new html page if resopne success
+        if (response_data.success)
+            window.location.href = window.location.href + `poll/${response_data.id}`;
 
     }
     catch (error) {
@@ -46,6 +58,34 @@ main_form.addEventListener('submit', async (e) => {
 
 
 });
+
+//add new input filed 
+let input_filed = document.querySelector('.last-input');
+
+input_filed.addEventListener('keydown', addNew);
+
+
+function addNew(e) {
+    //crete new input filed
+    let new_input = document.createElement('input');
+    // add the classes and the attributes
+    new_input.setAttribute("type", "text");
+    new_input.classList = 'item-list form-control last-input';
+    new_input.addEventListener('keydown', addNew);
+    //remove the last-input class
+    e.target.removeEventListener('keydown', addNew);
+    //get the father node
+    let input_form = document.getElementById('poll-list');
+    input_form.appendChild(new_input);
+
+
+}
+
+
+
+
+
+
 
 
 

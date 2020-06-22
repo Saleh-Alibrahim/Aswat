@@ -6,17 +6,13 @@ const PollSchema = new mongoose.Schema({
     required: true,
   },
   poll_list: [{
-    name: String
-  },
-  {
-    count: Number,
-    default: 0
-  }
-  ],
+    name: String,
+    numberVote: Number
+  }],
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-module.exports = mongoose.model('Items', PollSchema);
+module.exports = mongoose.model('PollItems', PollSchema);

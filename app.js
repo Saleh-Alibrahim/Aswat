@@ -10,10 +10,10 @@ dotenv.config({ path: './config/config.env' });
 
 const app = express();
 
-//connect to the database
+// Connect to the database
 connectDB();
 
-// view engine setup
+// View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -36,9 +36,6 @@ app.use('/', require('./routes/index'));
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(
-  PORT,
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow)
-);
+app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow));
 
 module.exports = app;
