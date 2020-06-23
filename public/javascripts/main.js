@@ -70,13 +70,20 @@ function addNew(e) {
     let new_input = document.createElement('input');
     // add the classes and the attributes
     new_input.setAttribute("type", "text");
+    new_input.setAttribute("placeholder", "اختار اجابه");
     new_input.classList = 'item-list form-control last-input';
     new_input.addEventListener('keydown', addNew);
     //remove the last-input class
     e.target.removeEventListener('keydown', addNew);
     //get the father node
+
+    //create line 
+    let line_break = document.createElement('hr');
+
+
     let input_form = document.getElementById('poll-list');
     input_form.appendChild(new_input);
+    input_form.appendChild(line_break);
 
 
 }

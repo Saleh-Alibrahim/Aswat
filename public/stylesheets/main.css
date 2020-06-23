@@ -28,7 +28,7 @@ body {
 
 .container{
     margin: 10% auto;
-    padding: 0 15%;
+    padding: 0 20%;
 }
 
 .jumbotron{
@@ -42,11 +42,12 @@ body {
 
 
 #title{
-    text-align: center;
     direction:RTL;
     font-family: 'Tajawal', sans-serif;
-    padding: 5% 0;
-    font-size: 2rem;
+    font-size: 1.5rem;
+    margin: 10px 0;
+    border: 0 ;
+    background-color: #eee;
 }
 
 #submit-poll{
@@ -56,18 +57,27 @@ body {
 
 .item-list{
     direction:RTL;
-    width: 80%;
-    margin: 10px auto;
+    margin: 0 auto;
+    border: 0 ;
+    background-color: #eee;
+    padding: 20px;
 }
+
 .form-control:focus {
-  border-color: #000;
-  box-shadow: 0 0 0 0.05rem #000;
+  
+  border-color: #000; 
+  box-shadow: 0 0 0 0 #000;
+  
 }
+
 
 .hidden{
   display: none;
 }
 
+hr{
+  margin: 0;
+}
 
 
 
