@@ -1,4 +1,4 @@
-//Get the main form
+//get the main form
 let vote_button = document.getElementById('submit-vote');
 vote_button.addEventListener('click', async (e) => {
     try {
@@ -70,7 +70,7 @@ vote_button.addEventListener('click', async (e) => {
 
 //make the result button goes to the result page
 document.getElementById('result-button').addEventListener('click', (e) => {
-    window.location.href = window.location.href + `/res`;
+    window.location.href = window.location.href + `/r`;
 });
 
 //make the copy button work
