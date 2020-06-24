@@ -48,7 +48,7 @@ main_form.addEventListener('click', async (e) => {
 
         //render the new html page if resopne success
         if (response_data.success)
-            window.location.href = window.location.href + `poll/${response_data.id}`;
+            window.location.href = window.location.href + response_data.id;
 
     }
     catch (error) {

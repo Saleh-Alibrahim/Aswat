@@ -28,7 +28,7 @@ body {
 
 .container{
     margin: 10% auto;
-    padding: 0 15%;
+    padding: 0 15rem;
 }
 .jumbotron{
   padding-top: 1.5rem;
@@ -52,7 +52,7 @@ body {
 }
 #poll-item h4{
   display: inline;
-   font-family: 'Tajawal', sans-serif;
+  font-family: 'Tajawal', sans-serif;
 }
 #copy{
   font-family: 'Tajawal', sans-serif !important;

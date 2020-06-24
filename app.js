@@ -2,8 +2,9 @@ const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
-const colors = require('colors');
+require('colors');
 const connectDB = require('./config/db');
+
 // Load config
 dotenv.config({ path: './config/config.env' });
 

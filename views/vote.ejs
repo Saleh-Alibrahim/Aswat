@@ -21,7 +21,7 @@
                     <a class="nav-link" href="#">التسجيل</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">الرئيسية</a>
+                    <a class="nav-link" href="/">الرئيسية</a>
                 </li>
             </ul>
         </div>
@@ -33,6 +33,9 @@
             <div id="select-alert" class="alert alert-primary hidden text-center" role="alert">
                 الرجاء اختيار صوت لتصويت
             </div>
+            <div id="vote-alert" class="alert alert-primary hidden text-center" role="alert">
+                لا يمكن التصويت اكثر من مره
+            </div>
             <div class="form-check  text-right">
                 <h3 id="title"><%= poll_values.title %></h3>
                 <% poll_values.poll_list.forEach( function(item) { %>
@@ -43,8 +46,9 @@
                 <% } );%>
 
             </div>
-
+            <button id="copy-button" type="button" class="btn btn-dark btn-lg">نسخ الرابط</button>
             <button id="submit-vote" type="button" class="btn btn-dark btn-lg">تصويت</button>
+            <button id="result-button" type="button" class="btn btn-dark btn-lg">النتائج</button>
         </div>
     </div>
 

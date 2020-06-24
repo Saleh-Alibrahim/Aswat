@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const PollModel = require('../models/PollModel')
+const PollModel = require('../models/PollModel');
 
 // @desc    Landing page
 // @route   GET /
@@ -32,7 +32,7 @@ router.post('/create_poll', async (req, res, next) => {
 
 // @desc    Show the result
 // @route   GET /vote/:id
-router.get('/poll/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const id = req.params.id;
     const poll_values = await PollModel.findById(id);
@@ -50,9 +50,7 @@ router.get('/poll/:id', async (req, res) => {
 // @route   POST /add_vote
 router.post('/add_vote', async (req, res) => {
   try {
-
     const id = req.body.id;
-
     // get the item with the given id
     const poll_value = await PollModel.findOne({ "poll_list._id": id }, {
       'poll_list.$': 1
@@ -62,7 +60,7 @@ router.post('/add_vote', async (req, res) => {
     let number_of_vote = poll_value.poll_list[0].numberVote + 1;
 
     // update the database and add the new vote
-    const updateVote = await PollModel.updateOne({ "poll_list._id": id }, {
+    await PollModel.updateOne({ "poll_list._id": id }, {
       'poll_list.$.numberVote': number_of_vote
     });
     res.status(200).json({ success: true });
@@ -74,7 +72,7 @@ router.post('/add_vote', async (req, res) => {
   }
 });
 
-router.get('/poll/:id/res', async (req, res) => {
+router.get('/:id/r', async (req, res) => {
   try {
     const id = req.params.id;
     // get the item with the given id

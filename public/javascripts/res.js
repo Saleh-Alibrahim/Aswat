@@ -7,7 +7,7 @@ copy_button.addEventListener('click', async (e) => {
         let res_url = window.location.href;
 
         //remove the /res from the end
-        let url = res_url.slice(0, res_url.length - 4);
+        let url = res_url.slice(0, res_url.length - 2);
 
         //source https://stackoverflow.com/questions/49618618/copy-current-url-to-clipboard
         const dummy = document.createElement('input');

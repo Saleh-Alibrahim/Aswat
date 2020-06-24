@@ -28,7 +28,7 @@ body {
 
 .container{
     margin: 10% auto;
-    padding: 0 15%;
+    padding: 0 15rem;
 }
 .jumbotron{
   padding-top: 1.5rem;
@@ -51,7 +51,16 @@ body {
   font-family: 'Tajawal', sans-serif !important;
   margin-top: 10px;
 }
+#result-button{
+  font-family: 'Tajawal', sans-serif !important;
+  margin-top: 10px;
+}
 
+#copy-button{
+  font-family: 'Tajawal', sans-serif !important;
+  margin-top: 10px;
+  float: right;
+}
 
 .form-check label{
   font-family: 'Tajawal', sans-serif;
