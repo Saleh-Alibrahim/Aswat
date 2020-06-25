@@ -28,12 +28,14 @@ body {
 
 .container{
     margin: 10% auto;
-    padding: 0 15rem;
 }
+
 .jumbotron{
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: 50rem;
+  margin: auto;
+} 
 
 .navbar-nav{
   font-family: 'Tajawal', sans-serif !important;
@@ -97,6 +99,37 @@ body {
 @keyframes fadeInOut{
   5%,95%{opacity:1;top:50px}
   15%,85%{opacity:1;top:30px}
+}
+@media (max-width: 480px) {
+ .jumbotron{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  width: 20rem;
+  margin: auto;
+} 
+.container{
+    margin: 50% auto;
+}
+#submit-vote{
+  font-family: 'Tajawal', sans-serif !important;
+  margin-top: 10px;
+   width: 5rem;
+  font-size: 0.8rem;
+}
+#result-button{
+  font-family: 'Tajawal', sans-serif !important;
+  margin-top: 10px;
+   width: 5rem;
+  font-size: 0.8rem;
+}
+
+#copy-button{
+  font-family: 'Tajawal', sans-serif !important;
+  margin-top: 10px;
+  float: right;
+  width: 6rem;
+  font-size: 0.8rem;
+}
 }
 
 

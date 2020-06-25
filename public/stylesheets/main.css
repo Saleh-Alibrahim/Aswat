@@ -28,12 +28,13 @@ body {
 
 .container{
     margin: 10% auto;
-    padding: 0 15rem;
 }
 
 .jumbotron{
   padding-top: 2rem;
   padding-bottom: 2rem;
+  width: 50rem;
+  margin: auto;
 } 
 
 .navbar-nav{
@@ -100,8 +101,26 @@ hr{
 
 
 /*
- * Cover
+ * Mdia
  */
+
+@media (max-width: 480px) {
+ .jumbotron{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  width: 20rem;
+  margin: auto;
+} 
+.container{
+    margin: 50% auto;
+}
+#submit-poll{
+  font-family: 'Tajawal', sans-serif !important;
+  margin-top: 20px ;
+  width: 5rem;
+  font-size: 0.8rem;
+}
+}
 
 
 

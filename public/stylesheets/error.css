@@ -26,10 +26,18 @@ body {
   font-family: 'Tajawal', sans-serif ;
 }
 
+
 .container{
-    margin: 10% auto;
-    padding: 0 15rem;
+    margin: 20rem auto;
 }
+
+.message{
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: 52rem;
+  margin: 10px auto;
+
+} 
 
 .status{
   padding-top: 1rem;
@@ -46,8 +54,39 @@ body {
 h1{
   text-align: center;
   font-family: 'Tajawal', sans-serif;
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
+
+@media (max-width: 480px) {
+.message{
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  width: 20rem;
+  margin: 10px auto;
+
+} 
+
+.status{
+  padding-top:0.1;
+  padding-bottom: 0.1;
+  width: 4rem;
+  margin:  auto;
+  height: 3rem;
+}
+
+h1{
+  text-align: center;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 1rem;
+}
+.container{
+    margin: 15rem auto;
+}
+
+}
+
+
+
 
 
 

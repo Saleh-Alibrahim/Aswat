@@ -28,12 +28,15 @@ body {
 
 .container{
     margin: 10% auto;
-    padding: 0 15rem;
 }
+
 .jumbotron{
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: 50rem;
+  margin: auto;
+} 
+
 
 .navbar-nav{
   font-family: 'Tajawal', sans-serif !important;
@@ -107,6 +110,7 @@ body {
 
 
 
+
 /*
  * NavBar
  */
@@ -118,8 +122,28 @@ body {
 
 
 /*
- * Cover
+ * Media
  */
+
+@media (max-width: 480px) {
+ .jumbotron{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  width: 20rem;
+  margin: auto;
+} 
+.container{
+    margin: 50% auto;
+}
+
+#copy-button{
+  font-family: 'Tajawal', sans-serif !important;
+  margin-top: 10px;
+  float: right;
+  width: 6rem;
+  font-size: 0.8rem;
+}
+}
 
 
 
