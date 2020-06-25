@@ -45,7 +45,7 @@ main_form.addEventListener('click', async (e) => {
         });
 
         let response_data = await response.json();
-
+        console.log('response_data.success :>> ', response_data.success);
         //render the new html page if resopne success
         if (response_data.success)
             window.location.href = window.location.href + response_data.id;

@@ -1,17 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const PollModel = require('../models/PollModel');
+const ErrorResponse = require('../utils/errorResponse');
 
 // @desc    Landing page
 // @route   GET /
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     //render the main screen
     res.render('main');
   }
-  catch (e) {
-    console.log(e);
-    res.status(500).json({ success: false });
+  catch (err) {
+    console.log(err);
+    return next(new ErrorResponse('يوجد مشكلة في السيرفر', 400));
   }
 });
 
@@ -24,23 +25,24 @@ router.post('/create_poll', async (req, res, next) => {
     const results = { id: new_poll.id, success: true };
     res.status(201).json(results);
   }
-  catch (e) {
-    console.log(e);
-    res.status(500).json({ success: false });
+  catch (err) {
+    console.log(err);
+    return next(new ErrorResponse('لا يمكن انشاء التصويت حاول في وقت اخر', 401));
   }
 });
 
 // @desc    Show the result
 // @route   GET /vote/:id
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
   try {
     const id = req.params.id;
     const poll_values = await PollModel.findById(id);
+    if (!poll_values) { throw new Error(404); }
     res.render('vote', { poll_values: poll_values });
   }
-  catch (e) {
-    console.log(e);
-    res.status(404).json({ success: false });
+  catch (err) {
+    console.log(err);
+    return next(new ErrorResponse('لا يوجد تصويت بهذا الرقم  الرجاء التأكد من الرابط المدخل', 404));
   }
 
 });
@@ -64,11 +66,10 @@ router.post('/add_vote', async (req, res) => {
       'poll_list.$.numberVote': number_of_vote
     });
     res.status(200).json({ success: true });
-    //res.render('vote', { poll_values: poll_values });
   }
-  catch (e) {
-    console.log(e);
-    res.status(500).json({ success: false });
+  catch (err) {
+    console.log(err);
+    return next(new ErrorResponse('لا يوجد تصويت بهذا الرقم  الرجاء التأكد من الرابط المدخل', 404));
   }
 });
 
@@ -83,9 +84,9 @@ router.get('/:id/r', async (req, res) => {
 
     res.render('res', { poll_values: poll_values });
   }
-  catch (e) {
-    console.log(e);
-    res.status(404).json({ success: false });
+  catch (err) {
+    console.log(err);
+    return next(new ErrorResponse('لا يوجد تصويت بهذا الرقم  الرجاء التأكد من الرابط المدخل', 404));
   }
 });
 

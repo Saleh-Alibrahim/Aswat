@@ -1,0 +1,92 @@
+
+/*
+ * Globals
+ */
+
+
+
+/* Links */
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@500&display=swap');
+
+
+
+
+/* Custom default button */
+
+
+
+/*
+ * Base structure
+ */
+
+
+body {
+  height: 100%;
+  background-color: #333;
+  font-family: 'Tajawal', sans-serif ;
+}
+
+.container{
+    margin: 10% auto;
+    padding: 0 15rem;
+}
+
+.status{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  width: 10rem;
+  margin: 30px auto;
+}
+
+.navbar-nav{
+  font-family: 'Tajawal', sans-serif !important;
+}
+
+
+h1{
+  text-align: center;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 2.5rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * NavBar
+ */
+
+.navbar-dark{
+    background-color:#00000091 !important;
+}
+
+
+
+/*
+ * Cover
+ */
+
+
+
+
+/*
+ * Footer
+ */
