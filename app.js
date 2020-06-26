@@ -5,6 +5,8 @@ const dotenv = require('dotenv');
 require('colors');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
+const ErrorResponse = require('./utils/errorResponse');
+
 
 // Load config
 dotenv.config({ path: './config/config.env' });
@@ -35,8 +37,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes
 app.use('/', require('./routes/index'));
 
-// Handle Errors 
+// Catch 404 and forward it to the error handler
+app.use(function (req, res, next) {
+  next(new ErrorResponse('الصفحة المطلوبة غير موجوده', 404));
+});
+
+// Handle all the errors
 app.use(errorHandler);
+
 
 
 

@@ -24,11 +24,20 @@ body {
   height: 100%;
   background-color: #333;
   font-family: 'Tajawal', sans-serif ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
 }
 
-.container{
-    margin: 10% auto;
-}
+
+.jumbotron{
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: 50rem;
+  margin: auto;
+} 
 
 .jumbotron{
   padding-top: 2rem;

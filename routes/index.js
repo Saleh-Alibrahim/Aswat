@@ -11,12 +11,11 @@ router.get('/', async (req, res, next) => {
     res.render('main');
   }
   catch (err) {
-    console.log(err);
-    return next(new ErrorResponse('يوجد مشكلة في السيرفر', 400));
+    next(new ErrorResponse('يوجد مشكلة في السيرفر', 500));
   }
 });
 
-// @desc    Landing page
+// @desc    Create Poll
 // @route   POST /create_poll
 router.post('/create_poll', async (req, res, next) => {
   try {
@@ -26,23 +25,21 @@ router.post('/create_poll', async (req, res, next) => {
     res.status(201).json(results);
   }
   catch (err) {
-    console.log(err);
     return next(new ErrorResponse('لا يمكن انشاء التصويت حاول في وقت اخر', 401));
   }
 });
 
-// @desc    Show the result
-// @route   GET /vote/:id
+// @desc    Show the poll
+// @route   GET /:id
 router.get('/:id', async (req, res, next) => {
   try {
     const id = req.params.id;
     if (!id) { return res.end(); }
     const poll_values = await PollModel.findById(id);
-    if (!poll_values) { throw new Error(404); }
+    if (!poll_values) { return next(new ErrorResponse('يوجد مشكلة في السيرفر', 500)); }
     res.render('vote', { poll_values: poll_values });
   }
   catch (err) {
-    console.log(err);
     return next(new ErrorResponse('لا يوجد تصويت بهذا الرقم  الرجاء التأكد من الرابط المدخل', 404));
   }
 
@@ -69,25 +66,25 @@ router.post('/add_vote', async (req, res) => {
     res.status(200).json({ success: true });
   }
   catch (err) {
-    console.log(err);
     return next(new ErrorResponse('لا يوجد تصويت بهذا الرقم  الرجاء التأكد من الرابط المدخل', 404));
   }
 });
 
-router.get('/:id/r', async (req, res) => {
+// @desc    Show the result of the poll
+// @route   GET /:id/r
+router.get('/:id/r', async (req, res, next) => {
   try {
     const id = req.params.id;
     if (!id) { return res.end(); }
     // get the item with the given id
     const poll_values = await PollModel.findById(id);
-    if (!poll_values) { throw new Error(404); }
+    if (!poll_values) { return next(new ErrorResponse('لا يوجد تصويت بهذا الرقم  الرجاء التأكد من الرابط المدخل', 404)); }
     //sort the items so the most votes become the first result to apper
     poll_values.poll_list.sort((a, b) => b.numberVote - a.numberVote);
 
     res.render('res', { poll_values: poll_values });
   }
   catch (err) {
-    console.log(err);
     return next(new ErrorResponse('لا يوجد تصويت بهذا الرقم  الرجاء التأكد من الرابط المدخل', 404));
   }
 });

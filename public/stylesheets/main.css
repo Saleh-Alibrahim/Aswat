@@ -24,11 +24,13 @@ body {
   height: 100%;
   background-color: #333;
   font-family: 'Tajawal', sans-serif ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
 }
 
-.container{
-    margin: 10% auto;
-}
 
 .jumbotron{
   padding-top: 2rem;
@@ -101,7 +103,7 @@ hr{
 
 
 /*
- * Mdia
+ * Media
  */
 
 @media (max-width: 480px) {
@@ -109,15 +111,12 @@ hr{
   padding-top: 1rem;
   padding-bottom: 1rem;
   width: 20rem;
-  margin: auto;
 } 
-.container{
-    margin: 50% auto;
-}
+
 #submit-poll{
   font-family: 'Tajawal', sans-serif !important;
   margin-top: 20px ;
-  width: 5rem;
+  width: 8rem;
   font-size: 0.8rem;
 }
 }
