@@ -5,9 +5,10 @@ const errorHandler = (err, req, res, next) => {
   let error = { ...err };
 
   // Log to console for dev
-  console.log(err.name);
+  console.log(err);
 
   let message = '';
+
   // Check what is the error and handle it 
   switch (err.name) {
     case 'NotFound':

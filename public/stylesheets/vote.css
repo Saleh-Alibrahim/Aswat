@@ -134,6 +134,13 @@ body {
   width: 6rem;
   font-size: 0.8rem;
 }
+
+#title{
+  font-size: 1.7rem;
+}
+.form-check-label{
+  font-size: 1.3rem;
+}
 }
 
 
