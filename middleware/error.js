@@ -1,25 +1,35 @@
 const ErrorResponse = require('../utils/errorResponse');
 
 const errorHandler = (err, req, res, next) => {
+  // Copy the error object
   let error = { ...err };
 
-  console.log('wqerwqrtwqrwq :>> ');
-  error.message = err.message;
-
   // Log to console for dev
-  console.log(err);
+  console.log(err.name);
 
+  let message = '';
+  // Check what is the error and handle it 
+  switch (err.name) {
+    case 'NotFound':
+      message = 'الصفحة المطلوبة غير موجودة';
+      error = new ErrorResponse(message, 404);
+      break;
+    case 'CastError':
+      message = 'الصفحة المطلوبة غير موجودة';
+      error = new ErrorResponse(message, 404);
+      break;
 
-  // Mongoose validation error
-  if (err.name === 'ValidationError') {
-    const message = Object.values(err.errors).map(val => val.message);
-    error = new ErrorResponse(message, 400);
   }
+
+
+
+
+
 
   res.status(error.statusCode || 500).render('error', {
     error: {
       success: false,
-      status: error.statusCode,
+      status: error.statusCode || 500,
       message: error.message || 'مشكلة في السيرفر'
     }
   });

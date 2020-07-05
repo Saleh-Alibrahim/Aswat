@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const PollModel = require('../models/PollModel');
-const ErrorResponse = require('../utils/errorResponse');
 
 // @desc    Landing page
 // @route   GET /
@@ -11,7 +10,7 @@ router.get('/', async (req, res, next) => {
     res.render('main');
   }
   catch (err) {
-    next(new ErrorResponse('يوجد مشكلة في السيرفر', 500));
+    next(err);
   }
 });
 
@@ -25,7 +24,7 @@ router.post('/create_poll', async (req, res, next) => {
     res.status(201).json(results);
   }
   catch (err) {
-    return next(new ErrorResponse('لا يمكن انشاء التصويت حاول في وقت اخر', 401));
+    next(err);
   }
 });
 
@@ -36,11 +35,16 @@ router.get('/:id', async (req, res, next) => {
     const id = req.params.id;
     if (!id) { return res.end(); }
     const poll_values = await PollModel.findById(id);
-    if (!poll_values) { return next(new ErrorResponse('يوجد مشكلة في السيرفر', 500)); }
+
+    if (!poll_values) {
+      let err = new Error();
+      err.name = 'NotFound';
+      throw err;
+    }
     res.render('vote', { poll_values: poll_values });
   }
   catch (err) {
-    return next(new ErrorResponse('لا يوجد تصويت بهذا الرقم  الرجاء التأكد من الرابط المدخل', 404));
+    next(err);
   }
 
 });
@@ -48,7 +52,7 @@ router.get('/:id', async (req, res, next) => {
 
 // @desc    Add new vote to given id
 // @route   POST /add_vote
-router.post('/add_vote', async (req, res) => {
+router.post('/add_vote', async (req, res, next) => {
   try {
     const id = req.body.id;
     // get the item with the given id
@@ -66,7 +70,7 @@ router.post('/add_vote', async (req, res) => {
     res.status(200).json({ success: true });
   }
   catch (err) {
-    return next(new ErrorResponse('لا يوجد تصويت بهذا الرقم  الرجاء التأكد من الرابط المدخل', 404));
+    next(err);
   }
 });
 
@@ -78,14 +82,19 @@ router.get('/:id/r', async (req, res, next) => {
     if (!id) { return res.end(); }
     // get the item with the given id
     const poll_values = await PollModel.findById(id);
-    if (!poll_values) { return next(new ErrorResponse('لا يوجد تصويت بهذا الرقم  الرجاء التأكد من الرابط المدخل', 404)); }
+
+    if (!poll_values) {
+      let err = new Error();
+      err.name = 'NotFound';
+      throw err;
+    }
+
     //sort the items so the most votes become the first result to apper
     poll_values.poll_list.sort((a, b) => b.numberVote - a.numberVote);
-
     res.render('res', { poll_values: poll_values });
   }
   catch (err) {
-    return next(new ErrorResponse('لا يوجد تصويت بهذا الرقم  الرجاء التأكد من الرابط المدخل', 404));
+    next(err);
   }
 });
 

@@ -39,12 +39,7 @@ body {
   margin: auto;
 } 
 
-.jumbotron{
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  width: 50rem;
-  margin: auto;
-} 
+
 
 .navbar-nav{
   font-family: 'Tajawal', sans-serif !important;
