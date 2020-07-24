@@ -20,7 +20,7 @@
  */
 body{
   font-family: 'Tajawal' !important;
-  background-color: #f7fcfd;
+  background-color: white;
 }
 
 #header .container{
@@ -32,7 +32,7 @@ body{
   padding-bottom: 2rem;
   width: 50rem;
   margin: 0 auto;
-  background-color: #f7fcfd;
+  background-color: white;
   border: 3px;
   border-color: #00bfd8;
   border-style: solid;
@@ -46,7 +46,7 @@ body{
     font-size: 1.5rem;
     margin: 10px 0;
     border: 0;
-    background-color: #f7fcfd;
+    background-color: white;
 }
 
 #submit-poll{
@@ -59,13 +59,13 @@ body{
     margin: 0 auto;
     padding: 20px;
     border: 0;
-    background-color: #f7fcfd;
+    background-color: white;
 }
 
 .form-control:focus {
-  background-color: #f7fcfd;
-  border-color: #f7fcfd; 
-  box-shadow: 0 0 0 0 #f7fcfd;
+  background-color: white;
+  border-color: white; 
+  box-shadow: 0 0 0 0 white;
   
 }
 

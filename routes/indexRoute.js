@@ -13,7 +13,7 @@ router.get('/', asyncHandler(async (req, res, next) => {
 // @desc    Render the page to create poll
 // @route   GET /create-poll
 router.get('/create-poll', asyncHandler(async (req, res, next) => {
-  res.render('create2');
+  res.render('create');
 }
 ));
 
