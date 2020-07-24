@@ -18,39 +18,35 @@
 /*
  * Base structure
  */
-
-
-body {
-  height: 100%;
-  background-color: #333;
-  font-family: 'Tajawal', sans-serif ;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
+body{
+  font-family: 'Tajawal' !important;
+  background-color: #f7fcfd;
 }
 
+#header .container{
+  margin-right: 20%;
+}
 
 .jumbotron{
   padding-top: 2rem;
   padding-bottom: 2rem;
   width: 50rem;
-  margin: auto;
+  margin: 0 auto;
+  background-color: #f7fcfd;
+  border: 3px;
+  border-color: #00bfd8;
+  border-style: solid;
+  
 } 
-
-.navbar-nav{
-  font-family: 'Tajawal', sans-serif !important;
-}
 
 
 #title{
     direction:RTL;
-    font-family: 'Tajawal', sans-serif;
+    font-family: 'Tajawal';
     font-size: 1.5rem;
     margin: 10px 0;
-    border: 0 ;
-    background-color: #eee;
+    border: 0;
+    background-color: #f7fcfd;
 }
 
 #submit-poll{
@@ -61,15 +57,15 @@ body {
 .item-list{
     direction:RTL;
     margin: 0 auto;
-    border: 0 ;
-    background-color: #eee;
     padding: 20px;
+    border: 0;
+    background-color: #f7fcfd;
 }
 
 .form-control:focus {
-  background-color: #eee;
-  border-color: #eee; 
-  box-shadow: 0 0 0 0 #eee;
+  background-color: #f7fcfd;
+  border-color: #f7fcfd; 
+  box-shadow: 0 0 0 0 #f7fcfd;
   
 }
 
@@ -79,6 +75,7 @@ body {
 }
 
 hr{
+  background-color: #00bfd8;
   margin: 0;
 }
 
@@ -96,9 +93,7 @@ hr{
  * NavBar
  */
 
-.navbar-dark{
-    background-color:#00000091 !important;
-}
+
 
 
 

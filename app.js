@@ -64,7 +64,7 @@ app.use(helmet());
 app.use(mongoSanitize());
 
 // Routes
-app.use('/', require('./routes/index'));
+app.use('/', require('./routes/indexRoute'));
 
 // catch 404 to route does not exist and forward it to the error handler
 app.use((req, res, next) => {

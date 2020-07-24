@@ -7,12 +7,19 @@ const asyncHandler = require('../middleware/async');
 // @route   GET /
 router.get('/', asyncHandler(async (req, res, next) => {
   //render the main screen
-  res.render('main');
+  res.render('index');
 }));
 
+// @desc    Render the page to create poll
+// @route   GET /create-poll
+router.get('/create-poll', asyncHandler(async (req, res, next) => {
+  res.render('create2');
+}
+));
+
 // @desc    Create Poll
-// @route   POST /create_poll
-router.post('/create_poll', asyncHandler(async (req, res, next) => {
+// @route   POST /create-poll
+router.post('/create-poll', asyncHandler(async (req, res, next) => {
   const { title, poll_list } = req.body;
   const new_poll = await PollModel.create({ title: title, poll_list: poll_list });
   const results = { id: new_poll.id, success: true };
