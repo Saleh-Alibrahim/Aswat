@@ -1,5 +1,5 @@
 //get the main form
-let vote_button = document.getElementById('submit-vote');
+let vote_button = document.getElementById('vote-button');
 vote_button.addEventListener('click', async (e) => {
     try {
 

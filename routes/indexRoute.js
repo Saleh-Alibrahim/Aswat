@@ -39,7 +39,7 @@ router.get('/:id', asyncHandler(async (req, res, next) => {
     err.name = 'NotFound';
     throw err;
   }
-  res.render('vote2', { poll_values: poll_values });
+  res.render('vote', { poll_values: poll_values });
 }));
 
 
