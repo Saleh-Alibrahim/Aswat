@@ -42,7 +42,7 @@ vote_button.addEventListener('click', async (e) => {
         let id = selected_option.id;
 
         // add vote 
-        let response = await fetch('/add_vote ', {
+        let response = await fetch('/vote ', {
             method: 'POST',
             body: JSON.stringify({
                 'id': id,

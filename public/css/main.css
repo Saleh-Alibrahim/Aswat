@@ -23,17 +23,13 @@ body{
   background-color: white;
 }
 
-#header .container{
-  margin-right: 20%;
-}
 
 .jumbotron{
   padding-top: 2rem;
   padding-bottom: 2rem;
-  width: 50rem;
-  margin: 0 auto;
   background-color: white;
   border: 3px;
+  margin-left: 10%;
   border-color: #00bfd8;
   border-style: solid;
   
@@ -42,23 +38,29 @@ body{
 
 #title{
     direction:RTL;
-    font-family: 'Tajawal';
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     margin: 10px 0;
     border: 0;
     background-color: white;
 }
 
+#vote-title{
+  text-align: center;
+  font-family: 'Tajawal';
+  margin: 5% 0;
+  font-size: 2rem;
+}
+
 #submit-poll{
-  font-family: 'Tajawal', sans-serif !important;
+  font-family: 'Tajawal';
   margin-top: 20px ;
 }
 
 .item-list{
     direction:RTL;
-    margin: 0 auto;
     padding: 20px;
     border: 0;
+    font-size: 1.3rem;
     background-color: white;
 }
 
@@ -69,16 +71,68 @@ body{
   
 }
 
+#buttons-list{
+  margin-top: 50px;
+}
+
+#result-button{
+  font-family: 'Tajawal';
+  margin-top: 10px;
+  float: left;
+}
+
+#vote-button{
+  font-family: 'Tajawal';
+  margin-top: 10px;
+}
 
 .hidden{
   display: none;
 }
 
-hr{
-  background-color: #00bfd8;
-  margin: 0;
+
+#copy-button{
+  font-family: 'Tajawal';
+  margin-top: 10px;
+  float: right;
 }
 
+.form-check label{
+  font-family: 'Tajawal';
+  margin-right: 30px;
+}
+.form-check input{
+  font-family: 'Tajawal';
+  margin-top: 12px;
+}
+.hidden{
+  display: none;
+}
+#toast{
+  position:fixed;
+  top:0;
+  left:50%;
+  transform:translate(-50%);
+  background-color:#00bfd8;
+  color:#fff;
+  padding:16px;
+  border-radius:4px;
+  text-align:center;
+  z-index:1;
+  box-shadow:0 0 20px rgba(0,0,0,0.3);
+  visibility:hidden;
+  opacity:0;
+}
+
+#toast.show{
+  visibility:visible;
+  animation:fadeInOut 3s;
+}
+
+@keyframes fadeInOut{
+  5%,95%{opacity:1;top:50px}
+  15%,85%{opacity:1;top:30px}
+}
 
 
 
@@ -101,20 +155,6 @@ hr{
  * Media
  */
 
-@media (max-width: 480px) {
- .jumbotron{
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  width: 20rem;
-} 
-
-#submit-poll{
-  font-family: 'Tajawal', sans-serif !important;
-  margin-top: 20px ;
-  width: 8rem;
-  font-size: 0.8rem;
-}
-}
 
 
 

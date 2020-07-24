@@ -1,34 +1,38 @@
-<%- include('partials/header') %>
-<link rel="stylesheet" href="/css/vote.css">
-<title>التصويت</title>
-
+<%- include('partials/header2') %>
+<link rel="stylesheet" href="/css/main.css">
 </head>
+<header id="header" class="ex-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+                <div class="jumbotron">
+                    <div id="select-alert" class="alert alert-primary hidden text-center" role="alert">
+                        الرجاء اختيار صوت لتصويت
+                    </div>
+                    <div id="vote-alert" class="alert alert-primary hidden text-center" role="alert">
+                        لا يمكن التصويت اكثر من مره
+                    </div>
+                    <div class="form-check  text-right">
+                        <h3 id="vote-title"><%= poll_values.title %></h3>
+                        <% poll_values.poll_list.forEach( function(item) { %>
+                        <h4><label for="<%= item.id %>" class="form-check-label"><%= item.name %></label>
+                            <input type="radio" class="form-check-input custom-radio" name="itemList"
+                                id="<%= item.id %>">
+                        </h4>
+                        <hr>
+                        <% });%>
 
-<body>
-    <div class="container">
-        <div class="jumbotron">
-            <div id="select-alert" class="alert alert-primary hidden text-center" role="alert">
-                الرجاء اختيار صوت لتصويت
+                    </div>
+                    <div id="buttons-list">
+                        <button id="copy-button" type="button" class="btn-solid-reg">نسخ الرابط</button>
+                        <div id="toast"></div>
+                        <button id="vote-button" type="button" class="btn-solid-reg">تصويت</button>
+                        <button id="result-button" type="button" class="btn-solid-reg">النتائج</button>
+                    </div>
+                </div>
             </div>
-            <div id="vote-alert" class="alert alert-primary hidden text-center" role="alert">
-                لا يمكن التصويت اكثر من مره
-            </div>
-            <div class="form-check  text-right">
-                <h3 id="title"><%= poll_values.title %></h3>
-                <% poll_values.poll_list.forEach( function(item) { %>
-                <h4><label for="<%= item.id %>" class="form-check-label"><%= item.name %></label>
-                    <input type="radio" class="form-check-input custom-radio" name="itemList" id="<%= item.id %>">
-                </h4>
-                <hr>
-                <% });%>
-
-            </div>
-            <button id="copy-button" type="button" class="btn btn-dark btn-lg">نسخ الرابط</button>
-            <div id="toast"></div>
-            <button id="submit-vote" type="button" class="btn btn-dark btn-lg">تصويت</button>
-            <button id="result-button" type="button" class="btn btn-dark btn-lg">النتائج</button>
         </div>
     </div>
-
-    <script src="/js/vote.js"></script>
-    <%- include('partials/footer') %>
+</header> <!-- end of ex-header -->
+<script src="/js/vote.js"></script>
+<%- include('partials/footer2') %>

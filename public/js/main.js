@@ -32,7 +32,7 @@ main_form.addEventListener('click', async (e) => {
         });
 
         // create the poll in the server 
-        let response = await fetch('/create_poll', {
+        let response = await fetch('/create', {
             method: 'POST',
             body: JSON.stringify({
                 'title': title,
@@ -47,7 +47,7 @@ main_form.addEventListener('click', async (e) => {
         let response_data = await response.json();
         //render the new html page if resopne success
         if (response_data.success)
-            window.location.href = window.location.href + response_data.id;
+            window.location.href = window.location.origin + '/' + response_data.id;
 
     }
     catch (error) {
