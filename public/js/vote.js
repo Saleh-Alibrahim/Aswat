@@ -1,6 +1,5 @@
-//get the main form
-let vote_button = document.getElementById('vote-button');
-vote_button.addEventListener('click', async (e) => {
+// Submit the vote
+document.getElementById('vote-button').addEventListener('click', async (e) => {
     try {
 
         //get the selected option of the poll
@@ -68,12 +67,12 @@ vote_button.addEventListener('click', async (e) => {
 
 });
 
-//make the result button goes to the result page
+// Make the result button goes to the result page
 document.getElementById('result-button').addEventListener('click', (e) => {
     window.location.href = window.location.href + `/r`;
 });
 
-//make the copy button work
+// Make the copy button work
 document.getElementById('copy-button').addEventListener('click', async (e) => {
     try {
         //get the url
