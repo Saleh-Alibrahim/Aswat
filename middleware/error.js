@@ -5,7 +5,7 @@ const errorHandler = (err, req, res, next) => {
   let error = { ...err };
 
   // Log to console for dev
-  console.log(err);
+  console.log(err.name);
 
   let message = '';
 
@@ -19,7 +19,6 @@ const errorHandler = (err, req, res, next) => {
       message = 'الصفحة المطلوبة غير موجودة';
       error = new ErrorResponse(message, 404);
       break;
-
   }
 
 
