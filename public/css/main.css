@@ -147,11 +147,23 @@ hr{
   border-top:2px solid rgba(0, 0, 0, 0.1)
 }
 
+.form-check hr {
+  margin-bottom:1rem;
+  margin-top: 1rem;
+}
+
 @keyframes fadeInOut{
   5%,95%{opacity:1;top:50px}
   15%,85%{opacity:1;top:30px}
 }
 
+.form-check h3{
+font-weight: 500;
+}
+
+.form-check h4{
+  font-weight: 500;
+}
 
 
 
