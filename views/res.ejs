@@ -1,31 +1,29 @@
 <%- include('partials/header') %>
-<link rel="stylesheet" href="/stylesheets/res.css">
-<title>التصويت</title>
-
+<link rel="stylesheet" href="/css/main.css">
 </head>
+<header id="header" class="ex-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+                <div class="jumbotron">
+                    <div class="form-check  text-right">
+                        <h3 id="res-title"><%= poll_values.title %></h3>
+                        <% poll_values.poll_list.forEach( function(item) { %>
+                        <div id="poll-item">
+                            <h4><%= item.name %></h4>
+                            <h4 id="poll-item-numberVote"><%= item.numberVote %></h4>
 
-<body>
+                        </div>
+                        <hr>
+                        <% } );%>
 
-
-
-    <div class="container">
-        <div class="jumbotron">
-            <div class="form-check  text-right">
-                <h3 id="title"><%= poll_values.title %></h3>
-                <% poll_values.poll_list.forEach( function(item) { %>
-                <div id="poll-item">
-                    <h4><%= item.name %></h4>
-                    <h4 id="poll-item-numberVote"><%= item.numberVote %></h4>
-
+                        <div id="toast"></div>
+                        <button id="copy-button" type="button" class="btn-solid-reg mt-3 mb-3">نسخ الرابط</button>
+                    </div>
                 </div>
-                <hr>
-                <% } );%>
-                <button id="copy" type="button" class="btn btn-dark btn-lg">نسخ الرابط</button>
-                <div id="toast"></div>
             </div>
-
         </div>
     </div>
-
-    <script src="/javascripts/res.js"></script>
-    <%- include('partials/footer') %>
+</header> <!-- end of ex-header -->
+<script src="/js/res.js"></script>
+<%- include('partials/footer') %>

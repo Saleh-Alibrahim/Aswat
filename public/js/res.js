@@ -1,5 +1,5 @@
 //Get the main form
-let copy_button = document.getElementById('copy');
+let copy_button = document.getElementById('copy-button');
 copy_button.addEventListener('click', async (e) => {
     try {
 
