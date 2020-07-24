@@ -55,10 +55,6 @@ body{
   font-size: 2rem;
 }
 
-#submit-poll{
-  font-family: 'Tajawal';
-  margin-top: 20px ;
-}
 
 .item-list{
     direction:RTL;
@@ -82,13 +78,12 @@ body{
 
 #result-button{
   font-family: 'Tajawal';
-  margin-top: 10px;
-  float: left;
+  float: center;
 }
 
 #vote-button{
   font-family: 'Tajawal';
-  margin-top: 10px;
+  float: left;
 }
 
 .hidden{
@@ -98,7 +93,6 @@ body{
 
 #copy-button{
   font-family: 'Tajawal';
-  margin-top: 10px;
   float: right;
 }
 

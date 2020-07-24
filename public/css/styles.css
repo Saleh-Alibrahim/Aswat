@@ -1759,6 +1759,9 @@ a:hover.back-to-top {
 	.btn-solid-margin{
 		margin: auto;
 	}
+	h1 span{
+		font-size: 4rem;
+	}
 }
 
 /* Min-width width 992px */
