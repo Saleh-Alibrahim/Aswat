@@ -4,7 +4,7 @@
 <header id="header" class="ex-header">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-6 col-md-12  col-sm-12">
+            <div class="col-lg-6 col-md-12 col-sm-12">
                 <div class="jumbotron">
                     <div id="select-alert" class="alert alert-danger hidden text-center" role="alert">
                         الرجاء اختيار صوت لتصويت
@@ -14,6 +14,7 @@
                     </div>
                     <div class="form-check  text-right">
                         <h3 id="vote-title"><%= poll_values.title %></h3>
+                        <hr>
                         <% poll_values.poll_list.forEach( function(item) { %>
                         <h4><label for="<%= item.id %>" class="form-check-label"><%= item.name %></label>
                             <input type="radio" class="form-check-input custom-radio" name="itemList"
@@ -22,11 +23,9 @@
                         <hr>
                         <% });%>
                     </div>
-                    <div id="buttons-list">
-                        <div id="toast"></div>
-                        <button id="vote-button" type="button" class="btn-solid-reg">تصويت</button>
-                        <button id="result-button" type="button" class="btn-solid-reg">النتائج</button>
-                    </div>
+                    <div id="toast"></div>
+                    <button id="vote-button" type="button" class="btn-solid-reg">تصويت</button>
+                    <button id="result-button" type="button" class="btn-solid-reg">النتائج</button>
                 </div>
             </div>
         </div>

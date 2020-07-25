@@ -28,7 +28,7 @@ body{
 
 .jumbotron{
   padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding-bottom: 4rem;
   background-color: white;
   border: 3px;
   height: 100%;
@@ -74,11 +74,12 @@ body{
 
 #buttons-list{
   margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 #result-button{
   font-family: 'Tajawal';
-  float: center;
+  float: right;
 }
 
 #vote-button{
@@ -115,7 +116,7 @@ body{
   background-color:#00bfd8;
   color:#fff;
   padding:16px;
-  margin-top: 35px;
+  margin-top: 40px;
   border-radius:4px;
   text-align:center;
   z-index:1;
