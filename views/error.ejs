@@ -1,19 +1,21 @@
 <%- include('partials/header') %>
-<title>التصويت</title>
 
-</head>
-
-<body>
-
-
-    <div class="container">
-        <div class="jumbotron status">
-            <h1><%= error.status %> </h1>
+<header id="header" class="ex-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-12  col-sm-12">
+                <div class="jumbotron">
+                    <div class="form-check">
+                        <h3 id="res-title"><%= error.status %></h3>
+                        <hr>
+                        <h3 id="res-title"><%= error.message %></h3>
+                        <a type="button" href="/" class="btn-solid-reg btn-back text-center">الرجوع
+                            الى الصفحة
+                            الرئيسية</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="jumbotron message">
-            <h1><%= error.message %> </h1>
-        </div>
-
     </div>
-
-    <%- include('partials/footer') %>
+</header> <!-- end of ex-header -->
+<%- include('partials/footer') %>
