@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Body parser
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Static Folder
