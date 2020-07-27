@@ -1,79 +1,50 @@
 //Get the main form
-let main_form = document.getElementById('submit-poll');
-main_form.addEventListener('click', async (e) => {
-    try {
-        //get the title of the poll
-        let title = document.getElementById('title').value;
-        //show the alert of title requierd
-        let title_alert = document.getElementById('title-alert');
-        if (!title) {
-            //show the alert and then return
-            if (title_alert.classList.contains('hidden'))
-                title_alert.classList.remove('hidden');
-            return;
-        } else {
-            //hide the alert and then continue
-            if (!title_alert.classList.contains('hidden'))
-                title_alert.classList.add('hidden');
+$('#submit-poll').submit(function (e) {
+    //get the title of the poll
+    const title = $('#title').val();
+    //show the alert of title required
+    const title_alert = $('#title-alert');
+    if (!title) {
+        //show the alert and then return
+        if (title_alert.hasClass('hidden'))
+            title_alert.removeClass('hidden');
+        e.preventDefault();
+        return;
+    }
+    //get all the list of poll
+    let poll_list_items = document.querySelectorAll('.item-list');
+
+    let poll_list_values = [];
+    //get only the values from the list items
+    poll_list_items.forEach(item => {
+        if (item.value) {
+            poll_list_values.push({
+                name: item.value,
+                numberVote: 0
+            }
+            );
         }
-        //get all the list of poll
-        let poll_list_items = document.querySelectorAll('.item-list');
-
-        let poll_list_values = [];
-        //get only the values from the list items
-        poll_list_items.forEach(item => {
-            if (item.value) {
-                poll_list_values.push({
-                    name: item.value,
-                    numberVote: 0
-                }
-                );
-            }
-        });
-
-        // create the poll in the server 
-        let response = await fetch('/create', {
-            method: 'POST',
-            body: JSON.stringify({
-                'title': title,
-                'poll_list': poll_list_values
-            }),
-            redirect: 'follow',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        let response_data = await response.json();
-        //render the new html page if resopne success
-        if (response_data.success)
-            window.location.href = window.location.origin + '/' + response_data.id;
-
-    }
-    catch (error) {
-        console.log(error);
-    }
-
-
-
+    });
+    $(this).append(`<input type="hidden" name="title" value=${title}>`);
+    $(this).append(`<input type="hidden" name="poll_list" value=${JSON.stringify(poll_list_values)}>`);
+    return true;
 });
-
 //add new input filed 
 let input_filed = document.querySelector('.last-input');
 
-input_filed.addEventListener('keydown', addNew);
+input_filed.addEventListener('keydown', addNewFiled);
 
-
-function addNew(e) {
+// JS function to add new filed every time you reach the last filed
+function addNewFiled(e) {
     //crete new input filed
     let new_input = document.createElement('input');
     // add the classes and the attributes
     new_input.setAttribute("type", "text");
     new_input.setAttribute("placeholder", "اختار اجابه");
     new_input.classList = 'item-list form-control last-input';
-    new_input.addEventListener('keydown', addNew);
+    new_input.addEventListener('keydown', addNewFiled);
     //remove the last-input class
-    e.target.removeEventListener('keydown', addNew);
+    e.target.removeEventListener('keydown', addNewFiled);
     //get the father node
 
     //create line 

@@ -60,6 +60,9 @@
         const subject = $("#cname").val();
         const email = $("#cemail").val();
         const message = $("#cmessage").val();
+        const msg = "يتم الأن ارسال الرسالة .....";
+        const msgClasses = "h3 text-center";
+        $("#cmsgSubmit").removeClass().addClass(msgClasses).text(msg);
         $.ajax({
             type: "POST",
             url: "/mail",
@@ -73,7 +76,6 @@
                     cformSuccess();
                 } else {
                     cformError();
-                    csubmitMSG(false, text);
                 }
             }
         });

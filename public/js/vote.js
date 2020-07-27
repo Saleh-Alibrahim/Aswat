@@ -72,29 +72,6 @@ document.getElementById('result-button').addEventListener('click', (e) => {
     window.location.href = window.location.href + `/r`;
 });
 
-// Make the copy button work
-document.getElementById('copy-button').addEventListener('click', async (e) => {
-    try {
-        //get the url
-        let url = window.location.href;
-        //source https://stackoverflow.com/questions/49618618/copy-current-url-to-clipboard
-        const dummy = document.createElement('input');
-        document.body.appendChild(dummy);
-        dummy.value = url;
-        dummy.select();
-        document.execCommand('copy');
-        document.body.removeChild(dummy);
-        var x = document.getElementById("toast");
-        x.classList.add("show");
-        x.innerHTML = "تم النسخ";
-        setTimeout(function () {
-            x.classList.remove("show");
-        }, 3000);
-    }
-    catch (error) {
-        console.log(error);
-    }
-});
 
 
 

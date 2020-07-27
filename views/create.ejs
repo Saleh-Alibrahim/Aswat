@@ -6,15 +6,15 @@
             <div class="row">
                 <div class="col-lg-6 col-md-12  col-sm-12">
                     <div class="jumbotron text-center">
-                        <div id="title-alert" class="alert alert-primary hidden" role="alert">
+                        <div id="title-alert" class="alert alert-danger hidden" role="alert">
                             الرجاء ادخال العنوان
                         </div>
-                        <div id="items-alert" class="alert alert-primary hidden" role="alert">
+                        <div id="items-alert" class="alert alert-danger hidden" role="alert">
                             الرجاء ادخال على الاقل عنصرين لتصويت
                         </div>
                         <div id="poll-list" class="form-group text-right">
-                            <input class="form-control" id="title" type="text" placeholder="اكتب العنوان هنا"
-                                autocomplete="off">
+                            <input class="form-control" id="title" name="title" type="text"
+                                placeholder="اكتب العنوان هنا" autocomplete="off">
                             <hr>
                             <input class="item-list form-control" type="text" placeholder="اختار اجابه">
                             <hr>
@@ -23,11 +23,13 @@
                             <input class="item-list form-control last-input" type="text" placeholder="اختار اجابه">
                             <hr>
                         </div>
-                        <button id="submit-poll" type="button" class="btn-solid-lg">إنشاء التصويت</button>
+                        <form id="submit-poll" action="/create" method="post">
+                            <input type="submit" class="btn-solid-lg" value="إنشاء التصويت">
+                        </form>
                     </div>
                 </div>
             </div>
     </header> <!-- end of ex-header -->
     <!-- end of header -->
-    <script src="js/main.js"></script>
     <%- include('partials/footer') %>
+    <script src="js/main.js"></script>
