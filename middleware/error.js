@@ -5,7 +5,7 @@ const errorHandler = (err, req, res, next) => {
   let error = { ...err };
 
   // Log to console for dev
-  console.log(err.name);
+  console.log(err);
 
   let message = '';
 
@@ -15,22 +15,19 @@ const errorHandler = (err, req, res, next) => {
       message = 'الصفحة المطلوبة غير موجودة';
       error = new ErrorResponse(message, 404);
       break;
-    case 'CastError':
-      message = 'الصفحة المطلوبة غير موجودة';
-      error = new ErrorResponse(message, 404);
-      break;
   }
 
 
 
 
+  const errorStatus = error.statusCode || 500;
+  const errorMessage = error.message || 'مشكلة في السيرفر';
 
-
-  res.status(error.statusCode || 500).render('error', {
+  res.status(errorStatus).render('error', {
     error: {
       success: false,
-      status: error.statusCode || 500,
-      message: error.message || 'مشكلة في السيرفر'
+      status: errorStatus,
+      message: errorMessage
     }
   });
 };

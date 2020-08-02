@@ -79,7 +79,7 @@ router.get('/:id/r', asyncHandler(async (req, res, next) => {
     throw err;
   }
 
-  //sort the items so the most votes become the first result to apper
+  //sort the items so the most votes become the first result to appear
   poll_values.poll_list.sort((a, b) => b.numberVote - a.numberVote);
   res.render('res', { poll_values: poll_values });
 }
@@ -90,7 +90,6 @@ router.get('/:id/r', asyncHandler(async (req, res, next) => {
 router.post('/mail', asyncHandler(async (req, res, next) => {
 
   const { email, subject, message } = req.body;
-  console.log("req.body", req.body)
 
   try {
     await sendEmail({
