@@ -57,7 +57,7 @@ PollSchema.methods.updatePercentage = async function () {
   const totalVote = this.total;
 
   this.poll_list.forEach(option => {
-    option.percentage = Math.floor(option.numberVote / totalVote * 100);
+    option.percentage = (option.numberVote / totalVote * 100).toFixed(2);
   });
 
 
