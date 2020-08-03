@@ -16,8 +16,7 @@ router.get('/', asyncHandler(async (req, res, next) => {
 // @route   GET /create
 router.get('/create', asyncHandler(async (req, res, next) => {
   res.render('create');
-}
-));
+}));
 
 // @desc    Create Poll
 // @route   POST /create
@@ -53,7 +52,8 @@ router.post('/vote', asyncHandler(async (req, res, next) => {
 
   const pollID = req.body.pollID;
   const optionID = req.body.optionID;
-  // Get the item with the given id
+
+  // Get the option by the option id
   const poll_value = await PollModel.findOne({ "poll_list._id": optionID }, {
     'poll_list.$': 1
   });
@@ -84,9 +84,10 @@ router.post('/vote', asyncHandler(async (req, res, next) => {
 // @desc    Show the result of the poll
 // @route   GET /:id/r
 router.get('/:id/r', asyncHandler(async (req, res, next) => {
+
   const id = req.params.id;
-  if (!id) { return res.end(); }
-  // get the item with the given id
+
+  // Get the poll from the id
   const poll_values = await PollModel.findById(id);
 
   if (!poll_values) {
@@ -95,8 +96,9 @@ router.get('/:id/r', asyncHandler(async (req, res, next) => {
     throw err;
   }
 
-  //sort the items so the most votes become the first result to appear
+  // Sort the items so the most votes become the first result to appear
   poll_values.poll_list.sort((a, b) => b.numberVote - a.numberVote);
+
   res.render('res', { poll_values: poll_values });
 }
 ));
