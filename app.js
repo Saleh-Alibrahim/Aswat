@@ -13,6 +13,9 @@ const rateLimit = require('express-rate-limit');
 const errorHandler = require('./middleware/error');
 const ErrorResponse = require('./utils/errorResponse');
 
+const sslRedirect = require('heroku-ssl-redirect');
+
+
 
 // Load config
 dotenv.config({ path: './config/config.env' });
@@ -30,17 +33,11 @@ app.set('view engine', 'ejs');
 // Logging
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
-} else {
-  app.use(function (req, res, next) {
-    if (req.secure) {
-      // request was via https, so do no special handling
-      next();
-    } else {
-      // request was via http, so redirect to https
-      res.redirect('https://' + req.headers.host + req.url);
-    }
-  });
 }
+else {
+  app.use(sslRedirect());
+}
+
 
 // Body parser
 app.use(express.urlencoded({ extended: true }));
