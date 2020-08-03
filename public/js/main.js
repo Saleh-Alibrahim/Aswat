@@ -4,13 +4,15 @@ $('#submit-poll').submit(function (e) {
     const title = $('#title').val();
     //show the alert of title required
     const title_alert = $('#title-alert');
-    if (!title) {
+    if (title.trim().length == 0) {
         //show the alert and then return
         if (title_alert.hasClass('hidden'))
             title_alert.removeClass('hidden');
         e.preventDefault();
         return;
     }
+
+    console.log('title :>> ', title);
 
     //get all the list of poll
     let poll_list_items = document.querySelectorAll('.item-list');
@@ -20,17 +22,17 @@ $('#submit-poll').submit(function (e) {
     poll_list_items.forEach(item => {
         if (item.value) {
             poll_list.push({
-                name: item.value,
+                name: item.value
             });
         }
     });
-
-
-
-
     // Append the fields to the form and request the server
-    $(this).append(`<input type="hidden" name="title" value=${title}>`);
-    $(this).append(`<input type="hidden" name="poll_list" value=${JSON.stringify(poll_list)}>`);
+    $(this).append(`<input type="hidden" name="title" value="${title}">`);
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'poll_list';
+    input.value = JSON.stringify(poll_list);
+    $(this).append(input);
     return true;
 });
 //add new input filed 

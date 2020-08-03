@@ -15,17 +15,17 @@ $('#submit-vote').click(async function (e) {
         return;
     }
 
-    // Check if the user already voted 
-    if (!checkLocalStorage()) {
-        e.preventDefault();
-        return;
-    }
+    // // Check if the user already voted 
+    // if (!checkLocalStorage()) {
+    //     e.preventDefault();
+    //     return;
+    // }
 
 
     //get the selected option id
     const optionID = selected_option.id;
 
-    $(this).append(`<input type="hidden" name="optionID" value=${optionID}>`);
+    $(this).append(`<input type="hidden" name="optionID" value="${optionID}">`);
 
     return true;
 
