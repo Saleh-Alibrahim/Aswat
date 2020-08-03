@@ -11,22 +11,26 @@ $('#submit-poll').submit(function (e) {
         e.preventDefault();
         return;
     }
+
     //get all the list of poll
     let poll_list_items = document.querySelectorAll('.item-list');
 
-    let poll_list_values = [];
-    //get only the values from the list items
+    let poll_list = [];
+    // Get only the value from the value poll list
     poll_list_items.forEach(item => {
         if (item.value) {
-            poll_list_values.push({
+            poll_list.push({
                 name: item.value,
-                numberVote: 0
-            }
-            );
+            });
         }
     });
+
+
+
+
+    // Append the fields to the form and request the server
     $(this).append(`<input type="hidden" name="title" value=${title}>`);
-    $(this).append(`<input type="hidden" name="poll_list" value=${JSON.stringify(poll_list_values)}>`);
+    $(this).append(`<input type="hidden" name="poll_list" value=${JSON.stringify(poll_list)}>`);
     return true;
 });
 //add new input filed 

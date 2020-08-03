@@ -23,8 +23,10 @@ router.get('/create', asyncHandler(async (req, res, next) => {
 // @route   POST /create
 router.post('/create', asyncHandler(async (req, res, next) => {
   let { title, poll_list } = req.body;
+
   poll_list = JSON.parse(poll_list);
-  const new_poll = await PollModel.create({ title: title, poll_list: poll_list });
+
+  const new_poll = await PollModel.create({ title, poll_list });
   res.redirect(`/${new_poll.id}`);
 }
 ));
