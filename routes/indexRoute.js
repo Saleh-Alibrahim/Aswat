@@ -50,20 +50,34 @@ router.get('/:id', asyncHandler(async (req, res, next) => {
 // @desc    Add new vote to given id
 // @route   POST /vote
 router.post('/vote', asyncHandler(async (req, res, next) => {
-  const id = req.body.id;
-  // get the item with the given id
-  const poll_value = await PollModel.findOne({ "poll_list._id": id }, {
+
+  const pollID = req.body.pollID;
+  const optionID = req.body.optionID;
+  // Get the item with the given id
+  const poll_value = await PollModel.findOne({ "poll_list._id": optionID }, {
     'poll_list.$': 1
   });
 
-  // increment number of vote by 1
+  // Increment number of vote by 1
   let number_of_vote = poll_value.poll_list[0].numberVote + 1;
 
-  // update the database and add the new vote
-  await PollModel.updateOne({ "poll_list._id": id }, {
+
+
+  // Add the new value of vote to the database 
+  await PollModel.updateOne({ "poll_list._id": optionID }, {
     'poll_list.$.numberVote': number_of_vote
   });
-  res.status(200).json({ success: true });
+
+  // Get the main poll
+  const mainPoll = await PollModel.findById(pollID);
+
+  // Update the total values
+  await mainPoll.updateTotalVotes();
+
+  // Update the percentage of each option
+  await mainPoll.updatePercentage();
+
+  res.redirect(`/${pollID}/r`);
 }
 ));
 

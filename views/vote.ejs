@@ -23,7 +23,11 @@
                         <% });%>
                     </div>
                     <div id="toast"></div>
-                    <button id="vote-button" type="button" class="btn-solid-reg">تصويت</button>
+                    <form id="submit-vote" action="/vote" method="post">
+                        <input type="hidden" name="pollID" value="<%=poll_values._id%>">
+                        <input type="submit" id="vote-button" class="btn-solid-reg" value="تصويت">
+                    </form>
+
                     <button id="result-button" type="button" class="btn-solid-reg">النتائج</button>
                 </div>
             </div>
