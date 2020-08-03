@@ -94,7 +94,22 @@ body{
 
 #copy-button{
   font-family: 'Tajawal';
+  float: left;
+}
+
+#goVote-button{
+  font-family: 'Tajawal';
   float: right;
+}
+.progress-bar{
+  background-color: #00bfd8 ;
+}
+.progress{
+  height: 26px;
+}
+.progress-text{
+  font-size: 17px;
+  font-weight: 500;
 }
 
 .form-check label{
@@ -148,9 +163,16 @@ hr{
   border-top:2px solid rgba(0, 0, 0, 0.1)
 }
 
+
 .form-check hr {
   margin-bottom:1rem;
   margin-top: 1rem;
+}
+
+.progress-hr{
+  margin-top: 0.5rem !important;
+  margin-bottom: 0 !important;
+  border:0;
 }
 
 @keyframes fadeInOut{

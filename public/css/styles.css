@@ -60,6 +60,9 @@ body, p {
 	font: 400 2rem/1.5rem "Tajawal", sans-serif;
 	margin-top: 50px;
 	line-height: 50px;
+}
+
+#header .p-large{
 	text-align: right;
 }
 
@@ -1773,7 +1776,7 @@ a:hover.back-to-top {
 		line-height: 3.5rem;
 		text-align: center;
 	}
-	.p-large {
+	#header .p-large {
 
 		text-align: center;
 	}

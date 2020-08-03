@@ -12,16 +12,28 @@
                         <div id="poll-item">
                             <h4><%= item.name %></h4>
                             <h4 id="poll-item-numberVote"><%= item.numberVote %></h4>
+                            <hr class="text-center progress-hr">
+                            <div class="text-center">
+                                <div class="progress center-block">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                        style=" width: <%= item.percentage %>%;" role="progressbar">
+                                        <strong class="progress-text"><%= item.percentage %>%</strong></div>
+                                </div>
+                            </div>
                         </div>
                         <hr>
                         <% } );%>
                         <div id="toast"></div>
-                        <button id="copy-button" type="button" class="btn-solid-reg mt-3 mb-3">نسخ الرابط</button>
+                        <div class="mt-5 mb-4">
+                            <button id="goVote-button" type="button" class="btn-solid-reg">تصويت</button>
+                            <button id="copy-button" type="button" class="btn-solid-reg">نسخ الرابط</button>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </header> <!-- end of ex-header -->
-<script src="/js/res.js"></script>
 <%- include('partials/footer') %>
+<script src="/js/res.js"></script>

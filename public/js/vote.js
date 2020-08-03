@@ -10,10 +10,16 @@ $('#submit-vote').click(async function (e) {
     const selected_option = document.querySelector('input[name="itemList"]:checked');
 
     // Check if the user selected option
-    if (!checkSelectedAlert(selected_option)) { return; }
+    if (!checkSelectedAlert(selected_option)) {
+        e.preventDefault();
+        return;
+    }
 
-    // Check if the user already voted 
-    // if (!checkLocalStorage()) { return; }
+    // // Check if the user already voted 
+    // if (!checkLocalStorage()) {
+    //     e.preventDefault();
+    //     return;
+    // }
 
 
     //get the selected option id

@@ -43,14 +43,10 @@ const PollSchema = new mongoose.Schema({
 
 // Update the total vote in the database
 PollSchema.methods.updateTotalVotes = async function () {
-
-
   let totalVote = 0;
-
   this.poll_list.forEach(option => {
     totalVote += option.numberVote;
   });
-
   this.total = totalVote;
   await this.save();
 };

@@ -1,8 +1,6 @@
-//Get the main form
-let copy_button = document.getElementById('copy-button');
-copy_button.addEventListener('click', async (e) => {
+// Get the main form
+$('#copy-button').click(function (e) {
     try {
-
         //get the res url
         let res_url = window.location.href;
 
@@ -29,6 +27,10 @@ copy_button.addEventListener('click', async (e) => {
 
 
 
+});
+
+$('#goVote-button').click(function (e) {
+    window.location.href = window.location.href.substring(0, window.location.href.length - 2);
 });
 
 
