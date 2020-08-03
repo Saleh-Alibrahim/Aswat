@@ -59,6 +59,7 @@ body, p {
 	font: 400 2rem/1.5rem "Tajawal", sans-serif;
 	margin-top: 50px;
 	line-height: 50px;
+	text-align: right;
 }
 
 .btn-back{
@@ -132,6 +133,7 @@ a.turquoise {
 a.white {
 	color: #fff;
 }
+
 
 .testimonial-text {
 	font: italic 400 1rem/1.5rem "Tajawal", sans-serif;
@@ -261,6 +263,7 @@ a.white {
 	.label-control {
 		top: 0.9375rem;
 	}
+
 }
 
 .form-control-input:focus + .label-control,
@@ -306,6 +309,7 @@ a.white {
 		line-height: 1.75rem;
 	}
 
+	
 	.form-control-select {
 		padding-top: 0.875rem;
 		padding-bottom: 0.75rem;
@@ -374,6 +378,7 @@ input[type='checkbox'] {
 	input[type='checkbox'] {
 		vertical-align: -9%;
 	}
+
 }
 
 .form-control-submit-button {
@@ -785,7 +790,7 @@ input[type='checkbox'] {
 
 .header h1 {
 	margin-bottom: 1.125rem;
-	font-size: 2.5rem;
+	font-size: 4rem;
 	line-height: 3.125rem;
 }
 
@@ -1645,6 +1650,11 @@ a:hover.back-to-top {
 		margin-right: auto;
 		margin-left: auto;
 	}
+	
+	
+
+	
+
 	/* end of general styles */
 
 
@@ -1656,7 +1666,7 @@ a:hover.back-to-top {
 	.header h1 {
 		font-size: 5rem;
 		line-height: 3.5rem;
-		margin-left: 150px;
+		text-align: right;
 	}
 	/* end of header */
 
@@ -1756,9 +1766,18 @@ a:hover.back-to-top {
 	.btn-solid-margin{
 		margin: auto;
 	}
-	h1 span{
-		font-size: 4rem;
+	
+	.header h1 {
+		font-size: 5rem;
+		line-height: 3.5rem;
+		text-align: center;
 	}
+	.p-large {
+
+		text-align: center;
+	}
+
+
 }
 
 /* Min-width width 992px */
@@ -1770,6 +1789,8 @@ a:hover.back-to-top {
 		box-shadow: none;
         background: transparent;
 	}
+	
+
 	
 	.navbar-custom .navbar-nav {
 		margin-top: 0;
@@ -2042,6 +2063,8 @@ a:hover.back-to-top {
 	.navbar-custom {
 		padding: 2.125rem 5rem 2.125rem 5rem;
 	}
+
+	
 
 	.navbar-custom.top-nav-collapse {
         padding: 0.5rem 5rem 0.5rem 5rem;
