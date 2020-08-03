@@ -1,7 +1,7 @@
-# Arabic Starwpoll
-This Project is Simple Strawpoll Where 
+# Aswat
+This Project is  Strawpoll system Where 
 
-1) User can create poll and share the link and let the pepole vote
+User can create poll and share the link and let the pepole vote
 
 ## Getting Started
 
