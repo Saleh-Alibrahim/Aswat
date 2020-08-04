@@ -107,7 +107,6 @@ router.get('/:id/r', asyncHandler(async (req, res, next) => {
 router.post('/mail', asyncHandler(async (req, res, next) => {
 
   const { email, subject, message } = req.body;
-
   try {
     await sendEmail({
       email,

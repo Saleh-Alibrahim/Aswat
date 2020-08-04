@@ -3,9 +3,9 @@
 
     /* Preloader */
     $(window).on('load', function () {
-        var preloaderFadeOutTime = 500;
+        let preloaderFadeOutTime = 500;
         function hidePreloader() {
-            var preloader = $('.spinner-wrapper');
+            let preloader = $('.spinner-wrapper');
             setTimeout(function () {
                 preloader.fadeOut(preloaderFadeOutTime);
             }, 500);
@@ -27,7 +27,7 @@
     // jQuery for page scrolling feature - requires jQuery Easing plugin
     $(function () {
         $(document).on('click', 'a.page-scroll', function (event) {
-            var $anchor = $(this);
+            let $anchor = $(this);
             $('html, body').stop().animate({
                 scrollTop: $($anchor.attr('href')).offset().top
             }, 600, 'easeInOutExpo');
@@ -56,10 +56,11 @@
     });
 
     function csubmitForm() {
-        // initiate variables with form content
+        // initiate letiables with form content
         const subject = $("#cname").val();
         const email = $("#cemail").val();
         const message = $("#cmessage").val();
+
         const msg = "يتم الأن ارسال الرسالة .....";
         const msgClasses = "h3 text-center";
         $("#cmsgSubmit").removeClass().addClass(msgClasses).text(msg);
@@ -96,9 +97,9 @@
 
     function csubmitMSG(valid, msg) {
         if (valid) {
-            var msgClasses = "h3 text-center tada animated";
+            let msgClasses = "h3 text-center tada animated";
         } else {
-            var msgClasses = "h3 text-center";
+            let msgClasses = "h3 text-center";
         }
         $("#cmsgSubmit").removeClass().addClass(msgClasses).text(msg);
     }
@@ -108,7 +109,7 @@
     /* Back To Top Button */
     // create the back to top button
     $('body').prepend('<a href="body" class="back-to-top page-scroll">Back to Top</a>');
-    var amountScrolled = 700;
+    let amountScrolled = 700;
     $(window).scroll(function () {
         if ($(window).scrollTop() > amountScrolled) {
             $('a.back-to-top').fadeIn('500');

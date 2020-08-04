@@ -12,8 +12,8 @@ const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const errorHandler = require('./middleware/error');
 const ErrorResponse = require('./utils/errorResponse');
-
 const sslRedirect = require('heroku-ssl-redirect');
+const e = require('express');
 
 
 
@@ -35,12 +35,15 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 else {
+  // In production redirect all the http to https
   app.use(sslRedirect());
 }
 
 
 // Body parser
 app.use(express.urlencoded({ extended: true }));
+
+app.use(express.json());
 
 // Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
