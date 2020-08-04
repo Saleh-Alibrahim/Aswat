@@ -61,7 +61,7 @@
         const email = $("#cemail").val();
         const message = $("#cmessage").val();
 
-        const msg = "يتم الأن ارسال الرسالة .....";
+        const msg = ".... يتم الأن ارسال الرسالة";
         const msgClasses = "h3 text-center";
         $("#cmsgSubmit").removeClass().addClass(msgClasses).text(msg);
         $.ajax({
@@ -84,7 +84,7 @@
 
     function cformSuccess() {
         $("#contactForm")[0].reset();
-        csubmitMSG(true, "تم ارسال الرسالة");
+        csubmitMSG(true, "شكرا لك . تم ارسال الرسالة");
         $("input").removeClass('notEmpty'); // resets the field label after submission
         $("textarea").removeClass('notEmpty'); // resets the field label after submission
     }
@@ -96,10 +96,11 @@
     }
 
     function csubmitMSG(valid, msg) {
+        let msgClasses = '';
         if (valid) {
-            let msgClasses = "h3 text-center tada animated";
+            msgClasses = "h3 text-center tada animated";
         } else {
-            let msgClasses = "h3 text-center";
+            msgClasses = "h3 text-center";
         }
         $("#cmsgSubmit").removeClass().addClass(msgClasses).text(msg);
     }

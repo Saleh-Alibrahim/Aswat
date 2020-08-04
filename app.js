@@ -20,6 +20,9 @@ const sslRedirect = require('heroku-ssl-redirect');
 dotenv.config({ path: './config/config.env' });
 
 
+
+
+
 const app = express();
 
 // Connect to the database
@@ -50,10 +53,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Prevent XSS attack
 app.use(xss());
 
+
 // Rate Limiting
 const Limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 10 mins
-  max: 100
+  max: 10
 });
 
 app.use(Limiter);

@@ -34,6 +34,6 @@ npm start
 
 ### Application Hosted
 
-This project already has been hosted using heroku at : https://arabic-strawpoll.herokuapp.com/
+This project already has been hosted using heroku at : https://www.aswat.live
 
 
