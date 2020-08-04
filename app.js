@@ -13,7 +13,6 @@ const rateLimit = require('express-rate-limit');
 const errorHandler = require('./middleware/error');
 const ErrorResponse = require('./utils/errorResponse');
 const sslRedirect = require('heroku-ssl-redirect');
-const e = require('express');
 
 
 
