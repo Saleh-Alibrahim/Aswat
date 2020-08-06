@@ -62,10 +62,11 @@ function checkLocalStorage() {
         //show the alert and then return
         if (vote_alert.classList.contains('hidden'))
             vote_alert.classList.remove('hidden');
-        return;
+        return false;
     }
     local_storge_arr.push(poll_id);
     localStorage.setItem('poll_ids', JSON.stringify(local_storge_arr));
+    return true;
 }
 
 

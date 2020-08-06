@@ -157,6 +157,13 @@ body{
   margin: 5% 0;
   font-size: 2rem;
 }
+
+#vote-count{
+  text-align: center;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
 hr{
   margin-bottom:0.5rem;
   margin-top: 0.5rem;

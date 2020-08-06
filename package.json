@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js -p",
+    "start": "node app.js",
     "dev": "nodemon -e * app.js"
   },
   "dependencies": {
