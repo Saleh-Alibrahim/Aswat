@@ -346,6 +346,7 @@ select::-ms-expand {
 	padding-top: 1.25rem;
 	padding-left: 1.25rem;
 	border: 1px solid #c4d8dc;
+	resize: none;
 	border-radius: 0.25rem;
 	text-align: right;
 	direction: rtl;

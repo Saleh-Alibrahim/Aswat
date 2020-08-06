@@ -12,8 +12,6 @@ $('#submit-poll').submit(function (e) {
         return;
     }
 
-    console.log('title :>> ', title);
-
     //get all the list of poll
     let poll_list_items = document.querySelectorAll('.item-list');
 

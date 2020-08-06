@@ -15,11 +15,11 @@ $('#submit-vote').click(async function (e) {
         return;
     }
 
-    // // Check if the user already voted 
-    // if (!checkLocalStorage()) {
-    //     e.preventDefault();
-    //     return;
-    // }
+    // Check if the user already voted 
+    if (!checkLocalStorage()) {
+        e.preventDefault();
+        return;
+    }
 
 
     //get the selected option id
