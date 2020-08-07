@@ -164,6 +164,18 @@ body{
   font-size: 1.8rem;
   font-weight: 500;
 }
+#poll-link{
+  /* width:56%; */
+  
+  text-align:left;
+}
+.result-footer{
+  background-color: #00bfd8;
+}
+#poll-link:hover , #poll-link:focus{
+background-color:#e9ecef;
+border: 1px solid #ced4da ;
+}
 hr{
   margin-bottom:0.5rem;
   margin-top: 0.5rem;

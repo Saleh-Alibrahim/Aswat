@@ -15,12 +15,8 @@ const ErrorResponse = require('./utils/errorResponse');
 const sslRedirect = require('heroku-ssl-redirect');
 
 
-
 // Load config
 dotenv.config({ path: './config/config.env' });
-
-
-
 
 
 const app = express();
@@ -88,11 +84,6 @@ app.use((req, res, next) => {
 
 // Handle all the errors
 app.use(errorHandler);
-
-
-
-
-
 
 
 

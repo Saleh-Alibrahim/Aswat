@@ -98,7 +98,11 @@ router.get('/:id/r', asyncHandler(async (req, res, next) => {
   // Sort the items so the most votes become the first result to appear
   poll_values.poll_list.sort((a, b) => b.numberVote - a.numberVote);
 
-  res.render('res', { poll_values: poll_values });
+  const pollUrl = req.protocol + '://' + req.hostname + '/' + id;
+
+  poll_values.pollUrl = pollUrl;
+
+  res.render('res', { poll_values });
 }
 ));
 

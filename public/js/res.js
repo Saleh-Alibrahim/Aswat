@@ -1,20 +1,19 @@
 // Get the main form
 $('#copy-button').click(function (e) {
     try {
-        //get the res url
-        let res_url = window.location.href;
 
-        //remove the /res from the end
-        let url = res_url.slice(0, res_url.length - 2);
 
-        //source https://stackoverflow.com/questions/49618618/copy-current-url-to-clipboard
-        const dummy = document.createElement('input');
-        document.body.appendChild(dummy);
-        dummy.value = url;
-        dummy.select();
-        document.execCommand('copy');
-        document.body.removeChild(dummy);
-        var x = document.getElementById("toast");
+        /* Get the text field */
+        const copyText = document.getElementById("poll-link");
+
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+
+        const x = document.getElementById("toast");
         x.classList.add("show");
         x.innerHTML = "تم النسخ";
         setTimeout(function () {
