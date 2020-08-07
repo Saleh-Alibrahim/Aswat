@@ -165,8 +165,7 @@ body{
   font-weight: 500;
 }
 #poll-link{
-  /* width:56%; */
-  
+  width:auto;
   text-align:left;
 }
 .result-footer{

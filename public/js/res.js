@@ -1,11 +1,8 @@
 // Get the main form
 $('#copy-button').click(function (e) {
     try {
-
-
         /* Get the text field */
         const copyText = document.getElementById("poll-link");
-
         /* Select the text field */
         copyText.select();
         copyText.setSelectionRange(0, 99999); /*For mobile devices*/
