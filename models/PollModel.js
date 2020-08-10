@@ -21,7 +21,7 @@ const PollSchema = new mongoose.Schema({
       type: String,
       required: true
     },
-    numberVote: {
+    voteCount: {
       type: Number,
       default: 0
     },
@@ -44,8 +44,8 @@ const PollSchema = new mongoose.Schema({
 // Update the total vote in the database
 PollSchema.methods.updateTotalVotes = async function () {
   let totalVote = 0;
-  this.poll_list.forEach(option => {
-    totalVote += option.numberVote;
+  this.options.forEach(option => {
+    totalVote += option.voteCount;
   });
   this.total = totalVote;
   await this.save();
@@ -56,8 +56,8 @@ PollSchema.methods.updatePercentage = async function () {
 
   const totalVote = this.total;
 
-  this.poll_list.forEach(option => {
-    option.percentage = (option.numberVote / totalVote * 100).toFixed(2);
+  this.options.forEach(option => {
+    option.percentage = (option.voteCount / totalVote * 100).toFixed(2);
   });
 
 
