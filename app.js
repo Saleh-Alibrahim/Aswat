@@ -74,12 +74,9 @@ app.use(mongoSanitize());
 // Routes
 app.use('/', require('./routes/indexRoute'));
 
-// catch 404 to route does not exist and forward it to the error handler
+// Catch 404 to route does not exist and forward it to the error handler
 app.use((req, res, next) => {
-  // Create 404 error not found
-  let err = new Error();
-  err.name = 'NotFound';
-  next(err);
+  return next(new ErrorResponse('الصفحة المطلوبة غير موجودة', 404));
 });
 
 // Handle all the errors
