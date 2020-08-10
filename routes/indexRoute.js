@@ -25,7 +25,7 @@ router.post('/create', asyncHandler(async (req, res, next) => {
   let { title, options } = req.body;
 
   if (!title || !options) {
-    next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
+    return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
   }
 
   const new_poll = await PollModel.create({ title, options: JSON.parse(options) });
@@ -107,21 +107,21 @@ router.get('/:id/r', asyncHandler(async (req, res, next) => {
   }
 
   // Get the poll from the id
-  const poll_values = await PollModel.findById(id);
+  const poll = await PollModel.findById(id);
 
   // No poll with the given id
-  if (!poll_values) {
+  if (!poll) {
     let err = new Error();
     err.name = 'NotFound';
     throw err;
   }
 
-  // Sort the items so the most votes become the first result to appear
-  poll_values.poll_list.sort((a, b) => b.numberVote - a.numberVote);
+  // Sort the options so the most votes become the first result to appear
+  poll.options.sort((a, b) => b.voteCount - a.voteCount);
 
   const pollUrl = req.protocol + '://' + req.hostname + '/' + id;
 
-  poll_values.pollUrl = pollUrl;
+  poll.pollUrl = pollUrl;
 
   res.render('res', { poll_values });
 }

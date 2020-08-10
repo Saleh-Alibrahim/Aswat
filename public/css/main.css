@@ -56,7 +56,7 @@ body{
 }
 
 
-.item-list{
+.option{
     direction:RTL;
     padding: 20px;
     border: 0;
@@ -144,7 +144,7 @@ body{
   visibility:visible;
   animation:fadeInOut 3s;
 }
-#poll-item-numberVote{
+#poll-option-numberVote{
   float: left;
 }
 #poll-item h4{

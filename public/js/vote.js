@@ -1,3 +1,4 @@
+// ::: GLobal Variables :::
 const selectAlert = document.getElementById('select-alert');
 const voteAlert = document.getElementById('vote-alert');
 const pollID = document.getElementById('pollID').value;
@@ -49,7 +50,6 @@ function checkSelectedAlert(selectedOption) {
     }
     return true;
 }
-
 function checkLocalStorage() {
 
     // Get the pollList array
