@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const ErrorResponse = require('../utils/errorResponse');
 const PollModel = require('../models/PollModel');
 const asyncHandler = require('../middleware/async');
 const sendEmail = require('../utils/sendEmail');
@@ -23,6 +24,10 @@ router.get('/create', asyncHandler(async (req, res, next) => {
 router.post('/create', asyncHandler(async (req, res, next) => {
   let { title, poll_list } = req.body;
 
+  if (!title || !poll_list) {
+    next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
+  }
+
   const new_poll = await PollModel.create({ title, poll_list: JSON.parse(poll_list) });
 
   res.redirect(`/${new_poll.id}/r`);
@@ -33,15 +38,18 @@ router.post('/create', asyncHandler(async (req, res, next) => {
 // @route   GET /:id
 router.get('/:id', asyncHandler(async (req, res, next) => {
   const id = req.params.id;
-  if (!id) { return res.end(); }
+
+  if (!id) {
+    next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
+  }
+
   const poll_values = await PollModel.findById(id);
 
+  // No poll and options sent with the request
   if (!poll_values) {
-    let err = new Error();
-    err.name = 'NotFound';
-    throw err;
+    next(new ErrorResponse('الصفحة المطلوبة غير موجودة', 404));
   }
-  res.render('vote', { poll_values: poll_values });
+  res.render('vote', { poll_values });
 }));
 
 
@@ -51,6 +59,11 @@ router.post('/vote', asyncHandler(async (req, res, next) => {
 
   const pollID = req.body.pollID;
   const optionID = req.body.optionID;
+
+  // No poll and options sent with the request
+  if (!pollID || !optionID) {
+    next(new ErrorResponse('الصفحة المطلوبة غير موجودة', 404));
+  }
 
   // Get the option by the option id
   const poll_value = await PollModel.findOne({ "poll_list._id": optionID }, {
@@ -86,9 +99,17 @@ router.get('/:id/r', asyncHandler(async (req, res, next) => {
 
   const id = req.params.id;
 
+  // No id with sent with the request
+  if (!id) {
+    let err = new Error();
+    err.name = 'NotFound';
+    throw err;
+  }
+
   // Get the poll from the id
   const poll_values = await PollModel.findById(id);
 
+  // No poll with the given id
   if (!poll_values) {
     let err = new Error();
     err.name = 'NotFound';

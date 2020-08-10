@@ -14,7 +14,7 @@
                     <div class="form-check  text-right">
                         <h3 id="vote-title"><%= poll_values.title %></h3>
                         <hr>
-                        <% poll_values.poll_list.forEach( function(item) { %>
+                        <% poll_values.options.forEach( function(item) { %>
                         <h4><label for="<%= item.id %>" class="form-check-label"><%= item.name %></label>
                             <input type="radio" class="form-check-input custom-radio" name="itemList"
                                 id="<%= item.id %>">

@@ -12,7 +12,7 @@ const PollSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  poll_list: [{
+  options: [{
     _id: {
       type: String,
       default: shortid.generate
@@ -51,7 +51,7 @@ PollSchema.methods.updateTotalVotes = async function () {
   await this.save();
 };
 
-// Update the percentage in each option 
+// Update the percentage of each option 
 PollSchema.methods.updatePercentage = async function () {
 
   const totalVote = this.total;
