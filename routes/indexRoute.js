@@ -22,13 +22,13 @@ router.get('/create', asyncHandler(async (req, res, next) => {
 // @desc    Create Poll
 // @route   POST /create
 router.post('/create', asyncHandler(async (req, res, next) => {
-  let { title, poll_list } = req.body;
+  let { title, options } = req.body;
 
-  if (!title || !poll_list) {
+  if (!title || !options) {
     next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
   }
 
-  const new_poll = await PollModel.create({ title, poll_list: JSON.parse(poll_list) });
+  const new_poll = await PollModel.create({ title, options: JSON.parse(options) });
 
   res.redirect(`/${new_poll.id}/r`);
 }
@@ -43,13 +43,13 @@ router.get('/:id', asyncHandler(async (req, res, next) => {
     next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
   }
 
-  const poll_values = await PollModel.findById(id);
+  const poll = await PollModel.findById(id);
 
   // No poll and options sent with the request
-  if (!poll_values) {
+  if (!poll) {
     next(new ErrorResponse('الصفحة المطلوبة غير موجودة', 404));
   }
-  res.render('vote', { poll_values });
+  res.render('vote', { poll });
 }));
 
 

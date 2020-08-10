@@ -28,7 +28,7 @@ $('#submit-poll').submit(function (e) {
     $(this).append(`<input type="hidden" name="title" value="${title}">`);
     const input = document.createElement('input');
     input.type = 'hidden';
-    input.name = 'poll_list';
+    input.name = 'options';
     input.value = JSON.stringify(poll_list);
     $(this).append(input);
     return true;
