@@ -144,10 +144,10 @@ body{
   visibility:visible;
   animation:fadeInOut 3s;
 }
-#poll-option-numberVote{
+#voteCount{
   float: left;
 }
-#poll-item h4{
+#poll-option h4{
   display: inline;
   font-family: 'Tajawal', sans-serif;
 }

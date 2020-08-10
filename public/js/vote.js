@@ -8,7 +8,7 @@ const pollID = document.getElementById('pollID').value;
 // Submit the vote
 $('#submit-vote').click(async function (e) {
 
-    const selectedOption = document.querySelector('input[name="options"]:checked');
+    const selectedOption = document.querySelector('input[name="option"]:checked');
 
     // Check if the user selected option
     if (!checkSelectedAlert(selectedOption)) {

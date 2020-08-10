@@ -16,7 +16,7 @@
                         <hr>
                         <% poll.options.forEach( function(option) { %>
                         <h4><label for="<%= option.id %>" class="form-check-label"><%= option.name %></label>
-                            <input type="radio" class="form-check-input custom-radio" name="options"
+                            <input type="radio" class="form-check-input custom-radio" name="option"
                                 id="<%= option.id %>">
                         </h4>
                         <hr>
@@ -25,7 +25,7 @@
                     <div id="toast"></div>
                     <div class="mt-5">
                         <form id="submit-vote" action="/vote" method="post">
-                            <input type="hidden" name="pollID" value="<%=poll._id%>">
+                            <input id="pollID" type="hidden" name="pollID" value="<%=poll._id%>">
                             <input type="submit" id="vote-button" class="btn-solid-reg" value="تصويت">
                         </form>
                         <button id="result-button" type="button" class="btn-solid-reg">النتائج</button>
