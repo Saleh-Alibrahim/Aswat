@@ -6,18 +6,18 @@
             <div class="col-lg-6 col-md-12  col-sm-12">
                 <div class="jumbotron">
                     <div class="form-check  text-right">
-                        <h3 id="res-title"><%= poll_values.title %></h3>
+                        <h3 id="res-title"><%= poll.title %></h3>
                         <hr>
-                        <% poll_values.poll_list.forEach( function(item) { %>
-                        <div id="poll-item">
-                            <h4><%= item.name %></h4>
-                            <h4 id="poll-item-numberVote"><%= item.numberVote %></h4>
+                        <% poll.options.forEach(function(option) { %>
+                        <div id="poll-option">
+                            <h4><%= option.name %></h4>
+                            <h4 id="voteCount"><%= option.voteCount %></h4>
                             <hr class="text-center progress-hr">
                             <div class="text-center">
                                 <div class="progress center-block">
                                     <div class="progress-bar progress-bar-striped progress-bar-animated"
-                                        style=" width: <%= item.percentage %>%;" role="progressbar">
-                                        <strong class="progress-text"><%= item.percentage %>%</strong></div>
+                                        style=" width: <%= option.percentage %>%;" role="progressbar">
+                                        <strong class="progress-text"><%= option.percentage %>%</strong></div>
                                 </div>
                             </div>
                         </div>
@@ -26,10 +26,10 @@
                     </div>
                     <div id="toast"></div>
                     <h3 id="vote-count" class="mt-4 mb-4 text-right">اجمالي الاصوات :
-                        <%= poll_values.total %></h3>
+                        <%= poll.total %></h3>
                     <hr class="result-footer">
                     <input id="poll-link" type="text" readonly class="form-control  mb-3 mt-3"
-                        value="<%=poll_values.pollUrl%>">
+                        value="<%=poll.pollUrl%>">
                     <div>
                         <button id="goVote-button" type="button" class="btn-solid-reg">تصويت</button>
                         <button id="copy-button" type="button" class="btn-solid-reg">نسخ الرابط</button>

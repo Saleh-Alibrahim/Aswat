@@ -159,6 +159,7 @@ a.white {
 	background-color: #00bfd8;
 	color: #fff;
 	font-size: 1rem;
+	outline:none !important;
 	font-weight: bold;
 	text-decoration: none;
 	transition: all 0.2s;
@@ -175,6 +176,7 @@ a.white {
 	padding: 1.3rem 2.6rem 1.3rem 2.6rem;
 	border: 0.125rem solid #00bfd8;
 	border-radius: 2rem;
+	outline:none !important;
 	background-color: #00bfd8;
 	color: #fff;
 	font-size: 1.5rem;
@@ -394,6 +396,7 @@ input[type='checkbox'] {
 	border-radius: 1.5rem;
 	background-color: #00bfd8;
 	color: #fff;
+	outline:none !important;
 	font: 900 1rem/1.75rem "Tajawal", sans-serif;
 	cursor: pointer;
 	transition: all 0.2s;

@@ -1,18 +1,18 @@
 const express = require('express');
 const router = express.Router();
+const ErrorResponse = require('../utils/errorResponse');
 const PollModel = require('../models/PollModel');
 const asyncHandler = require('../middleware/async');
 const sendEmail = require('../utils/sendEmail');
 
 
-// @desc    Landing page
+// @desc    Render the main page
 // @route   GET /
 router.get('/', asyncHandler(async (req, res, next) => {
-  //render the main screen
   res.render('index');
 }));
 
-// @desc    Render the page to create poll
+// @desc    Render the create poll page
 // @route   GET /create
 router.get('/create', asyncHandler(async (req, res, next) => {
   res.render('create');
@@ -21,11 +21,17 @@ router.get('/create', asyncHandler(async (req, res, next) => {
 // @desc    Create Poll
 // @route   POST /create
 router.post('/create', asyncHandler(async (req, res, next) => {
-  let { title, poll_list } = req.body;
+  let { title, options } = req.body;
 
-  const new_poll = await PollModel.create({ title, poll_list: JSON.parse(poll_list) });
+  // Check if the title and at least  2 options is sent with the request
+  if (!title.trim() || options.length < 2) {
+    return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
+  }
 
-  res.redirect(`/${new_poll.id}/r`);
+  // Create new Poll
+  const newPoll = await PollModel.create({ title, options: JSON.parse(options) });
+
+  res.redirect(`/${newPoll.id}/r`);
 }
 ));
 
@@ -33,15 +39,20 @@ router.post('/create', asyncHandler(async (req, res, next) => {
 // @route   GET /:id
 router.get('/:id', asyncHandler(async (req, res, next) => {
   const id = req.params.id;
-  if (!id) { return res.end(); }
-  const poll_values = await PollModel.findById(id);
 
-  if (!poll_values) {
-    let err = new Error();
-    err.name = 'NotFound';
-    throw err;
+  // Check if id is sent with request
+  if (!id) {
+    return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
   }
-  res.render('vote', { poll_values: poll_values });
+
+  // Find the poll with sent id
+  const poll = await PollModel.findById(id);
+
+  // No poll and options sent with the request
+  if (!poll) {
+    return next(new ErrorResponse('الصفحة المطلوبة غير موجودة', 404));
+  }
+  res.render('vote', { poll });
 }));
 
 
@@ -52,20 +63,13 @@ router.post('/vote', asyncHandler(async (req, res, next) => {
   const pollID = req.body.pollID;
   const optionID = req.body.optionID;
 
-  // Get the option by the option id
-  const poll_value = await PollModel.findOne({ "poll_list._id": optionID }, {
-    'poll_list.$': 1
-  });
+  // No poll and options sent with the request
+  if (!pollID || !optionID) {
+    return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
+  }
 
-  // Increment number of vote by 1
-  let number_of_vote = poll_value.poll_list[0].numberVote + 1;
-
-
-
-  // Add the new value of vote to the database 
-  await PollModel.updateOne({ "poll_list._id": optionID }, {
-    'poll_list.$.numberVote': number_of_vote
-  });
+  // Find the option by the id and increment by 1 
+  await PollModel.findOneAndUpdate({ "options._id": optionID }, { $inc: { 'options.$.voteCount': 1 } });
 
   // Get the main poll
   const mainPoll = await PollModel.findById(pollID);
@@ -84,25 +88,32 @@ router.post('/vote', asyncHandler(async (req, res, next) => {
 // @route   GET /:id/r
 router.get('/:id/r', asyncHandler(async (req, res, next) => {
 
+
   const id = req.params.id;
 
-  // Get the poll from the id
-  const poll_values = await PollModel.findById(id);
-
-  if (!poll_values) {
-    let err = new Error();
-    err.name = 'NotFound';
-    throw err;
+  // No id with sent with the request
+  if (!id) {
+    return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
   }
 
-  // Sort the items so the most votes become the first result to appear
-  poll_values.poll_list.sort((a, b) => b.numberVote - a.numberVote);
+  // Get the poll from the id
+  const poll = await PollModel.findById(id);
 
+  // No poll with the given id
+  if (!poll) {
+    return next(new ErrorResponse('الصفحة المطلوبة غير موجودة', 404));
+  }
+
+
+  // Sort the options so the most votes become the first result to appear
+  poll.options.sort((a, b) => b.voteCount - a.voteCount);
+
+  // Add the poll url to the result to make it easy to copy it
   const pollUrl = req.protocol + '://' + req.hostname + '/' + id;
 
-  poll_values.pollUrl = pollUrl;
+  poll.pollUrl = pollUrl;
 
-  res.render('res', { poll_values });
+  res.render('res', { poll });
 }
 ));
 

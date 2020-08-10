@@ -12,12 +12,12 @@
                         لا يمكن التصويت اكثر من مره
                     </div>
                     <div class="form-check  text-right">
-                        <h3 id="vote-title"><%= poll_values.title %></h3>
+                        <h3 id="vote-title"><%= poll.title %></h3>
                         <hr>
-                        <% poll_values.poll_list.forEach( function(item) { %>
-                        <h4><label for="<%= item.id %>" class="form-check-label"><%= item.name %></label>
-                            <input type="radio" class="form-check-input custom-radio" name="itemList"
-                                id="<%= item.id %>">
+                        <% poll.options.forEach( function(option) { %>
+                        <h4><label for="<%= option.id %>" class="form-check-label"><%= option.name %></label>
+                            <input type="radio" class="form-check-input custom-radio" name="option"
+                                id="<%= option.id %>">
                         </h4>
                         <hr>
                         <% });%>
@@ -25,7 +25,7 @@
                     <div id="toast"></div>
                     <div class="mt-5">
                         <form id="submit-vote" action="/vote" method="post">
-                            <input type="hidden" name="pollID" value="<%=poll_values._id%>">
+                            <input id="pollID" type="hidden" name="pollID" value="<%=poll._id%>">
                             <input type="submit" id="vote-button" class="btn-solid-reg" value="تصويت">
                         </form>
                         <button id="result-button" type="button" class="btn-solid-reg">النتائج</button>
