@@ -73,6 +73,10 @@ function checkLocalStorage() {
 
 }
 
+function onSubmit(token) {
+    document.getElementById("submit-vote").submit();
+}
+
 
 
 

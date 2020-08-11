@@ -52,6 +52,8 @@ router.get('/:id', asyncHandler(async (req, res, next) => {
   if (!poll) {
     return next(new ErrorResponse('الصفحة المطلوبة غير موجودة', 404));
   }
+
+  res.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
   res.render('vote', { poll });
 }));
 
