@@ -4,6 +4,7 @@ const ErrorResponse = require('../utils/errorResponse');
 const PollModel = require('../models/PollModel');
 const asyncHandler = require('../middleware/async');
 const sendEmail = require('../utils/sendEmail');
+const fetch = require('node-fetch');
 
 
 // @desc    Render the main page
@@ -52,8 +53,6 @@ router.get('/:id', asyncHandler(async (req, res, next) => {
   if (!poll) {
     return next(new ErrorResponse('الصفحة المطلوبة غير موجودة', 404));
   }
-
-  res.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
   res.render('vote', { poll });
 }));
 
@@ -62,13 +61,27 @@ router.get('/:id', asyncHandler(async (req, res, next) => {
 // @route   POST /vote
 router.post('/vote', asyncHandler(async (req, res, next) => {
 
-  const pollID = req.body.pollID;
-  const optionID = req.body.optionID;
+  const { pollID, optionID, token } = req.body;
 
   // No poll and options sent with the request
-  if (!pollID || !optionID) {
+  if (!pollID || !optionID || !token) {
     return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
   }
+
+
+  // Check if the user is human or not by calling the recaptcha api from google
+  const recaptchaUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY}&response=${token}`;
+
+  const response = await fetch(recaptchaUrl, { method: 'POST' });
+
+  const data = await response.json();
+
+
+  // Check if the recaptcha failed
+  if (data.success == false || data.score < 0.5) {
+    return next(new ErrorResponse('فشل التحقق من ان المستخدم هو انسان', 429));
+  }
+
 
   // Find the option by the id and increment by 1 
   await PollModel.findOneAndUpdate({ "options._id": optionID }, { $inc: { 'options.$.voteCount': 1 } });

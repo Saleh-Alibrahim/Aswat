@@ -5,10 +5,12 @@
         <div class="row">
             <div class="col-lg-6 col-md-12 col-sm-12">
                 <div class="jumbotron">
-                    <div id="select-alert" class="alert alert-danger hidden text-center" role="alert">الرجاء اختيار صوت
-                        لتصويت</div>
-                    <div id="vote-alert" class="alert alert-danger hidden text-center" role="alert">لا يمكن التصويت اكثر
-                        من مره</div>
+                    <div id="select-alert" class="alert alert-danger hidden text-center" role="alert">
+                        الرجاء اختيار صوت لتصويت
+                    </div>
+                    <div id="vote-alert" class="alert alert-danger hidden text-center" role="alert">
+                        لا يمكن التصويت اكثر من مره
+                    </div>
                     <div class="form-check  text-right">
                         <h3 id="vote-title"><%= poll.title %></h3>
                         <hr>
@@ -22,18 +24,18 @@
                     </div>
                     <div id="toast"></div>
                     <div class="mt-5">
-                        <form id="submit-vote" action="/vote" method="POST">
+                        <form id="submit-vote" action="/vote" method="post">
                             <input id="pollID" type="hidden" name="pollID" value="<%=poll._id%>">
-                            <input type="submit" class="g-recaptcha btn-solid-reg" data-sitekey="6LdVI6kZAAAAACbNTvMKBFb7-eThFAU0VbsTLQI-
-                            " id="vote-button" data-action='submit' data-callback='onSubmit' value="تصويت">
+                            <input type="hidden" id="token" name="token">
+                            <input type="hidden" name="action" value="validate_captcha">
+                            <input type="submit" id="vote-button" class="btn-solid-reg" value="تصويت">
                         </form>
                         <button id="result-button" type="button" class="btn-solid-reg">النتائج</button>
                         <div>
                         </div>
                     </div>
                 </div>
-
 </header> <!-- end of ex-header -->
 <%- include('partials/footer') %>
+<script src="https://www.google.com/recaptcha/api.js?render=6LdVI6kZAAAAACbNTvMKBFb7-eThFAU0VbsTLQI-"></script>
 <script src="/js/vote.js"></script>
-<script src="https://www.google.com/recaptcha/api.js"></script>

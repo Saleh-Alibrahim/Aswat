@@ -4,10 +4,8 @@ const voteAlert = document.getElementById('vote-alert');
 const pollID = document.getElementById('pollID').value;
 
 
-
 // Submit the vote
-$('#submit-vote').click(async function (e) {
-
+document.getElementById('submit-vote').addEventListener('submit', async function (e) {
     const selectedOption = document.querySelector('input[name="option"]:checked');
 
     // Check if the user selected option
@@ -16,18 +14,18 @@ $('#submit-vote').click(async function (e) {
         return;
     }
 
-    // Check if the user already voted 
-    if (!checkLocalStorage()) {
-        e.preventDefault();
-        return;
-    }
+    // // Check if the user already voted 
+    // if (!checkLocalStorage()) {
+    //     e.preventDefault();
+    //     return;
+    // }
 
     // Get the selected option id
     const optionID = selectedOption.id;
 
     $(this).append(`<input type="hidden" name="optionID" value="${optionID}">`);
 
-    return true;
+    return false;
 
 });
 
@@ -73,12 +71,24 @@ function checkLocalStorage() {
 
 }
 
-function onSubmit(token) {
-    document.getElementById("submit-vote").submit();
+
+// Add the recaptcha token to the form
+function runRecaptcha() {
+    grecaptcha.ready(function () {
+        // Do request for recaptcha token
+        // Response is promise with passed token
+        grecaptcha.execute('6LdVI6kZAAAAACbNTvMKBFb7-eThFAU0VbsTLQI-', { action: 'validate_captcha' })
+            .then(function (token) {
+                // Add token value to form
+                document.getElementById('token').value = token;
+            });
+    })
 }
+// Call once at the first render to the page
+runRecaptcha();
 
-
-
+// Refresh the recaptcha token  every 1 minutes
+setInterval(runRecaptcha(), 60000);
 
 
 
