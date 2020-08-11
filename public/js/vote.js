@@ -74,6 +74,7 @@ function checkLocalStorage() {
 
 // Add the recaptcha token to the form
 function runRecaptcha() {
+    console.log('hey')
     grecaptcha.ready(function () {
         // Do request for recaptcha token
         // Response is promise with passed token
@@ -88,7 +89,7 @@ function runRecaptcha() {
 runRecaptcha();
 
 // Refresh the recaptcha token  every 1 minutes
-setInterval(runRecaptcha(), 60000);
+setInterval(runRecaptcha, 60000);
 
 
 
