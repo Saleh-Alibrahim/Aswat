@@ -87,6 +87,7 @@ function checkTitle() {
 
     // Check if there is title of not
     if (!title.trim()) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         // Show the alert and then return
         if (titleAlert.classList.contains('hidden')) {
             titleAlert.classList.remove('hidden');
@@ -107,6 +108,7 @@ function checkOptions(options) {
 
     // Check the options length
     if (options.length < 2) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         // Show the alert and then return
         if (optionsAlert.classList.contains('hidden')) {
             optionsAlert.classList.remove('hidden');

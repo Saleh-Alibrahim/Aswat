@@ -30,13 +30,14 @@ document.getElementById('submit-vote').addEventListener('submit', async function
 });
 
 // Make the result button goes to the result page
-$('#result-button').click((e) => {
+document.getElementById('result-button').addEventListener('click', (e) => {
     window.location.href = window.location.href + `/r`;
 });
 
 function checkSelectedAlert(selectedOption) {
     // Get the selected option of the poll
     if (!selectedOption) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         // Show the alert and then return
         if (selectAlert.classList.contains('hidden'))
             selectAlert.classList.remove('hidden');
@@ -55,7 +56,7 @@ function checkLocalStorage() {
 
     // Check if the user already voted
     if (pollList.indexOf(pollID) >= 0) {
-
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         // Show the alert and then return
         if (voteAlert.classList.contains('hidden'))
             voteAlert.classList.remove('hidden');
@@ -71,10 +72,8 @@ function checkLocalStorage() {
 
 }
 
-
 // Add the recaptcha token to the form
 function runRecaptcha() {
-    console.log('hey')
     grecaptcha.ready(function () {
         // Do request for recaptcha token
         // Response is promise with passed token

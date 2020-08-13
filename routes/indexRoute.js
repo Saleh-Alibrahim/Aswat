@@ -83,7 +83,7 @@ router.post('/vote', asyncHandler(async (req, res, next) => {
   }
 
 
-  // Find the option by the id and increment by 1 
+  // Find the option by the id and increment it by 1 
   await PollModel.findOneAndUpdate({ "options._id": optionID }, { $inc: { 'options.$.voteCount': 1 } });
 
   // Get the main poll
@@ -102,7 +102,6 @@ router.post('/vote', asyncHandler(async (req, res, next) => {
 // @desc    Show the result of the poll
 // @route   GET /:id/r
 router.get('/:id/r', asyncHandler(async (req, res, next) => {
-
 
   const id = req.params.id;
 
