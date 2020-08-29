@@ -11,18 +11,16 @@ const lastOption = document.querySelector('.last-input');
 lastOption.addEventListener('keydown', addNewOption);
 
 // Get the main form
-$('#submit-poll').submit(function (e) {
+$('#submit-poll').click(async function (e) {
+
 
     // Check if title is added
     if (!checkTitle()) {
-        e.preventDefault();
         return;
     }
 
     // Get all the options
     const options = document.querySelectorAll('.option');
-
-
 
     const optionsValues = [];
 
@@ -35,20 +33,42 @@ $('#submit-poll').submit(function (e) {
 
     // Check  if at least 2 options is added
     if (!checkOptions(optionsValues)) {
-        e.preventDefault();
         return;
     }
     // Get the title from the field
     const title = document.getElementById('title').value;
 
-    // Append the fields to the form and request the server
-    $(this).append(`<input type="hidden" name="title" value="${title}">`);
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = 'options';
-    input.value = JSON.stringify(optionsValues);
-    $(this).append(input);
-    return true;
+
+
+    const response = await fetch('/create', {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({ title: title, options: JSON.stringify(optionsValues) })
+    });
+
+
+    if (response.status == 200) {
+        const data = await response.json();
+        Swal.fire({
+            icon: 'success',
+            title: 'تم إنشاء التصويت بنجاح',
+            confirmButtonText: 'الإنتقال الى التصويت',
+            confirmButtonColor: '#00bfd8',
+            onAfterClose: () => {
+                location.href = `${location.origin}/${data.id}/r`;
+            }
+        });
+    }
+    else {
+        Swal.fire({
+            icon: 'error',
+            title: 'مشكلة في السيرفر',
+            confirmButtonText: 'المحاولة مرة اخرى',
+            confirmButtonColor: '#00bfd8',
+        });
+    }
 });
 
 

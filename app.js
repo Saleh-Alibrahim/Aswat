@@ -50,13 +50,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(xss());
 
 
-// Rate Limiting
-const Limiter = rateLimit({
-  windowMs: 10 * 60 * 1000, // 10 mins
-  max: 10
-});
+// // Rate Limiting
+// const Limiter = rateLimit({
+//   windowMs: 10 * 60 * 1000, // 10 mins
+//   max: 10
+// });
 
-app.use(Limiter);
+// app.use(Limiter);
 
 // Prevent http param pollution
 app.use(hpp());

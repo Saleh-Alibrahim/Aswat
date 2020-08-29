@@ -22,7 +22,9 @@ router.get('/create', asyncHandler(async (req, res, next) => {
 // @desc    Create Poll
 // @route   POST /create
 router.post('/create', asyncHandler(async (req, res, next) => {
-  let { title, options } = req.body;
+
+
+  const { title, options } = req.body;
 
   // Check if the title and at least  2 options is sent with the request
   if (!title.trim() || options.length < 2) {
@@ -32,7 +34,12 @@ router.post('/create', asyncHandler(async (req, res, next) => {
   // Create new Poll
   const newPoll = await PollModel.create({ title, options: JSON.parse(options) });
 
-  res.redirect(`/${newPoll.id}/r`);
+  //res.redirect(`/${newPoll.id}/r`);
+
+  res.status(200).json({
+    success: true,
+    id: newPoll.id
+  });
 }
 ));
 
