@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const shortid = require('shortid');
 shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
+const autoIncrement = require('mongoose-auto-increment');
 
 
 const PollSchema = new mongoose.Schema({
@@ -30,6 +31,15 @@ const PollSchema = new mongoose.Schema({
       default: 0
     }
   }],
+  questions: [{
+    _id: {
+      type: String,
+    },
+    title: {
+      type: String,
+    }
+
+  }],
   total: {
     type: Number,
     default: 0
@@ -37,7 +47,7 @@ const PollSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  },
+  }
 });
 
 
@@ -63,5 +73,8 @@ PollSchema.methods.updatePercentage = async function () {
 
   await this.save();
 };
+
+// Make the questions id auto increment
+PollSchema.plugin(autoIncrement.plugin, { model: 'PollItems', field: 'questions.$._id' });
 
 module.exports = mongoose.model('PollItems', PollSchema);

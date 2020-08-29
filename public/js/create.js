@@ -39,16 +39,16 @@ $('#submit-poll').click(async function (e) {
     const title = document.getElementById('title').value;
 
 
-
     const response = await fetch('/create', {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
         },
-        body: JSON.stringify({ title: title, options: JSON.stringify(optionsValues) })
+        body: JSON.stringify({ title, options: JSON.stringify(optionsValues) })
     });
 
 
+    // Show alert if poll created or show error otherwise
     if (response.status == 200) {
         const data = await response.json();
         Swal.fire({
@@ -57,11 +57,11 @@ $('#submit-poll').click(async function (e) {
             confirmButtonText: 'الإنتقال الى التصويت',
             confirmButtonColor: '#00bfd8',
             onAfterClose: () => {
+                // Redirect the user to result of the poll newly created
                 location.href = `${location.origin}/${data.id}/r`;
             }
         });
-    }
-    else {
+    } else {
         Swal.fire({
             icon: 'error',
             title: 'مشكلة في السيرفر',
