@@ -22,4 +22,4 @@ const QuestionsSchema = new mongoose.Schema({
 });
 
 
-module.exports = mongoose.model('Question', QuestionsSchema);
+module.exports = mongoose.model('Questions', QuestionsSchema);

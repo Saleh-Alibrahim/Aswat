@@ -14,11 +14,11 @@ document.getElementById('submit-vote').addEventListener('submit', async function
         return;
     }
 
-    // Check if the user already voted 
-    if (!checkLocalStorage()) {
-        e.preventDefault();
-        return;
-    }
+    // // Check if the user already voted 
+    // if (!checkLocalStorage()) {
+    //     e.preventDefault();
+    //     return;
+    // }
 
     // Get the selected option id
     const optionID = selectedOption.id;

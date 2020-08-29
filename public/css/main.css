@@ -27,17 +27,19 @@ body{
 
 
 .jumbotron{
-  padding-top: 2rem;
-  padding-bottom: 4rem;
+  padding-top: 1rem;
+  padding-bottom: 3rem; 
   background-color: white;
-  border: 3px;
   height: 100%;
   width: 100%;
-  margin-left: 10%;
+  margin-left: 10px;
   border-color: #00bfd8;
   border-style: solid;
-  margin: auto;
 } 
+
+.padding{
+  padding-bottom: 0; 
+}
 
 
 #title{
@@ -46,6 +48,10 @@ body{
     margin: 10px 0;
     border: 0;
     background-color: white;
+}
+
+#add-questions{
+  float: right;
 }
 
 #vote-title{
@@ -91,7 +97,6 @@ body{
   display: none;
 }
 
-
 #copy-button{
   font-family: 'Tajawal';
   float: left;
@@ -116,13 +121,16 @@ body{
   font-family: 'Tajawal';
   margin-right: 30px;
 }
+
 .form-check input{
   font-family: 'Tajawal';
   margin-top: 12px;
 }
+
 .hidden{
   display: none;
 }
+
 #toast{
   position:fixed;
   top:0;
@@ -227,6 +235,25 @@ font-weight: 500;
  */
 
 
+ /* In case of tablet users: */
+ @media screen and (min-width: 701px) and (max-width: 1050px) {
+  .jumbotron{
+		margin:auto;
+  }
+  .padding{
+    padding-bottom: 1rem; 
+  }
+}
+  /* In case of mobile users: */
+@media screen and (max-width: 700px){
+
+  .jumbotron{
+		margin:auto;
+  }
+  .padding{
+    padding-bottom: 1rem; 
+  }
+}
 
 
 

@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 else {
   // In production redirect all the http to https
-  app.use(sslRedirect());
+  // app.use(sslRedirect());
 }
 
 

@@ -4,7 +4,7 @@ const ErrorResponse = require('../utils/errorResponse');
 const PollModel = require('../models/PollModel');
 const asyncHandler = require('../middleware/async');
 const sendEmail = require('../utils/sendEmail');
-const fetch = require('node-fetch');
+const checkRecaptcha = require('../utils/recaptcha');
 
 
 // @desc    Render the main page
@@ -75,34 +75,31 @@ router.post('/vote', asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
   }
 
+  try {
+    const data = await checkRecaptcha(token);
+    console.log("data", data)
 
-  // Check if the user is human or not by calling the recaptcha api from google
-  const recaptchaUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY}&response=${token}`;
-
-  const response = await fetch(recaptchaUrl, { method: 'POST' });
-
-  const data = await response.json();
+    // Check if the recaptcha failed
+    if (data.success == false || data.score < 0.3) {
+      return next(new ErrorResponse('فشل التحقق من ان المستخدم هو انسان', 429));
+    }
 
 
-  // Check if the recaptcha failed
-  if (data.success == false || data.score < 0.5) {
-    return next(new ErrorResponse('فشل التحقق من ان المستخدم هو انسان', 429));
+    // Find the option by the id and increment it by 1 
+    await PollModel.findOneAndUpdate({ "options._id": optionID }, { $inc: { 'options.$.voteCount': 1 } });
+
+    // Get the main poll
+    const mainPoll = await PollModel.findById(pollID);
+
+    // Update the total values
+    await mainPoll.updateTotalVotes();
+
+
+    res.redirect(`/${pollID}/r`);
   }
-
-
-  // Find the option by the id and increment it by 1 
-  await PollModel.findOneAndUpdate({ "options._id": optionID }, { $inc: { 'options.$.voteCount': 1 } });
-
-  // Get the main poll
-  const mainPoll = await PollModel.findById(pollID);
-
-  // Update the total values
-  await mainPoll.updateTotalVotes();
-
-  // Update the percentage of each option
-  await mainPoll.updatePercentage();
-
-  res.redirect(`/${pollID}/r`);
+  catch (e) {
+    return next(new ErrorResponse(500));
+  }
 }
 ));
 
@@ -129,6 +126,16 @@ router.get('/:id/r', asyncHandler(async (req, res, next) => {
   // Sort the options so the most votes become the first result to appear
   poll.options.sort((a, b) => b.voteCount - a.voteCount);
 
+  const totalVote = poll.total;
+
+  // Add percentage to each option
+  poll.options.forEach(option => {
+    option.percentage = (option.voteCount / totalVote * 100).toFixed(2);
+    if (isNaN(option.percentage)) {
+      option.percentage = 0;
+    }
+  });
+
   // Add the poll url to the result to make it easy to copy it
   const pollUrl = req.protocol + '://' + req.hostname + '/' + id;
 
@@ -143,6 +150,7 @@ router.get('/:id/r', asyncHandler(async (req, res, next) => {
 router.post('/mail', asyncHandler(async (req, res, next) => {
 
   const { email, subject, message } = req.body;
+
   try {
     await sendEmail({
       email,
@@ -156,11 +164,11 @@ router.post('/mail', asyncHandler(async (req, res, next) => {
         data: 'Email sent'
       });
   }
-  catch (err) {
-    console.log(err);
-    return next(new ErrorResponse('لم يرسل الايميل', 500));
+  catch (e) {
+    return next(new ErrorResponse(500));
   }
-}));
+}
+));
 
 
 module.exports = router;

@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const shortid = require('shortid');
 shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
-const autoIncrement = require('mongoose-auto-increment');
-
 
 const PollSchema = new mongoose.Schema({
   _id: {
@@ -25,10 +23,6 @@ const PollSchema = new mongoose.Schema({
     voteCount: {
       type: Number,
       default: 0
-    },
-    percentage: {
-      type: Number,
-      default: 0
     }
   }],
   questions: [{
@@ -38,7 +32,6 @@ const PollSchema = new mongoose.Schema({
     title: {
       type: String,
     }
-
   }],
   total: {
     type: Number,
@@ -61,20 +54,13 @@ PollSchema.methods.updateTotalVotes = async function () {
   await this.save();
 };
 
-// Update the percentage of each option 
-PollSchema.methods.updatePercentage = async function () {
 
-  const totalVote = this.total;
-
-  this.options.forEach(option => {
-    option.percentage = (option.voteCount / totalVote * 100).toFixed(2);
-  });
+// Cascade delete questions when a poll is deleted
+PollSchema.pre('remove', async function (next) {
+  await this.model('Questions').deleteMany({ _id: this._id });
+  next();
+});
 
 
-  await this.save();
-};
 
-// Make the questions id auto increment
-PollSchema.plugin(autoIncrement.plugin, { model: 'PollItems', field: 'questions.$._id' });
-
-module.exports = mongoose.model('PollItems', PollSchema);
+module.exports = mongoose.model('Polls', PollSchema);
