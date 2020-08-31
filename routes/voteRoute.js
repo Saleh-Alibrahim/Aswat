@@ -11,7 +11,7 @@ const checkRecaptcha = require('../utils/recaptcha');
 // @route   POST /vote
 router.post('/', asyncHandler(async (req, res, next) => {
 
-  const { pollID, optionID, token } = req.body;
+  const { pollID, optionID, token, ip } = req.body;
 
   // No poll and options sent with the request
   if (!pollID || !optionID || !token) {
@@ -21,12 +21,13 @@ router.post('/', asyncHandler(async (req, res, next) => {
   try {
 
     // Call google API to check the token 
-    const data = await checkRecaptcha(token);
+    const recaptcha = await checkRecaptcha(token);
 
     // Check if the recaptcha failed
-    if (data.success == false || data.score < 0.3) {
+    if (recaptcha) {
       return next(new ErrorResponse('فشل التحقق من ان المستخدم هو انسان', 429));
     }
+
 
 
     // Find the option by the id and increment it by 1 

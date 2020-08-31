@@ -2,7 +2,7 @@
 const selectAlert = document.getElementById('select-alert');
 const voteAlert = document.getElementById('vote-alert');
 const pollID = document.getElementById('pollID').value;
-
+let clintIpAddress;
 
 // Submit the vote
 document.getElementById('submit-vote').addEventListener('submit', async function (e) {
@@ -14,6 +14,7 @@ document.getElementById('submit-vote').addEventListener('submit', async function
         return;
     }
 
+
     // // Check if the user already voted 
     // if (!checkLocalStorage()) {
     //     e.preventDefault();
@@ -24,8 +25,8 @@ document.getElementById('submit-vote').addEventListener('submit', async function
     const optionID = selectedOption.id;
 
     $(this).append(`<input type="hidden" name="optionID" value="${optionID}">`);
+    $(this).append(`<input type="hidden" name="ip" value="${clintIpAddress}">`);
 
-    return false;
 
 });
 
@@ -90,7 +91,13 @@ runRecaptcha();
 // Refresh the recaptcha token  every 1 minutes
 setInterval(runRecaptcha, 60000);
 
-
+// Get the clint ip Address
+(async function getUserIpAddress() {
+    // Get the ip address of the user
+    const res = await fetch('https://api.ipify.org?format=json');
+    const data = await res.json();
+    clintIpAddress = data.ip;
+});
 
 
 

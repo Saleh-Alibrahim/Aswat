@@ -8,7 +8,12 @@ const checkRecaptcha = async (token) => {
 
     const data = await response.json();
 
-    return data;
+    // Check if the recaptcha failed
+    if (data.success == false || data.score < 0.3) {
+        return false;
+    }
+
+    return true;
 };
 
 module.exports = checkRecaptcha;

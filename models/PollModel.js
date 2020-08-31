@@ -36,6 +36,7 @@ const PollSchema = new mongoose.Schema({
   ipAddress: {
     type: Boolean,
     required: false,
+    default: false
   },
   total: {
     type: Number,
