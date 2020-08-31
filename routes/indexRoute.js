@@ -9,7 +9,7 @@ const sendEmail = require('../utils/sendEmail');
 // @desc    Render the main page
 // @route   GET /
 router.get('/', asyncHandler(async (req, res, next) => {
-  res.render('index');
+  res.render('indexView');
 }));
 
 // @desc    Show the poll
@@ -29,7 +29,7 @@ router.get('/:id', asyncHandler(async (req, res, next) => {
   if (!poll) {
     return next(new ErrorResponse('الصفحة المطلوبة غير موجودة', 404));
   }
-  res.render('vote', { poll });
+  res.render('voteView', { poll });
 }));
 
 // @desc    Show the result of the poll
@@ -70,7 +70,7 @@ router.get('/:id/r', asyncHandler(async (req, res, next) => {
 
   poll.pollUrl = pollUrl;
 
-  res.render('res', { poll });
+  res.render('resView', { poll });
 }));
 
 

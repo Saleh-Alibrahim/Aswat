@@ -11,7 +11,7 @@ const errorHandler = (error, req, res, next) => {
     error.message = 'مشكلة في السيرفر';
   }
 
-  res.status(errorStatus).render('error', {
+  res.status(errorStatus).render('errorView', {
     error: {
       success: false,
       status: errorStatus,

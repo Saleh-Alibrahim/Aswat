@@ -8,7 +8,7 @@ const asyncHandler = require('../middleware/async');
 // @desc    Render the create poll page
 // @route   GET /create
 router.get('/', asyncHandler(async (req, res, next) => {
-  res.render('create');
+  res.render('createView');
 }));
 
 // @desc    Create Poll

@@ -123,11 +123,24 @@ body{
 .form-check label{
   font-family: 'Tajawal';
   margin-right: 30px;
+  font:550 1.4rem "Tajawal", sans-serif;
+  color:#393939;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none; 
+  -moz-user-select: none; 
+  -ms-user-select: none; 
+  user-select: none;
+}
+.res-name{
+  font:550 1.4rem "Tajawal", sans-serif;
+  color:#393939;
 }
 
 .form-check input{
   font-family: 'Tajawal';
   margin-top: 10px;
+  
 }
 
 .hidden{
