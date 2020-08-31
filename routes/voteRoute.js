@@ -4,7 +4,7 @@ const ErrorResponse = require('../utils/errorResponse');
 const PollModel = require('../models/PollModel');
 const asyncHandler = require('../middleware/async');
 const checkRecaptcha = require('../utils/recaptcha');
-
+const checkIP = require('../utils/ipInfo');
 
 
 // @desc    Add new vote to given id
@@ -24,9 +24,11 @@ router.post('/', asyncHandler(async (req, res, next) => {
     const recaptcha = await checkRecaptcha(token);
 
     // Check if the recaptcha failed
-    if (recaptcha) {
+    if (!recaptcha) {
       return next(new ErrorResponse('فشل التحقق من ان المستخدم هو انسان', 429));
     }
+
+
 
 
 
