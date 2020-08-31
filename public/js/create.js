@@ -2,13 +2,21 @@
 const titleAlert = document.getElementById('title-alert');
 const optionsAlert = document.getElementById('options-alert');
 const optionsList = document.getElementById('options-list');
-const checkbox = document.getElementById('name-req');
-// Get the last option
 const lastOption = document.querySelector('.last-input');
+let ipAddress;
+
+
 
 // Make the last option add new option
 lastOption.addEventListener('keydown', addNewOption);
 
+// Init tooltips
+$('[data-toggle="tooltip"]').tooltip();
+
+// Get the ip address of the user
+fetch('https://api.ipify.org?format=json')
+    .then(res => res.json)
+    .then(data => ipAddress = data.ip);
 // Get the main form
 $('#submit-poll').click(async function (e) {
 
@@ -43,7 +51,7 @@ $('#submit-poll').click(async function (e) {
         headers: {
             'content-type': 'application/json',
         },
-        body: JSON.stringify({ title, options: JSON.stringify(optionsValues), name: checkbox.checked })
+        body: JSON.stringify({ title, options: JSON.stringify(optionsValues), name: checkbox.checked, ipAddress })
     });
 
 

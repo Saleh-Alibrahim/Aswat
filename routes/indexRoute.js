@@ -80,6 +80,7 @@ router.post('/vote', asyncHandler(async (req, res, next) => {
 
   try {
 
+    // Call google API to check the token 
     const data = await checkRecaptcha(token);
 
     // Check if the recaptcha failed

@@ -29,6 +29,14 @@ const PollSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  private: {
+    type: Boolean,
+    required: false,
+  },
+  ip: {
+    type: Boolean,
+    required: false,
+  },
   total: {
     type: Number,
     default: 0
