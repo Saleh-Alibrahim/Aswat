@@ -4,7 +4,6 @@ const ErrorResponse = require('../utils/errorResponse');
 const PollModel = require('../models/PollModel');
 const asyncHandler = require('../middleware/async');
 const sendEmail = require('../utils/sendEmail');
-const checkRecaptcha = require('../utils/recaptcha');
 
 
 // @desc    Render the main page
@@ -12,39 +11,6 @@ const checkRecaptcha = require('../utils/recaptcha');
 router.get('/', asyncHandler(async (req, res, next) => {
   res.render('index');
 }));
-
-// @desc    Render the create poll page
-// @route   GET /create
-router.get('/create', asyncHandler(async (req, res, next) => {
-  res.render('create');
-}));
-
-// @desc    Create Poll
-// @route   POST /create
-router.post('/create', asyncHandler(async (req, res, next) => {
-
-
-  const { title, options, name } = req.body;
-
-  // Check if the title and at least  2 options is sent with the request
-  if (!title.trim() || options.length < 2) {
-    return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
-  }
-  // Check if the creator required the name from the voters
-  let question;
-  if (name) { question = 'هذا التصويت يتطلب ادخال الاسم'; }
-
-  // Create new Poll
-  const newPoll = await PollModel.create({ title, options: JSON.parse(options), question });
-
-  //res.redirect(`/${newPoll.id}/r`);
-
-  res.status(200).json({
-    success: true,
-    id: newPoll.id
-  });
-}
-));
 
 // @desc    Show the poll
 // @route   GET /:id
@@ -65,47 +31,6 @@ router.get('/:id', asyncHandler(async (req, res, next) => {
   }
   res.render('vote', { poll });
 }));
-
-
-// @desc    Add new vote to given id
-// @route   POST /vote
-router.post('/vote', asyncHandler(async (req, res, next) => {
-
-  const { pollID, optionID, token } = req.body;
-
-  // No poll and options sent with the request
-  if (!pollID || !optionID || !token) {
-    return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
-  }
-
-  try {
-
-    // Call google API to check the token 
-    const data = await checkRecaptcha(token);
-
-    // Check if the recaptcha failed
-    if (data.success == false || data.score < 0.3) {
-      return next(new ErrorResponse('فشل التحقق من ان المستخدم هو انسان', 429));
-    }
-
-
-    // Find the option by the id and increment it by 1 
-    await PollModel.findOneAndUpdate({ "options._id": optionID }, { $inc: { 'options.$.voteCount': 1 } });
-
-    // Get the main poll
-    const mainPoll = await PollModel.findById(pollID);
-
-    // Update the total values
-    await mainPoll.updateTotalVotes();
-
-
-    res.redirect(`/${pollID}/r`);
-  }
-  catch (e) {
-    return next(new ErrorResponse(500));
-  }
-}
-));
 
 // @desc    Show the result of the poll
 // @route   GET /:id/r
@@ -146,8 +71,9 @@ router.get('/:id/r', asyncHandler(async (req, res, next) => {
   poll.pollUrl = pollUrl;
 
   res.render('res', { poll });
-}
-));
+}));
+
+
 
 // @desc    Send email
 // @route   POST /mail
@@ -173,6 +99,7 @@ router.post('/mail', asyncHandler(async (req, res, next) => {
   }
 }
 ));
+
 
 
 module.exports = router;

@@ -45,13 +45,12 @@ $('#submit-poll').click(async function (e) {
     // Get the title from the field
     const title = document.getElementById('title').value;
 
-    console.log('checkbox.checked :>> ', checkbox.checked);
     const response = await fetch('/create', {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
         },
-        body: JSON.stringify({ title, options: JSON.stringify(optionsValues), name: checkbox.checked, ipAddress })
+        body: JSON.stringify({ title, options: JSON.stringify(optionsValues), ipAddress })
     });
 
 

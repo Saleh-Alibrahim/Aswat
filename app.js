@@ -72,6 +72,9 @@ app.use(helmet());
 app.use(mongoSanitize());
 
 // Routes
+
+app.use('/create', require('./routes/createRoute'));
+app.use('/vote', require('./routes/voteRoute'));
 app.use('/', require('./routes/indexRoute'));
 
 // Catch 404 to route does not exist and forward it to the error handler
