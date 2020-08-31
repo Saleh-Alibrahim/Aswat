@@ -124,12 +124,13 @@ body{
 
 .form-check input{
   font-family: 'Tajawal';
-  margin-top: 12px;
+  margin-top: 10px;
 }
 
 .hidden{
   display: none;
 }
+
 
 #toast{
   position:fixed;
@@ -210,7 +211,15 @@ hr{
 font-weight: 500;
 }
 
-.form-check h4{
+.question label{
+  font:700 1.375rem/1.875rem "Tajawal", sans-serif;
+  color:#393939;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none; 
+  -moz-user-select: none; 
+  -ms-user-select: none; 
+  user-select: none;
   font-weight: 500;
 }
 

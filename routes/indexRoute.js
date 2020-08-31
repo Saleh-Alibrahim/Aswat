@@ -24,15 +24,18 @@ router.get('/create', asyncHandler(async (req, res, next) => {
 router.post('/create', asyncHandler(async (req, res, next) => {
 
 
-  const { title, options } = req.body;
+  const { title, options, name } = req.body;
 
   // Check if the title and at least  2 options is sent with the request
   if (!title.trim() || options.length < 2) {
     return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
   }
+  // Check if the creator required the name from the voters
+  let question;
+  if (name) { question = 'هذا التصويت يتطلب ادخال الاسم'; }
 
   // Create new Poll
-  const newPoll = await PollModel.create({ title, options: JSON.parse(options) });
+  const newPoll = await PollModel.create({ title, options: JSON.parse(options), question });
 
   //res.redirect(`/${newPoll.id}/r`);
 
@@ -56,7 +59,7 @@ router.get('/:id', asyncHandler(async (req, res, next) => {
   // Find the poll with sent id
   const poll = await PollModel.findById(id);
 
-  // No poll and options sent with the request
+  // No poll with given id
   if (!poll) {
     return next(new ErrorResponse('الصفحة المطلوبة غير موجودة', 404));
   }
@@ -76,8 +79,8 @@ router.post('/vote', asyncHandler(async (req, res, next) => {
   }
 
   try {
+
     const data = await checkRecaptcha(token);
-    console.log("data", data)
 
     // Check if the recaptcha failed
     if (data.success == false || data.score < 0.3) {

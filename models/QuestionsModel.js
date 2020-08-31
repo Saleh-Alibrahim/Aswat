@@ -6,11 +6,6 @@ const QuestionsSchema = new mongoose.Schema({
     ref: 'PollItems._id',
     required: true
   },
-  question: {
-    type: String,
-    ref: 'PollItems.questions.$._id',
-    required: true
-  },
   answer: {
     type: String,
     required: true

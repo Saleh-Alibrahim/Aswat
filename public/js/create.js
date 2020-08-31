@@ -2,8 +2,7 @@
 const titleAlert = document.getElementById('title-alert');
 const optionsAlert = document.getElementById('options-alert');
 const optionsList = document.getElementById('options-list');
-
-
+const checkbox = document.getElementById('name-req');
 // Get the last option
 const lastOption = document.querySelector('.last-input');
 
@@ -38,13 +37,13 @@ $('#submit-poll').click(async function (e) {
     // Get the title from the field
     const title = document.getElementById('title').value;
 
-
+    console.log('checkbox.checked :>> ', checkbox.checked);
     const response = await fetch('/create', {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
         },
-        body: JSON.stringify({ title, options: JSON.stringify(optionsValues) })
+        body: JSON.stringify({ title, options: JSON.stringify(optionsValues), name: checkbox.checked })
     });
 
 
@@ -100,6 +99,7 @@ function addNewOption(e) {
 
 }
 
+// Title require alert
 function checkTitle() {
 
     // Get the title of the poll
@@ -124,6 +124,7 @@ function checkTitle() {
 
 }
 
+// Two options required alert
 function checkOptions(options) {
 
     // Check the options length
@@ -143,6 +144,10 @@ function checkOptions(options) {
     }
 
 }
+
+
+
+
 
 
 

@@ -25,14 +25,10 @@ const PollSchema = new mongoose.Schema({
       default: 0
     }
   }],
-  questions: [{
-    _id: {
-      type: String,
-    },
-    title: {
-      type: String,
-    }
-  }],
+  question: {
+    type: String,
+    required: false,
+  },
   total: {
     type: Number,
     default: 0
