@@ -13,7 +13,7 @@ const AddressSchema = new mongoose.Schema({
   expireAt: {
     type: Date,
     default: Date.now,
-    index: { expires: '5m' },
+    index: { expires: '1m' },
   },
 
 });

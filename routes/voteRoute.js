@@ -48,7 +48,6 @@ router.post('/', asyncHandler(async (req, res, next) => {
 
     }
 
-
     // Call google API to check the token 
     const recaptcha = await checkRecaptcha(token);
 
@@ -60,15 +59,17 @@ router.post('/', asyncHandler(async (req, res, next) => {
     // Find the option by the id and increment it by 1 
     await PollModel.findOneAndUpdate({ "options._id": optionID }, { $inc: { 'options.$.voteCount': 1 } });
 
+    // Get the  poll after the update
+    const pollAfterUpdate = await PollModel.findById(pollID);
+
     // Update the total values
-    await mainPoll.updateTotalVotes();
+    await pollAfterUpdate.updateTotalVotes();
 
 
     res.redirect(`/${pollID}/r`);
   }
-  catch (e) {
-    console.log(e);
-    return next(new ErrorResponse(500));
+  catch (err) {
+    return next(new ErrorResponse(err.message, 500));
   }
 }
 ));
@@ -79,9 +80,8 @@ const checkAddressModel = async (ip, pollID) => {
   // Check if ip address exist in the db
   const address = await AddressModel.findOne({ ipAddress: ip, pollID: pollID });
 
-  console.log('address :>> ', address);
   if (address) {
-    return false;
+    return true;
   }
   else {
     await AddressModel.create({ ipAddress: ip, pollID: pollID });
