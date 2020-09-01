@@ -7,7 +7,6 @@ let clintIpAddress;
 // Submit the vote
 document.getElementById('submit-vote').addEventListener('submit', async function (e) {
     const selectedOption = document.querySelector('input[name="option"]:checked');
-
     // Check if the user selected option
     if (!checkSelectedAlert(selectedOption)) {
         e.preventDefault();
@@ -92,12 +91,15 @@ runRecaptcha();
 setInterval(runRecaptcha, 60000);
 
 // Get the clint ip Address
-(async function getUserIpAddress() {
+async function getUserIpAddress() {
     // Get the ip address of the user
     const res = await fetch('https://api.ipify.org?format=json');
     const data = await res.json();
     clintIpAddress = data.ip;
-});
+}
+
+// Call to get the user ip address
+getUserIpAddress();
 
 
 

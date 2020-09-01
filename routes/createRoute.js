@@ -15,7 +15,8 @@ router.get('/', asyncHandler(async (req, res, next) => {
 // @route   POST /create
 router.post('/', asyncHandler(async (req, res, next) => {
 
-  const { title, options, ip } = req.body;
+  const { title, options, ip, vpn } = req.body;
+
 
   // Check if the title and at least  2 options is sent with the request
   if (!title.trim() || options.length < 2) {
@@ -28,7 +29,7 @@ router.post('/', asyncHandler(async (req, res, next) => {
   // if (name) { question = 'هذا التصويت يتطلب ادخال الاسم'; }
 
   // Create new Poll
-  const newPoll = await PollModel.create({ title, options: JSON.parse(options), ipAddress: ip });
+  const newPoll = await PollModel.create({ title, options: JSON.parse(options), ipAddress: ip, vpn: vpn });
 
 
   res.status(200).json({

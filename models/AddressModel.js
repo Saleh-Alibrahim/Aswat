@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 const ms = require('ms');
 const AddressSchema = new mongoose.Schema({
-  _id: {
-    type: String,
-    required: true
-  },
   ipAddress: {
     type: String,
     required: true

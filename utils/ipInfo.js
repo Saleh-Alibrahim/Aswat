@@ -8,9 +8,11 @@ const checkIP = async (ip) => {
 
     const data = await response.json();
 
-    console.log('data :>> ', data);
+    if (data.vpn || data.proxy || data.tor || data.fraud_score > 85) {
+        return false;
+    }
 
-    return data;
+    return true;
 };
 
 module.exports = checkIP;

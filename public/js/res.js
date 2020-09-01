@@ -2,12 +2,12 @@
 $('#copy-button').click(function (e) {
     try {
         // Get the poll url
-        let res_url = window.location.href;
+        const pollUrl = window.location.href;
 
         // Remove the /r from the end
-        let url = res_url.slice(0, res_url.length - 2);
+        const url = pollUrl.slice(0, res_url.length - 2);
 
-        //source https://stackoverflow.com/questions/49618618/copy-current-url-to-clipboard
+        // Source https://stackoverflow.com/questions/49618618/copy-current-url-to-clipboard
         const dummy = document.createElement('input');
         document.body.appendChild(dummy);
         dummy.value = url;

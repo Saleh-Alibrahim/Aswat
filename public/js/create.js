@@ -4,6 +4,7 @@ const optionsAlert = document.getElementById('options-alert');
 const optionsList = document.getElementById('options-list');
 const lastOption = document.querySelector('.last-input');
 const ip = document.getElementById('ip');
+const vpn = document.getElementById('vpn');
 
 
 // Make the last option add new option
@@ -18,7 +19,6 @@ $('#submit-poll').click(async function (e) {
 
     // Check if title is added
     if (!checkTitle()) { return; }
-
 
 
     // Get all the options
@@ -37,15 +37,16 @@ $('#submit-poll').click(async function (e) {
     if (!checkOptions(optionsValues)) {
         return;
     }
+
     // Get the title from the field
     const title = document.getElementById('title').value;
-    alert(ip.checked);
+
     const response = await fetch('/create', {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
         },
-        body: JSON.stringify({ title, options: JSON.stringify(optionsValues), ip: ip.checked })
+        body: JSON.stringify({ title, options: JSON.stringify(optionsValues), ip: ip.checked, vpn: vpn.checked })
     });
 
 

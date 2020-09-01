@@ -25,15 +25,12 @@ const PollSchema = new mongoose.Schema({
       default: 0
     }
   }],
-  question: {
-    type: String,
-    required: false,
-  },
-  private: {
+  ipAddress: {
     type: Boolean,
     required: false,
+    default: false
   },
-  ipAddress: {
+  vpn: {
     type: Boolean,
     required: false,
     default: false
