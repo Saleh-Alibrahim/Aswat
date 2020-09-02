@@ -27,17 +27,22 @@ body{
 
 
 .jumbotron{
-  padding-top: 2rem;
-  padding-bottom: 4rem;
+  padding-top: 1rem;
+  padding-bottom: 4rem; 
   background-color: white;
-  border: 3px;
+  -webkit-box-shadow: 0px 0px 16px 6px rgba(204,202,204,1);
+  -moz-box-shadow: 0px 0px 16px 6px rgba(204,202,204,1);
+  box-shadow: 0px 0px 16px 6px rgba(204,202,204,1);
   height: 100%;
   width: 100%;
-  margin-left: 10%;
+  margin-left: 10px;
   border-color: #00bfd8;
   border-style: solid;
-  margin: auto;
 } 
+
+.padding{
+  padding-bottom: 0; 
+}
 
 
 #title{
@@ -46,6 +51,10 @@ body{
     margin: 10px 0;
     border: 0;
     background-color: white;
+}
+
+#add-questions{
+  float: right;
 }
 
 #vote-title{
@@ -91,7 +100,6 @@ body{
   display: none;
 }
 
-
 #copy-button{
   font-family: 'Tajawal';
   float: left;
@@ -115,14 +123,31 @@ body{
 .form-check label{
   font-family: 'Tajawal';
   margin-right: 30px;
+  font:550 1.4rem "Tajawal", sans-serif;
+  color:#393939;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none; 
+  -moz-user-select: none; 
+  -ms-user-select: none; 
+  user-select: none;
 }
+.res-name{
+  font:550 1.4rem "Tajawal", sans-serif;
+  color:#393939;
+}
+
 .form-check input{
   font-family: 'Tajawal';
-  margin-top: 12px;
+  margin-top: 10px;
+  
 }
+
 .hidden{
   display: none;
 }
+
+
 #toast{
   position:fixed;
   top:0;
@@ -202,8 +227,15 @@ hr{
 font-weight: 500;
 }
 
-.form-check h4{
-  font-weight: 500;
+.question label{
+  font:500 1.1rem "Tajawal", sans-serif;
+  color:#393939;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none; 
+  -moz-user-select: none; 
+  -ms-user-select: none; 
+  user-select: none;
 }
 
 
@@ -227,6 +259,25 @@ font-weight: 500;
  */
 
 
+ /* In case of tablet users: */
+ @media screen and (min-width: 701px) and (max-width: 1050px) {
+  .jumbotron{
+		margin:auto;
+  }
+  .padding{
+    padding-bottom: 1rem; 
+  }
+}
+  /* In case of mobile users: */
+@media screen and (max-width: 700px){
+
+  .jumbotron{
+		margin:auto;
+  }
+  .padding{
+    padding-bottom: 1rem; 
+  }
+}
 
 
 

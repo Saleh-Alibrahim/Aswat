@@ -2,22 +2,24 @@
 const titleAlert = document.getElementById('title-alert');
 const optionsAlert = document.getElementById('options-alert');
 const optionsList = document.getElementById('options-list');
-
-
-// Get the last option
 const lastOption = document.querySelector('.last-input');
+const ip = document.getElementById('ip');
+const vpn = document.getElementById('vpn');
+
 
 // Make the last option add new option
 lastOption.addEventListener('keydown', addNewOption);
 
+// Init tooltips
+$('[data-toggle="tooltip"]').tooltip();
+
+
 // Get the main form
 $('#submit-poll').click(async function (e) {
 
-
     // Check if title is added
-    if (!checkTitle()) {
-        return;
-    }
+    if (!checkTitle()) { return; }
+
 
     // Get all the options
     const options = document.querySelectorAll('.option');
@@ -35,20 +37,20 @@ $('#submit-poll').click(async function (e) {
     if (!checkOptions(optionsValues)) {
         return;
     }
+
     // Get the title from the field
     const title = document.getElementById('title').value;
-
-
 
     const response = await fetch('/create', {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
         },
-        body: JSON.stringify({ title: title, options: JSON.stringify(optionsValues) })
+        body: JSON.stringify({ title, options: JSON.stringify(optionsValues), ip: ip.checked, vpn: vpn.checked })
     });
 
 
+    // Show alert if poll created or show error otherwise
     if (response.status == 200) {
         const data = await response.json();
         Swal.fire({
@@ -57,11 +59,11 @@ $('#submit-poll').click(async function (e) {
             confirmButtonText: 'الإنتقال الى التصويت',
             confirmButtonColor: '#00bfd8',
             onAfterClose: () => {
+                // Redirect the user to result of the poll newly created
                 location.href = `${location.origin}/${data.id}/r`;
             }
         });
-    }
-    else {
+    } else {
         Swal.fire({
             icon: 'error',
             title: 'مشكلة في السيرفر',
@@ -97,9 +99,9 @@ function addNewOption(e) {
     optionsList.appendChild(newOption);
     optionsList.appendChild(newHr);
 
-
 }
 
+// Title require alert
 function checkTitle() {
 
     // Get the title of the poll
@@ -124,6 +126,7 @@ function checkTitle() {
 
 }
 
+// Two options required alert
 function checkOptions(options) {
 
     // Check the options length
@@ -143,6 +146,12 @@ function checkOptions(options) {
     }
 
 }
+
+
+
+
+
+
 
 
 

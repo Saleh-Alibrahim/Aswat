@@ -1,5 +1,3 @@
-const ErrorResponse = require('../utils/errorResponse');
-
 const errorHandler = (error, req, res, next) => {
 
   // Log to console for dev
@@ -11,7 +9,7 @@ const errorHandler = (error, req, res, next) => {
     error.message = 'مشكلة في السيرفر';
   }
 
-  res.status(errorStatus).render('error', {
+  res.status(errorStatus).render('errorView', {
     error: {
       success: false,
       status: errorStatus,

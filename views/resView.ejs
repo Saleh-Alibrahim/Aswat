@@ -10,7 +10,7 @@
                         <hr>
                         <% poll.options.forEach(function(option) { %>
                         <div id="poll-option">
-                            <h4><%= option.name %></h4>
+                            <h4 class="res-name"><%= option.name %></h4>
                             <h4 id="voteCount"><%= option.voteCount %></h4>
                             <hr class="text-center progress-hr">
                             <div class="text-center">
@@ -28,9 +28,7 @@
                     <h3 id="vote-count" class="mt-4 mb-4 text-right">اجمالي الاصوات :
                         <%= poll.total %></h3>
                     <hr class="result-footer">
-                    <input id="poll-link" type="text" readonly class="form-control  mb-3 mt-3"
-                        value="<%=poll.pollUrl%>">
-                    <div>
+                    <div class="mt-3">
                         <button id="goVote-button" type="button" class="btn-solid-reg">تصويت</button>
                         <button id="copy-button" type="button" class="btn-solid-reg">نسخ الرابط</button>
                     </div>

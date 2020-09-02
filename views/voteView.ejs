@@ -15,10 +15,8 @@
                         <h3 id="vote-title"><%= poll.title %></h3>
                         <hr>
                         <% poll.options.forEach( function(option) { %>
-                        <h4><label for="<%= option.id %>" class="form-check-label"><%= option.name %></label>
-                            <input type="radio" class="form-check-input custom-radio" name="option"
-                                id="<%= option.id %>">
-                        </h4>
+                        <label for="<%= option.id %>" class="form-check-label"><%= option.name %></label>
+                        <input type="radio" class="form-check-input custom-radio" name="option" id="<%= option.id %>">
                         <hr>
                         <% });%>
                     </div>

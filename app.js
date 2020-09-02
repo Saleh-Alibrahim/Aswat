@@ -13,7 +13,7 @@ const rateLimit = require('express-rate-limit');
 const errorHandler = require('./middleware/error');
 const ErrorResponse = require('./utils/errorResponse');
 const sslRedirect = require('heroku-ssl-redirect');
-
+const cache = require('./config/cashe.js');
 
 // Load config
 dotenv.config({ path: './config/config.env' });
@@ -24,18 +24,12 @@ const app = express();
 // Connect to the database
 connectDB();
 
+
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// Logging
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-}
-else {
-  // In production redirect all the http to https
-  app.use(sslRedirect());
-}
+
 
 
 // Body parser
@@ -50,13 +44,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(xss());
 
 
-// // Rate Limiting
-// const Limiter = rateLimit({
-//   windowMs: 10 * 60 * 1000, // 10 mins
-//   max: 10
-// });
-
-// app.use(Limiter);
 
 // Prevent http param pollution
 app.use(hpp());
@@ -71,7 +58,36 @@ app.use(helmet());
 // Sanitize data 
 app.use(mongoSanitize());
 
+
+// Add libraries to the development environment
+if (process.env.NODE_ENV === 'development') {
+
+  // Logging
+  app.use(morgan('dev'));
+
+}
+
+// Add libraries to the production environment
+if (process.env.NODE_ENV === 'production') {
+
+  // Redirect all the http to https
+  app.use(sslRedirect());
+
+  // Rate Limiting
+  const Limiter = rateLimit({
+    windowMs: 10 * 60 * 1000, // 10 mins
+    max: 10
+  });
+
+  app.use(Limiter);
+
+  // Connect to redis cache
+  cache.connectCache();
+}
+
 // Routes
+app.use('/create', require('./routes/createRoute'));
+app.use('/vote', require('./routes/voteRoute'));
 app.use('/', require('./routes/indexRoute'));
 
 // Catch 404 to route does not exist and forward it to the error handler

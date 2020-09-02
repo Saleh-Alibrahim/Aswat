@@ -2,30 +2,30 @@
 const selectAlert = document.getElementById('select-alert');
 const voteAlert = document.getElementById('vote-alert');
 const pollID = document.getElementById('pollID').value;
-
+let clintIpAddress;
 
 // Submit the vote
 document.getElementById('submit-vote').addEventListener('submit', async function (e) {
     const selectedOption = document.querySelector('input[name="option"]:checked');
-
     // Check if the user selected option
     if (!checkSelectedAlert(selectedOption)) {
         e.preventDefault();
         return;
     }
 
-    // Check if the user already voted 
-    if (!checkLocalStorage()) {
-        e.preventDefault();
-        return;
-    }
+
+    // // Check if the user already voted 
+    // if (!checkLocalStorage()) {
+    //     e.preventDefault();
+    //     return;
+    // }
 
     // Get the selected option id
     const optionID = selectedOption.id;
 
     $(this).append(`<input type="hidden" name="optionID" value="${optionID}">`);
+    $(this).append(`<input type="hidden" name="ip" value="${clintIpAddress}">`);
 
-    return false;
 
 });
 
@@ -55,8 +55,7 @@ function checkLocalStorage() {
     const pollList = JSON.parse(localStorage.getItem('pollList')) || [];
 
     // Check if the user already voted
-    if (pollList.indexOf(pollID) >= 0) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (pollList.includes(pollID)) {
         // Show the alert and then return
         if (voteAlert.classList.contains('hidden'))
             voteAlert.classList.remove('hidden');
@@ -90,7 +89,16 @@ runRecaptcha();
 // Refresh the recaptcha token  every 1 minutes
 setInterval(runRecaptcha, 60000);
 
+// Get the clint ip Address
+async function getUserIpAddress() {
+    // Get the ip address of the user
+    const res = await fetch('https://api.ipify.org?format=json');
+    const data = await res.json();
+    clintIpAddress = data.ip;
+}
 
+// Call to get the user ip address
+getUserIpAddress();
 
 
 

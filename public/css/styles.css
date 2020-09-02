@@ -1774,7 +1774,7 @@ a:hover.back-to-top {
 	.btn-solid-margin{
 		margin: auto;
 	}
-	
+
 	.header h1 {
 		font-size: 5rem;
 		line-height: 3.5rem;
@@ -1797,8 +1797,6 @@ a:hover.back-to-top {
 		box-shadow: none;
         background: transparent;
 	}
-	
-
 	
 	.navbar-custom .navbar-nav {
 		margin-top: 0;
@@ -2071,8 +2069,6 @@ a:hover.back-to-top {
 	.navbar-custom {
 		padding: 2.125rem 5rem 2.125rem 5rem;
 	}
-
-	
 
 	.navbar-custom.top-nav-collapse {
         padding: 0.5rem 5rem 0.5rem 5rem;
