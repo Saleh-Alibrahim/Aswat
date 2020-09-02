@@ -55,8 +55,7 @@ function checkLocalStorage() {
     const pollList = JSON.parse(localStorage.getItem('pollList')) || [];
 
     // Check if the user already voted
-    if (pollList.indexOf(pollID) >= 0) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (pollList.includes(pollID)) {
         // Show the alert and then return
         if (voteAlert.classList.contains('hidden'))
             voteAlert.classList.remove('hidden');

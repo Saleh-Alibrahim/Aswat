@@ -33,7 +33,7 @@ const PollSchema = new mongoose.Schema({
   vpn: {
     type: Boolean,
     required: false,
-    default: false
+    default: true
   },
   total: {
     type: Number,
@@ -52,9 +52,7 @@ PollSchema.methods.updateTotalVotes = async function () {
   let totalVote = 0;
   this.options.forEach(option => {
     totalVote += option.voteCount;
-    console.log('option.voteCount :>> ', option.voteCount);
   });
-  console.log('totalVote :>> ', totalVote);
   this.total = totalVote;
   await this.save();
 };

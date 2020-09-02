@@ -13,7 +13,6 @@ const rateLimit = require('express-rate-limit');
 const errorHandler = require('./middleware/error');
 const ErrorResponse = require('./utils/errorResponse');
 const sslRedirect = require('heroku-ssl-redirect');
-const redis = require('redis');
 
 // Load config
 dotenv.config({ path: './config/config.env' });
@@ -58,8 +57,6 @@ app.use(helmet());
 // Sanitize data 
 app.use(mongoSanitize());
 
-// create cache client
-const client = redis.createClient(process.env.REDISCLOUD_URL, { no_ready_check: true });
 
 // Add libraries to the development environment
 if (process.env.NODE_ENV === 'development') {
@@ -103,4 +100,4 @@ const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on http://localhost:${PORT}`.yellow.bold));
 
-module.exports = { app, client };
+module.exports = app;

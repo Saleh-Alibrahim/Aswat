@@ -1,5 +1,3 @@
-const ErrorResponse = require('../utils/errorResponse');
-
 const errorHandler = (error, req, res, next) => {
 
   // Log to console for dev
