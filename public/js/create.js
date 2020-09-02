@@ -48,25 +48,36 @@ $('#submit-poll').click(async function (e) {
         },
         body: JSON.stringify({ title, options: JSON.stringify(optionsValues), ip: ip.checked, vpn: vpn.checked })
     });
-
-
-    // Show alert if poll created or show error otherwise
-    if (response.status == 200) {
+    try {
         const data = await response.json();
-        Swal.fire({
-            icon: 'success',
-            title: 'تم إنشاء التصويت بنجاح',
-            confirmButtonText: 'الإنتقال الى التصويت',
-            confirmButtonColor: '#00bfd8',
-            onAfterClose: () => {
-                // Redirect the user to result of the poll newly created
-                location.href = `${location.origin}/${data.id}/r`;
-            }
-        });
-    } else {
+        // Show alert if v or show error otherwise
+        if (data.status == 200) {
+            Swal.fire({
+                icon: 'success',
+                title: data.message,
+                confirmButtonText: 'الإنتقال الى النتائج',
+                timer: 1500,
+                confirmButtonColor: '#00bfd8',
+                onAfterClose: () => {
+                    location.href = `${location.origin}/${pollID}/r`;
+                }
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: data.status,
+                text: data.message,
+                confirmButtonText: 'المحاولة مرة اخرى',
+                confirmButtonColor: '#00bfd8',
+            });
+        }
+    }
+    catch (error) {
+        console.log(error);
         Swal.fire({
             icon: 'error',
-            title: 'مشكلة في السيرفر',
+            title: 500,
+            text: 'مشكلة في السيرفر',
             confirmButtonText: 'المحاولة مرة اخرى',
             confirmButtonColor: '#00bfd8',
         });
@@ -84,7 +95,7 @@ function addNewOption(e) {
     // add the classes and the attributes
     newOption.setAttribute("type", "text");
 
-    newOption.setAttribute("placeholder", "اختار اجابه");
+    newOption.setAttribute("placeholder", "إضافة إجابة");
     newOption.classList = 'option form-control last-input';
 
 

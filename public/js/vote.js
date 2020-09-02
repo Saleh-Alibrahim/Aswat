@@ -2,30 +2,68 @@
 const selectAlert = document.getElementById('select-alert');
 const voteAlert = document.getElementById('vote-alert');
 const pollID = document.getElementById('pollID').value;
-let clintIpAddress;
+const pollList = JSON.parse(localStorage.getItem('pollList')) || [];
+let token, clintIpAddress;
 
 // Submit the vote
-document.getElementById('submit-vote').addEventListener('submit', async function (e) {
+document.getElementById('vote-button').addEventListener('click', async function (e) {
     const selectedOption = document.querySelector('input[name="option"]:checked');
     // Check if the user selected option
     if (!checkSelectedAlert(selectedOption)) {
-        e.preventDefault();
         return;
     }
 
 
-    // // Check if the user already voted 
-    // if (!checkLocalStorage()) {
-    //     e.preventDefault();
-    //     return;
-    // }
+    // Check if the user already voted 
+    if (!checkLocalStorage()) {
+        return;
+    }
 
     // Get the selected option id
     const optionID = selectedOption.id;
 
-    $(this).append(`<input type="hidden" name="optionID" value="${optionID}">`);
-    $(this).append(`<input type="hidden" name="ip" value="${clintIpAddress}">`);
+    const response = await fetch('/vote', {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({ optionID, token, ip: clintIpAddress, pollID })
+    });
+    try {
+        const data = await response.json();
 
+        // Show alert if v or show error otherwise
+        if (data.status == 200) {
+            Swal.fire({
+                icon: 'success',
+                title: data.message,
+                confirmButtonText: 'الإنتقال الى النتائج',
+                timer: 1500,
+                confirmButtonColor: '#00bfd8',
+                onAfterClose: () => {
+                    location.href = `${location.origin}/${pollID}/r`;
+                }
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: data.status,
+                text: data.message,
+                confirmButtonText: 'المحاولة مرة اخرى',
+                confirmButtonColor: '#00bfd8',
+            });
+        }
+    }
+    catch (error) {
+        console.log(error);
+        Swal.fire({
+            icon: 'error',
+            title: 500,
+            text: 'مشكلة في السيرفر',
+            confirmButtonText: 'المحاولة مرة اخرى',
+            confirmButtonColor: '#00bfd8',
+        });
+    }
 
 });
 
@@ -51,9 +89,6 @@ function checkSelectedAlert(selectedOption) {
 }
 function checkLocalStorage() {
 
-    // Get the pollList array
-    const pollList = JSON.parse(localStorage.getItem('pollList')) || [];
-
     // Check if the user already voted
     if (pollList.includes(pollID)) {
         // Show the alert and then return
@@ -62,13 +97,14 @@ function checkLocalStorage() {
         return false;
 
     }
-    else {
-        // Add the poll id to the list and return true
-        pollList.push(pollID);
-        localStorage.setItem('pollList', JSON.stringify(pollList));
-    }
     return true;
 
+}
+
+function addToLocalStorage() {
+    // Add the poll id to the list and return true
+    pollList.push(pollID);
+    localStorage.setItem('pollList', JSON.stringify(pollList));
 }
 
 // Add the recaptcha token to the form
@@ -77,11 +113,11 @@ function runRecaptcha() {
         // Do request for recaptcha token
         // Response is promise with passed token
         grecaptcha.execute('6LdVI6kZAAAAACbNTvMKBFb7-eThFAU0VbsTLQI-', { action: 'validate_captcha' })
-            .then(function (token) {
+            .then(function (recaptchaToken) {
                 // Add token value to form
-                document.getElementById('token').value = token;
+                token = recaptchaToken;
             });
-    })
+    });
 }
 // Call once at the first render to the page
 runRecaptcha();

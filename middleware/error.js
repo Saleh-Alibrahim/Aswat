@@ -9,13 +9,21 @@ const errorHandler = (error, req, res, next) => {
     error.message = 'مشكلة في السيرفر';
   }
 
-  res.status(errorStatus).render('errorView', {
-    error: {
+  if (!error.json) {
+    res.status(errorStatus).render('errorView', {
+      error: {
+        success: false,
+        status: errorStatus,
+        message: error.message
+      }
+    });
+  } else {
+    res.status(errorStatus).json({
       success: false,
       status: errorStatus,
       message: error.message
-    }
-  });
+    });
+  }
 };
 
 module.exports = errorHandler;

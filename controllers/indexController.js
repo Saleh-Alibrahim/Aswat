@@ -94,7 +94,7 @@ exports.sendEmail = ('/mail', asyncHandler(async (req, res, next) => {
       });
   }
   catch (e) {
-    return next(new ErrorResponse(500));
+    return next(new ErrorResponse(500, 'مشكلة في السيرفر', true));
   }
 }
 ));

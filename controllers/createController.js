@@ -15,19 +15,20 @@ exports.createPoll = asyncHandler(async (req, res, next) => {
 
   const { title, options, ip, vpn } = req.body;
 
-
   // Check if the title and at least  2 options is sent with the request
   if (!title.trim() || options.length < 2) {
-    return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
+    return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400, true));
   }
 
   // Create new Poll
   const newPoll = await PollModel.create({ title, options: JSON.parse(options), ipAddress: ip, vpn: !vpn });
 
 
-  res.status(200).json({
+  res.json({
     success: true,
-    id: newPoll.id
+    status: 200,
+    id: newPoll.id,
+    message: 'تم إنشاء التصويت بـ نجاح'
   });
 
 });

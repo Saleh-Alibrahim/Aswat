@@ -13,16 +13,16 @@ exports.addVote = asyncHandler(async (req, res, next) => {
 
   // No poll and options sent with the request
   if (!pollID || !optionID || !token || !ip) {
-    return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
+    return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400, true));
   }
 
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV) {
     // Call google API to check the token 
     const recaptcha = await checkRecaptcha(token);
 
     // Check if the recaptcha failed
     if (!recaptcha) {
-      return next(new ErrorResponse('فشل التحقق من ان المستخدم هو انسان', 429));
+      return next(new ErrorResponse('فشل التحقق من ان المستخدم هو انسان', 429, true));
     }
 
     // Get the main poll
@@ -35,7 +35,7 @@ exports.addVote = asyncHandler(async (req, res, next) => {
       const checkVPN = await ipCheck(ip);
 
       if (!checkVPN) {
-        return next(new ErrorResponse(429, 'فشل التحقق من  ip address'));
+        return next(new ErrorResponse(429, 'فشل التحقق من  ip address', true));
       }
 
     }
@@ -46,7 +46,7 @@ exports.addVote = asyncHandler(async (req, res, next) => {
       const ipExist = await cache.cacheIP(ip, pollID);
 
       if (!ipExist) {
-        return next(new ErrorResponse('لا يمكن التصويت اكثر من مرة', 429));
+        return next(new ErrorResponse('لا يمكن التصويت اكثر من مرة', 429, true));
       }
 
     }
@@ -62,11 +62,10 @@ exports.addVote = asyncHandler(async (req, res, next) => {
   // Update the total values
   await pollAfterUpdate.updateTotalVotes();
 
-
-  res.redirect(`/${pollID}/r`);
+  res.json({
+    success: true,
+    status: 200,
+    message: 'تم تسجيل الصوت بـ نجاح'
+  });
 
 });
-
-const IpAddressExists = async (safe) => {
-
-}

@@ -84,6 +84,8 @@ if (process.env.NODE_ENV === 'production') {
   // Connect to redis cache
   cache.connectCache();
 }
+// Connect to redis cache
+cache.connectCache();
 
 // Routes
 app.use('/create', require('./routes/createRoute'));
