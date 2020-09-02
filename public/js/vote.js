@@ -34,6 +34,7 @@ document.getElementById('vote-button').addEventListener('click', async function 
 
         // Show alert if v or show error otherwise
         if (data.status == 200) {
+            addToLocalStorage();
             Swal.fire({
                 icon: 'success',
                 title: data.message,
@@ -75,15 +76,13 @@ document.getElementById('result-button').addEventListener('click', (e) => {
 function checkSelectedAlert(selectedOption) {
     // Get the selected option of the poll
     if (!selectedOption) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        // Show the alert and then return
-        if (selectAlert.classList.contains('hidden'))
-            selectAlert.classList.remove('hidden');
+        Swal.fire({
+            icon: 'error',
+            title: 'الرجاء اختيار صوت لتصويت',
+            confirmButtonText: 'المحاولة مرة اخرى',
+            confirmButtonColor: '#00bfd8',
+        });
         return false;
-    } else {
-        // Hide the alert and then continue
-        if (!selectAlert.classList.contains('hidden'))
-            selectAlert.classList.add('hidden');
     }
     return true;
 }
@@ -91,14 +90,16 @@ function checkLocalStorage() {
 
     // Check if the user already voted
     if (pollList.includes(pollID)) {
-        // Show the alert and then return
-        if (voteAlert.classList.contains('hidden'))
-            voteAlert.classList.remove('hidden');
-        return false;
 
+        Swal.fire({
+            icon: 'error',
+            title: 'لا يمكن التصويت اكثر من مرة',
+            confirmButtonText: 'المحاولة مرة اخرى',
+            confirmButtonColor: '#00bfd8',
+        });
+        return false;
     }
     return true;
-
 }
 
 function addToLocalStorage() {

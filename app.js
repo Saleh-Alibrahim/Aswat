@@ -24,6 +24,9 @@ const app = express();
 // Connect to the database
 connectDB();
 
+// Connect to redis cache
+cache.connectCache();
+
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -81,11 +84,8 @@ if (process.env.NODE_ENV === 'production') {
 
   app.use(Limiter);
 
-  // Connect to redis cache
-  cache.connectCache();
 }
-// Connect to redis cache
-cache.connectCache();
+
 
 // Routes
 app.use('/create', require('./routes/createRoute'));

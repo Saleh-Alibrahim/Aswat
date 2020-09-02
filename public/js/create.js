@@ -50,7 +50,7 @@ $('#submit-poll').click(async function (e) {
     });
     try {
         const data = await response.json();
-        // Show alert if v or show error otherwise
+        // Show alert if success or show error otherwise
         if (data.status == 200) {
             Swal.fire({
                 icon: 'success',
@@ -59,7 +59,7 @@ $('#submit-poll').click(async function (e) {
                 timer: 1500,
                 confirmButtonColor: '#00bfd8',
                 onAfterClose: () => {
-                    location.href = `${location.origin}/${pollID}/r`;
+                    location.href = `${location.origin}/${data.id}/r`;
                 }
             });
         } else {
@@ -120,45 +120,32 @@ function checkTitle() {
 
     // Check if there is title of not
     if (!title.trim()) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        // Show the alert and then return
-        if (titleAlert.classList.contains('hidden')) {
-            titleAlert.classList.remove('hidden');
-        }
-
+        Swal.fire({
+            icon: 'error',
+            title: 'الرجاء ادخال العنوان',
+            confirmButtonText: 'المحاولة مرة اخرى',
+            confirmButtonColor: '#00bfd8',
+        });
         return false;
     }
-    else {
-        if (!titleAlert.classList.contains('hidden')) {
-            titleAlert.classList.add('hidden');
-        }
-        return true;
-    }
+    return true;
 
 }
 
 // Two options required alert
 function checkOptions(options) {
-
     // Check the options length
     if (options.length < 2) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        // Show the alert and then return
-        if (optionsAlert.classList.contains('hidden')) {
-            optionsAlert.classList.remove('hidden');
-        }
+        Swal.fire({
+            icon: 'error',
+            title: ' الرجاء ادخال على الاقل عنصرين لتصويت',
+            confirmButtonText: 'المحاولة مرة اخرى',
+            confirmButtonColor: '#00bfd8',
+        });
         return false;
     }
-    else {
-        if (!optionsAlert.classList.contains('hidden')) {
-            optionsAlert.classList.add('hidden');
-        }
-        return true;
-    }
-
+    return true;
 }
-
-
 
 
 
