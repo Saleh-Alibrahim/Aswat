@@ -60,11 +60,10 @@ router.get('/:id/r', asyncHandler(async (req, res, next) => {
   // Add percentage to each option
   poll.options.forEach(option => {
     option.percentage = (option.voteCount / totalVote) * 100;
-    if (!Number.isInteger(option.percentage)) {
-      option.percentage = option.percentage.toFixed(2);
-    }
     if (!isFinite(option.percentage)) {
       option.percentage = 0;
+    } else if (!Number.isInteger(option.percentage)) {
+      option.percentage = option.percentage.toFixed(2);
     }
   });
 
@@ -75,7 +74,6 @@ router.get('/:id/r', asyncHandler(async (req, res, next) => {
 
   res.render('resView', { poll });
 }));
-
 
 
 // @desc    Send email

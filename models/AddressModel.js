@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const ms = require('ms');
+
 const AddressSchema = new mongoose.Schema({
   ipAddress: {
     type: String,

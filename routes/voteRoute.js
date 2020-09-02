@@ -7,6 +7,7 @@ const asyncHandler = require('../middleware/async');
 const checkRecaptcha = require('../utils/recaptcha');
 const checkIP = require('../utils/ipInfo');
 
+const client = require('../app').client;
 
 // @desc    Add new vote to given id
 // @route   POST /vote
@@ -19,12 +20,9 @@ router.post('/', asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
   }
 
-  try {
-
+  if (process.env.NODE_ENV === 'production') {
     // Get the main poll
     const mainPoll = await PollModel.findById(pollID);
-
-
     // Check if the client request if the users used vpn
     if (!mainPoll.vpn) {
 
@@ -55,33 +53,33 @@ router.post('/', asyncHandler(async (req, res, next) => {
     if (!recaptcha) {
       return next(new ErrorResponse('فشل التحقق من ان المستخدم هو انسان', 429));
     }
-
-    // Find the option by the id and increment it by 1 
-    await PollModel.findOneAndUpdate({ "options._id": optionID }, { $inc: { 'options.$.voteCount': 1 } });
-
-    // Get the  poll after the update
-    const pollAfterUpdate = await PollModel.findById(pollID);
-
-    // Update the total values
-    await pollAfterUpdate.updateTotalVotes();
-
-
-    res.redirect(`/${pollID}/r`);
   }
-  catch (err) {
-    return next(new ErrorResponse(err.message, 500));
-  }
-}
-));
+
+  // Find the option by the id and increment it by 1 
+  await PollModel.findOneAndUpdate({ "options._id": optionID }, { $inc: { 'options.$.voteCount': 1 } });
+
+  // Get the  poll after the update
+  const pollAfterUpdate = await PollModel.findById(pollID);
+
+  // Update the total values
+  await pollAfterUpdate.updateTotalVotes();
+
+
+  res.redirect(`/${pollID}/r`);
+
+}));
 
 
 const checkAddressModel = async (ip, pollID) => {
+
+
+  success = myCache.set("", obj, 10000);
 
   // Check if ip address exist in the db
   const address = await AddressModel.findOne({ ipAddress: ip, pollID: pollID });
 
   if (address) {
-    return true;
+    return false;
   }
   else {
     await AddressModel.create({ ipAddress: ip, pollID: pollID });

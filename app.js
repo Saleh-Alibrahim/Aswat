@@ -13,7 +13,7 @@ const rateLimit = require('express-rate-limit');
 const errorHandler = require('./middleware/error');
 const ErrorResponse = require('./utils/errorResponse');
 const sslRedirect = require('heroku-ssl-redirect');
-
+const redis = require('redis');
 
 // Load config
 dotenv.config({ path: './config/config.env' });
@@ -28,14 +28,7 @@ connectDB();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// Logging
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-}
-else {
-  // In production redirect all the http to https
-  // app.use(sslRedirect());
-}
+
 
 
 // Body parser
@@ -50,13 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(xss());
 
 
-// // Rate Limiting
-// const Limiter = rateLimit({
-//   windowMs: 10 * 60 * 1000, // 10 mins
-//   max: 10
-// });
 
-// app.use(Limiter);
 
 // Prevent http param pollution
 app.use(hpp());
@@ -70,6 +57,32 @@ app.use(helmet());
 
 // Sanitize data 
 app.use(mongoSanitize());
+
+// create cache client
+const client = redis.createClient(process.env.REDISCLOUD_URL, { no_ready_check: true });
+
+// Add libraries to the development environment
+if (process.env.NODE_ENV === 'development') {
+
+  // Logging
+  app.use(morgan('dev'));
+
+}
+
+// Add libraries to the production environment
+if (process.env.NODE_ENV === 'production') {
+
+  // Redirect all the http to https
+  app.use(sslRedirect());
+
+  // Rate Limiting
+  const Limiter = rateLimit({
+    windowMs: 10 * 60 * 1000, // 10 mins
+    max: 10
+  });
+
+  app.use(Limiter);
+}
 
 // Routes
 app.use('/create', require('./routes/createRoute'));
@@ -90,4 +103,4 @@ const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on http://localhost:${PORT}`.yellow.bold));
 
-module.exports = app;
+module.exports = { app, client };
