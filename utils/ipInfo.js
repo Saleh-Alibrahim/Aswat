@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-const checkIP = async (ip) => {
+const ipCheck = async (ip) => {
 
     // Check the clint ip address if it's fraud or proxy
     const ipInfoUrl = `https://ipqualityscore.com/api/json/ip/${process.env.IP_INFO_TOKEN}/${ip}`;
@@ -15,4 +15,4 @@ const checkIP = async (ip) => {
     return true;
 };
 
-module.exports = checkIP;
+module.exports = ipCheck;

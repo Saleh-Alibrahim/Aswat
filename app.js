@@ -13,6 +13,7 @@ const rateLimit = require('express-rate-limit');
 const errorHandler = require('./middleware/error');
 const ErrorResponse = require('./utils/errorResponse');
 const sslRedirect = require('heroku-ssl-redirect');
+const cache = require('./config/cashe.js');
 
 // Load config
 dotenv.config({ path: './config/config.env' });
@@ -22,6 +23,9 @@ const app = express();
 
 // Connect to the database
 connectDB();
+
+// Connect to redis cache
+cache.connectCache();
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
