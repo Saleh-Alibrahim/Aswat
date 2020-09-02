@@ -24,8 +24,6 @@ const app = express();
 // Connect to the database
 connectDB();
 
-// Connect to redis cache
-cache.connectCache();
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -44,7 +42,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Prevent XSS attack
 app.use(xss());
-
 
 
 
@@ -83,6 +80,9 @@ if (process.env.NODE_ENV === 'production') {
   });
 
   app.use(Limiter);
+
+  // Connect to redis cache
+  cache.connectCache();
 }
 
 // Routes
