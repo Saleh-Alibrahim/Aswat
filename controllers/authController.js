@@ -5,11 +5,31 @@ const sendEmail = require('../utils/sendEmail');
 const User = require('../models/UserModel');
 const ErrorResponse = require('../utils/errorResponse');
 
+
+// @desc      Render the register page
+// @route     GET /auth/register
+// @access    Public
+exports.getRegisterView = asyncHandler(async (req, res, next) => {
+  res.render('registerView');
+});
+
+// @desc      Render the login page
+// @route     GET /auth/login
+// @access    Public
+exports.getLoginView = asyncHandler(async (req, res, next) => {
+  res.render('loginView');
+});
+
 // @desc      Register user
-// @route     POST /register
+// @route     POST /auth/register
 // @access    Public
 exports.registerUsers = asyncHandler(async (req, res, next) => {
+
   const { username, email, password } = req.body;
+
+  if (!username || !email || !password) {
+    return next(new ErrorResponse(`Please enter email and password`, 400, true));
+  }
 
   const user = await User.create({
     username,
@@ -22,14 +42,15 @@ exports.registerUsers = asyncHandler(async (req, res, next) => {
 });
 
 // @desc      Login user
-// @route     GET /api/v1/auth/login
+// @route     POST /auth/login
 // @access    Public
 exports.loginUsers = asyncHandler(async (req, res, next) => {
+
   const { email, password } = req.body;
 
   // Check  if email entered and password
   if (!email || !password) {
-    return next(new ErrorResponse(`Please enter email and password`, 400));
+    return next(new ErrorResponse(`Please enter email and password`, 400, true));
   }
 
   // Bring the user from the DB
@@ -37,14 +58,14 @@ exports.loginUsers = asyncHandler(async (req, res, next) => {
 
   // Check if the user exist
   if (!user) {
-    return next(new ErrorResponse(`Invalid email or password`, 401));
+    return next(new ErrorResponse(`Invalid email or password`, 401, true));
   }
 
   // Check the password
   const isMatch = await user.checkPassword(password);
 
   if (!isMatch) {
-    return next(new ErrorResponse(`Invalid email or password`, 401));
+    return next(new ErrorResponse(`Invalid email or password`, 401, true));
   }
 
   sendTokenResponse(user, 200, res);
@@ -53,7 +74,7 @@ exports.loginUsers = asyncHandler(async (req, res, next) => {
 
 
 // @desc      Get the logined user
-// @route     GET /api/v1/auth/me
+// @route     GET /auth/me
 // @access    Private
 exports.getMe = asyncHandler(async (req, res, next) => {
 
@@ -68,7 +89,7 @@ exports.getMe = asyncHandler(async (req, res, next) => {
 });
 
 // @desc      Update user details
-// @route     PUT /api/v1/auth/updatedetails
+// @route     PUT /auth/updatedetails
 // @access    Private
 exports.updateDetails = asyncHandler(async (req, res, next) => {
 
@@ -93,7 +114,7 @@ exports.updateDetails = asyncHandler(async (req, res, next) => {
 });
 
 // @desc      Update password
-// @route     GET /api/v1/auth/updatepassword
+// @route     GET /auth/updatepassword
 // @access    Private
 exports.updatePassword = asyncHandler(async (req, res, next) => {
 
@@ -115,7 +136,7 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
 
 
 // @desc      Forgot password
-// @route     POST /api/v1/auth/forgotpassword
+// @route     POST /auth/forgotpassword
 // @access    Public
 exports.forgotPassword = asyncHandler(async (req, res, next) => {
 
@@ -164,7 +185,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
 });
 
 // @desc      Get the logined user
-// @route     PUT /api/v1/auth/resetpassword/:resettoken
+// @route     PUT /auth/resetpassword/:resettoken
 // @access    Public
 exports.resetPassword = asyncHandler(async (req, res, next) => {
 
@@ -195,7 +216,7 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
 });
 
 // @desc      Log user out / clear cookie
-// @route     GET /api/v1/auth/logout
+// @route     GET /auth/logout
 // @access    Private
 exports.logout = asyncHandler(async (req, res, next) => {
 

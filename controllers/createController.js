@@ -5,12 +5,14 @@ const asyncHandler = require('../middleware/async');
 
 // @desc    Render the create poll page
 // @route   GET /create
+// @access    Public
 exports.getCreateView = asyncHandler(async (req, res, next) => {
   res.render('createView');
 });
 
 // @desc    Create Poll
 // @route   POST /create
+// @access    Public
 exports.createPoll = asyncHandler(async (req, res, next) => {
 
   const { title, options, ip, vpn } = req.body;

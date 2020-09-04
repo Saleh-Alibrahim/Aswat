@@ -6,12 +6,14 @@ const sendEmail = require('../utils/sendEmail');
 
 // @desc    Render the main page
 // @route   GET /
+// @access    Public
 exports.getMainView = asyncHandler(async (req, res, next) => {
   res.render('indexView');
 });
 
 // @desc    Show the poll
 // @route   GET /:id
+// @access    Public
 exports.getPoll = asyncHandler(async (req, res, next) => {
   const id = req.params.id;
 
@@ -32,6 +34,7 @@ exports.getPoll = asyncHandler(async (req, res, next) => {
 
 // @desc    Show the result of the poll
 // @route   GET /:id/r
+// @access    Public
 exports.getPollResult = asyncHandler(async (req, res, next) => {
 
   const id = req.params.id;
@@ -76,6 +79,7 @@ exports.getPollResult = asyncHandler(async (req, res, next) => {
 
 // @desc    Send email
 // @route   POST /mail
+// @access    Public
 exports.sendEmail = ('/mail', asyncHandler(async (req, res, next) => {
 
   const { email, subject, message } = req.body;

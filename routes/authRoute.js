@@ -1,5 +1,8 @@
 const express = require('express');
-const { registerUsers,
+
+const { getRegisterView,
+    getLoginView,
+    registerUsers,
     loginUsers,
     getMe,
     forgotPassword,
@@ -17,7 +20,8 @@ const router = express.Router();
 
 
 
-
+router.get('/register', getRegisterView);
+router.get('/login', getLoginView);
 router.post('/register', registerUsers);
 router.post('/login', loginUsers);
 router.get('/me', protect, getMe);

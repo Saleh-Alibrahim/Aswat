@@ -7,6 +7,7 @@ const ipCheck = require('../utils/ipInfo');
 
 // @desc    Add new vote to given id
 // @route   POST /vote
+// @access    Public
 exports.addVote = asyncHandler(async (req, res, next) => {
 
   const { pollID, optionID, token, ip } = req.body;
@@ -16,42 +17,40 @@ exports.addVote = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400, true));
   }
 
-  if (process.env.NODE_ENV) {
-    // Call google API to check the token 
-    const recaptcha = await checkRecaptcha(token);
+  // Call google API to check the token 
+  const recaptcha = await checkRecaptcha(token);
 
-    // Check if the recaptcha failed
-    if (!recaptcha) {
-      return next(new ErrorResponse('فشل التحقق من ان المستخدم هو انسان', 429, true));
-    }
+  // Check if the recaptcha failed
+  if (!recaptcha) {
+    return next(new ErrorResponse('فشل التحقق من ان المستخدم هو انسان', 429, true));
+  }
 
-    // Get the main poll
-    const mainPoll = await PollModel.findById(pollID);
+  // Get the main poll
+  const mainPoll = await PollModel.findById(pollID);
 
-    // Check if the client request if the users used vpn
-    if (mainPoll.vpn) {
+  // Check if the client request if the users used vpn
+  if (mainPoll.vpn) {
 
-      // Call ip info and check if the users using vpn
-      const checkVPN = await ipCheck(ip);
+    // Call ip info and check if the users using vpn
+    const checkVPN = await ipCheck(ip);
 
-      if (!checkVPN) {
-        return next(new ErrorResponse(429, 'فشل التحقق من  ip address', true));
-      }
-
-    }
-
-    // Check if the client request one ip address peer vote
-    if (mainPoll.ipAddress) {
-
-      const ipExist = await cache.cacheIP(ip, pollID);
-
-      if (!ipExist) {
-        return next(new ErrorResponse('لا يمكن التصويت اكثر من مرة', 429, true));
-      }
-
+    if (!checkVPN) {
+      return next(new ErrorResponse(429, 'فشل التحقق من  ip address', true));
     }
 
   }
+
+  // Check if the client request one ip address peer vote
+  if (mainPoll.ipAddress) {
+
+    const ipExist = await cache.cacheIP(ip, pollID);
+
+    if (!ipExist) {
+      return next(new ErrorResponse('لا يمكن التصويت اكثر من مرة', 429, true));
+    }
+
+  }
+
 
   // Find the option by the id and increment it by 1 
   await PollModel.findOneAndUpdate({ "options._id": optionID }, { $inc: { 'options.$.voteCount': 1 } });
