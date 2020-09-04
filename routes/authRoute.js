@@ -6,7 +6,7 @@ const { registerUsers,
     resetPassword,
     updateDetails,
     updatePassword,
-    logout } = require('../controllers/auth');
+    logout } = require('../controllers/authController');
 const { protect, authorize } = require('../middleware/auth');
 
 

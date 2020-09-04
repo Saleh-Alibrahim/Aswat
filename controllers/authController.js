@@ -2,11 +2,11 @@ const crypto = require('crypto');
 const path = require('path');
 const asyncHandler = require('../middleware/async');
 const sendEmail = require('../utils/sendEmail');
-const User = require('../models/User');
+const User = require('../models/UserModel');
 const ErrorResponse = require('../utils/errorResponse');
 
 // @desc      Register user
-// @route     GET /api/v1/auth/register
+// @route     POST /register
 // @access    Public
 exports.registerUsers = asyncHandler(async (req, res, next) => {
   const { username, email, password } = req.body;
