@@ -1,24 +1,31 @@
-<%- include('partials/header') %>
+<%- include('partials/head') %>
+</head>
 
-<header id="header" class="ex-header">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-6 col-md-12  col-sm-12">
-                <div class="jumbotron">
-                    <div class="form-check">
-                        <h3 id="res-title"><%= error.status %></h3>
-                        <hr>
-                        <h3 id="res-title"><%= error.message %></h3>
-                        <a type="button" href="/" class="btn-solid-reg btn-back text-center">الرجوع
-                            الى الصفحة
-                            الرئيسية</a>
+<body data-spy="scroll" data-target=".fixed-top">
+
+    <%- include('partials/preloader') %>
+
+    <%- include('partials/navbar') %>
+
+    <header id="header" class="ex-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-md-12  col-sm-12">
+                    <div class="jumbotron">
+                        <div class="form-check">
+                            <h3 id="res-title"><%= error.status %></h3>
+                            <hr>
+                            <h3 id="res-title"><%= error.message %></h3>
+                            <a type="button" href="/" class="btn-solid-reg btn-back text-center">الرجوع
+                                الى الصفحة
+                                الرئيسية</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</header> <!-- end of ex-header -->
-<%- include('partials/footer') %>
+    </header> <!-- end of ex-header -->
+    <%- include('partials/footer') %>
 </body>
 
 </html>

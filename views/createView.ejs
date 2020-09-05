@@ -1,97 +1,78 @@
-<%- include('partials/header') %>
-<!-- Header -->
-<div class="ex-header">
-    <header id="header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6 col-md-12  col-sm-12">
-                    <div class="jumbotron padding">
-                        <div class="row">
-                            <div class="col">
-                                <div id="options-list" class="form-group text-right">
-                                    <input class="form-control" id="title" name="title" type="text"
-                                        placeholder="إضافة عنوان" autocomplete="off">
-                                    <hr>
-                                    <input class="option form-control" type="text" placeholder="إضافة إجابه">
-                                    <hr>
-                                    <input class="option form-control" type="text" placeholder="إضافة إجابه">
-                                    <hr>
-                                    <input class="option form-control last-input" type="text" placeholder="إضافة إجابه">
-                                    <hr>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="result-footer mb-4">
-                        <!-- <div class="row">
-                            <div class="col">
-                                <div class="form-check  text-right">
-                                    <div class="question">
-                                        <label id="" for="name-req" class="form-check-label">الإسم مطلوب عند
-                                            التصويت</label>
-                                        <input type="checkbox" class="form-check-input custom-radio" name="option"
-                                            id="name-req">
+<%- include('partials/head') %>
+</head>
+
+<body data-spy="scroll" data-target=".fixed-top">
+
+    <%- include('partials/preloader') %>
+
+    <%- include('partials/navbar') %>
+
+    <!-- Header -->
+    <div class="ex-header">
+        <header id="header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12  col-sm-12">
+                        <div class="jumbotron padding">
+                            <div class="row">
+                                <div class="col">
+                                    <div id="options-list" class="form-group text-right">
+                                        <input class="form-control" id="title" name="title" type="text"
+                                            placeholder="إضافة عنوان" autocomplete="off">
+                                        <hr>
+                                        <input class="option form-control" type="text" placeholder="إضافة إجابه">
+                                        <hr>
+                                        <input class="option form-control" type="text" placeholder="إضافة إجابه">
+                                        <hr>
+                                        <input class="option form-control last-input" type="text"
+                                            placeholder="إضافة إجابه">
+                                        <hr>
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
-                        <div class="row my-3">
-                            <div class="col">
-                                <div class="form-check  text-right">
-                                    <div class="question">
-                                        <label for="ip" class="form-check-label" data-toggle="tooltip"
-                                            data-placement="top" title="صوت واحد لكل بيت , جامعة"> IP
-                                            address تصويت واحد لكل
-                                        </label>
-                                        <input type="checkbox" class="form-check-input custom-radio" name="option"
-                                            id="ip">
+                            <hr class="result-footer mb-4">
+                            <div class="row my-3">
+                                <div class="col">
+                                    <div class="form-check  text-right">
+                                        <div class="question">
+                                            <label for="ip" class="form-check-label" data-toggle="tooltip"
+                                                data-placement="top" title="صوت واحد لكل بيت , جامعة"> IP
+                                                address تصويت واحد لكل
+                                            </label>
+                                            <input type="checkbox" class="form-check-input custom-radio" name="option"
+                                                id="ip">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- <div class="row my-3">
-                            <div class="col">
-                                <div class="form-check  text-right">
-                                    <div class="question">
-                                        <label data-toggle="tooltip" data-placement="top"
-                                            title="السماح للمصوت التصويت على اكثر من خيار في وقت واحد" for="multi"
-                                            class="form-check-label">
-                                            السماح بـ إجابات متعددة
-                                        </label>
-                                        <input type="checkbox" class="form-check-input custom-radio" name="option"
-                                            id="multi">
+                            <div class="row my-3">
+                                <div class="col">
+                                    <div class="form-check  text-right">
+                                        <div class="question">
+                                            <label data-toggle="tooltip" data-placement="top"
+                                                title="تحذير : لا يفضل استعمال هذا الخيار" for="vpn"
+                                                class="form-check-label">
+                                                التصويت VPN السماح لمستخدمي
+                                            </label>
+                                            <input type="checkbox" class="form-check-input custom-radio" name="option"
+                                                id="vpn">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
-                        <div class="row my-3">
-                            <div class="col">
-                                <div class="form-check  text-right">
-                                    <div class="question">
-                                        <label data-toggle="tooltip" data-placement="top"
-                                            title="تحذير : لا يفضل استعمال هذا الخيار" for="vpn"
-                                            class="form-check-label">
-                                            التصويت VPN السماح لمستخدمي
-                                        </label>
-                                        <input type="checkbox" class="form-check-input custom-radio" name="option"
-                                            id="vpn">
-                                    </div>
+                            <div class="row mt-4">
+                                <div class="col">
+                                    <input id="submit-poll" type="button" class="btn-solid-lg" value="إنشاء التصويت">
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row mt-4">
-                            <div class="col">
-                                <input id="submit-poll" type="button" class="btn-solid-lg" value="إنشاء التصويت">
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+        </header> <!-- end of ex-header -->
+        <!-- end of header -->
 
-    </header> <!-- end of ex-header -->
-    <!-- end of header -->
+        <%- include('partials/footer') %>
+        <script src="/js/create.js"></script>
+</body>
 
-    <%- include('partials/footer') %>
-    <script src="/js/create.js"></script>
-    </body>
-
-    </html>
+</html>

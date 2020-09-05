@@ -1,31 +1,38 @@
-<%- include('partials/header') %>
+<%- include('partials/head') %>
 </head>
-<header id="header" class="ex-header">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-6 col-md-12 col-sm-12">
-                <div class="jumbotron">
-                    <div class="form-check  text-right">
-                        <h3 id="vote-title"><%= poll.title %></h3>
-                        <hr>
-                        <% poll.options.forEach( function(option) { %>
-                        <label for="<%= option.id %>" class="form-check-label"><%= option.name %></label>
-                        <input type="radio" class="form-check-input custom-radio" name="option" id="<%= option.id %>">
-                        <hr>
-                        <% });%>
+
+<body data-spy="scroll" data-target=".fixed-top">
+
+    <%- include('partials/preloader') %>
+
+    <%- include('partials/navbar') %>
+    <header id="header" class="ex-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="jumbotron">
+                        <div class="form-check  text-right">
+                            <h3 id="vote-title"><%= poll.title %></h3>
+                            <hr>
+                            <% poll.options.forEach( function(option) { %>
+                            <label for="<%= option.id %>" class="form-check-label"><%= option.name %></label>
+                            <input type="radio" class="form-check-input custom-radio" name="option"
+                                id="<%= option.id %>">
+                            <hr>
+                            <% });%>
+                        </div>
+                        <div id="toast"></div>
+                        <div class="mt-5">
+                            <input id="pollID" type="hidden" name="pollID" value="<%=poll._id%>">
+                            <input type="hidden" name="action" value="validate_captcha">
+                            <input type="button" id="vote-button" class="btn-solid-reg" value="تصويت">
+                            <button id="result-button" type="button" class="btn-solid-reg">النتائج</button>
+                        </div>
                     </div>
-                    <div id="toast"></div>
-                    <div class="mt-5">
-                        <input id="pollID" type="hidden" name="pollID" value="<%=poll._id%>">
-                        <input type="hidden" name="action" value="validate_captcha">
-                        <input type="button" id="vote-button" class="btn-solid-reg" value="تصويت">
-                        <button id="result-button" type="button" class="btn-solid-reg">النتائج</button>
-                    </div>
-                </div>
-</header> <!-- end of ex-header -->
-<%- include('partials/footer') %>
-<script src="https://www.google.com/recaptcha/api.js?render=6LdVI6kZAAAAACbNTvMKBFb7-eThFAU0VbsTLQI-"></script>
-<script src="/js/vote.js"></script>
+    </header> <!-- end of ex-header -->
+    <%- include('partials/footer') %>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LdVI6kZAAAAACbNTvMKBFb7-eThFAU0VbsTLQI-"></script>
+    <script src="/js/vote.js"></script>
 </body>
 
 </html>
