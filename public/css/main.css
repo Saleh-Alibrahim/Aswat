@@ -28,12 +28,12 @@ body{
 }
 
 .body-background{
-  height: 100vh;
+  height: 100%;
   display: flex;
   padding-top: 70px;
   align-items: center;
   justify-content: center;
-  background: url('/images/header-background.jpg') center / cover no-repeat, #00bfd8;
+  background: url('/images/header-background.jpg') center / cover no-repeat, white;
 }
 
 
@@ -183,7 +183,7 @@ body{
   opacity:0;
 }
 .error-view{
-  padding: 150px;
+ width: 500px;
 }
 
 #toast.show{
