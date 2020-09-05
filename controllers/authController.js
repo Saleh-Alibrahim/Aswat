@@ -28,7 +28,7 @@ exports.registerUsers = asyncHandler(async (req, res, next) => {
   const { username, email, password } = req.body;
 
   if (!username || !email || !password) {
-    return next(new ErrorResponse(`Please enter email and password`, 400, true));
+    return next(new ErrorResponse(`الرجاء ادخال الاسم و الايميل و كلمة المرور`, 400, true));
   }
 
   const user = await User.create({
@@ -220,16 +220,12 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
 // @access    Private
 exports.logout = asyncHandler(async (req, res, next) => {
 
+  console.log('object', 'object');
   res.cookie('token', 'none', {
     expires: new Date(Date.now() + 10 * 1000),
-    httpOnly: true
+    httpOnly: false
   });
-  res.status(200).json(
-    {
-      success: true,
-      data: {}
-    }
-  );
+  res.redirect('/');
 
 
 });
@@ -245,7 +241,7 @@ const sendTokenResponse = (user, statusCode, res) => {
 
   const options = {
     expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000),
-    httpOnly: true
+    httpOnly: false
   };
 
   if (process.env.NODE_ENV == 'production') {
@@ -255,12 +251,7 @@ const sendTokenResponse = (user, statusCode, res) => {
   res
     .status(statusCode)
     .cookie('token', token, options)
-    .json(
-      {
-        success: true,
-        token
-      }
-    );
+    .redirect('/');
 };
 
 

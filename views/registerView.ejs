@@ -28,26 +28,28 @@
                             <div class="text-center">
                                 <h3 class="text-dark mb-4" data-bs-hover-animate="tada">إنشاء حساب&nbsp;</h3>
                             </div>
-                            <form class="user">
+                            <form class="user" method="post" action="/auth/register">
                                 <div class="form-group row">
                                     <div class="col-12 col-sm-auto col-md-auto col-lg-auto col-xl-auto text-center mb-3 mb-sm-0"
                                         style="width: 100%;"><input
                                             class="form-control form-control-lg form-control-user" type="text"
                                             id="exampleFirstName" autocomplete="off" required="" minlength="3"
-                                            maxlength="15" name="name" placeholder="اسم المستخدم"></div>
+                                            maxlength="15" name="username" placeholder="اسم المستخدم"></div>
                                 </div>
-                                <div class="form-group"><input class="form-control form-control-user" type="email"
-                                        placeholder="الإيميل" name="email" required="" minlength="5"></div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input autocomplete="off" class="form-control  form-control-user"
-                                            type="password" placeholder="إعادة كلمة المرور" required="" minlength="6"
-                                            maxlength="30"></div>
-                                    <div class="col-sm-6">
-                                        <input autocomplete="off" class="form-control form-control-user" type="password"
-                                            placeholder="كلمة المرور" name="password" minlength="6" required=""
-                                            maxlength="30"></div>
+                                <div class="form-group">
+                                    <input class="form-control form-control-user" type="email" placeholder="الإيميل"
+                                        name="email" required="" minlength="5">
                                 </div>
+                                <div class="form-group">
+                                    <input autocomplete="off" class="form-control form-control-user" type="password"
+                                        placeholder="كلمة المرور" name="password" minlength="6" required=""
+                                        maxlength="30">
+                                </div>
+                                <div class="form-group">
+                                    <input autocomplete="off" class="form-control  form-control-user" type="password"
+                                        placeholder="إعادة كلمة المرور" required="" minlength="6" maxlength="30">
+                                </div>
+
                                 <button
                                     class="btn btn-primary btn-block btn-lg text-center text-white border-primary btn-user"
                                     id="btn-user-submit" type="submit">إنشاء حساب&nbsp;</button>

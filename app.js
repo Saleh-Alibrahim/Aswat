@@ -7,6 +7,7 @@ const connectDB = require('./config/db');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 const hpp = require('hpp');
+const cookieParser = require('cookie-parser');
 const xss = require('xss-clean');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
@@ -57,6 +58,9 @@ app.use(helmet());
 
 // Sanitize data 
 app.use(mongoSanitize());
+
+// Cookie parser
+app.use(cookieParser());
 
 
 // Add libraries to the development environment
