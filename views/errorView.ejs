@@ -1,22 +1,25 @@
 <%- include('partials/head') %>
-</head>
 
-<body data-spy="scroll" data-target=".fixed-top">
+<head>
 
+<body class="body-background">
     <%- include('partials/preloader') %>
 
     <%- include('partials/navbar') %>
-
-    <header id="header" class="ex-header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6 col-md-12  col-sm-12">
-                    <div class="jumbotron">
-                        <div class="form-check">
-                            <h3 id="res-title"><%= error.status %></h3>
+    <div class="container error-view">
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="card shadow-lg o-hidden border-0 my-5">
+                    <div class="card-body p-0 text-center">
+                        <div class="p-5">
+                            <div class="row">
+                                <h3 id="res-title" class="mx-auto"><%= error.status %></h3>
+                            </div>
                             <hr>
-                            <h3 id="res-title"><%= error.message %></h3>
-                            <a type="button" href="/" class="btn-solid-reg btn-back text-center">الرجوع
+                            <div class="row">
+                                <h3 id="res-title" class="mx-auto"><%= error.message %></h3>
+                            </div>
+                            <a type="button" href="/" class="btn-solid-reg btn-back">الرجوع
                                 الى الصفحة
                                 الرئيسية</a>
                         </div>
@@ -24,8 +27,8 @@
                 </div>
             </div>
         </div>
-    </header> <!-- end of ex-header -->
-    <%- include('partials/footer') %>
+        <%- include('partials/footer') %>
+
 </body>
 
 </html>

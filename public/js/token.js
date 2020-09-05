@@ -1,7 +1,7 @@
 
 const token = getCookie("token");
 
-console.log('token', token)
+// Check if the user login or not
 if (token) {
     // Hide the login button
     $('#login').css('display', 'none');

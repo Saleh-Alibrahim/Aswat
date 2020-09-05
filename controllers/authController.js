@@ -31,6 +31,7 @@ exports.registerUsers = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`الرجاء ادخال الاسم و الايميل و كلمة المرور`, 400, true));
   }
 
+  // Create user in the db
   const user = await User.create({
     username,
     email,
@@ -50,7 +51,7 @@ exports.loginUsers = asyncHandler(async (req, res, next) => {
 
   // Check  if email entered and password
   if (!email || !password) {
-    return next(new ErrorResponse(`Please enter email and password`, 400, true));
+    return next(new ErrorResponse(`الرجاء ادخال الايميل و كلمة المرور`, 400, true));
   }
 
   // Bring the user from the DB
@@ -58,14 +59,14 @@ exports.loginUsers = asyncHandler(async (req, res, next) => {
 
   // Check if the user exist
   if (!user) {
-    return next(new ErrorResponse(`Invalid email or password`, 401, true));
+    return next(new ErrorResponse(`خطأ في الايميل او كلمة المرور`, 400));
   }
 
   // Check the password
   const isMatch = await user.checkPassword(password);
 
   if (!isMatch) {
-    return next(new ErrorResponse(`Invalid email or password`, 401, true));
+    return next(new ErrorResponse(`خطأ في الايميل او كلمة المرور`, 400));
   }
 
   sendTokenResponse(user, 200, res);
@@ -219,12 +220,7 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
 // @route     GET /auth/logout
 // @access    Private
 exports.logout = asyncHandler(async (req, res, next) => {
-
-  console.log('object', 'object');
-  res.cookie('token', 'none', {
-    expires: new Date(Date.now() + 10 * 1000),
-    httpOnly: false
-  });
+  res.clearCookie('token');
   res.redirect('/');
 
 
