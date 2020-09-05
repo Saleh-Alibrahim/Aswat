@@ -8,7 +8,11 @@
 
 form.user .form-control-user {
   direction: rtl;
+  color:black;
+  font-size:1rem;
 }
+
+
 
 .text-center.flex-grow-1.bg-register-image {
   margin-left: 10px;
@@ -33,20 +37,23 @@ form.user .form-control-user {
 
 #remeber-me {
   margin-right: 12px;
+  font-size: 1rem;
 }
 
 #login-btn {
   background-color: #00bfd8;
   border-color: #00bfd8 !important;
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: 1rem;
   opacity: 0.90;
 }
+
 
 .redirect-password {
   font-weight: 650;
   color: #00bfd8 !important;
   text-decoration: none;
+  font-size:0.9rem;
 }
 
 #login-btn:hover {
@@ -55,9 +62,11 @@ form.user .form-control-user {
 
 #google-btn {
   text-decoration: none;
+  font-size: 1rem;
 }
 
 #facebook-btn {
   text-decoration: none;
+  font-size: 1rem;
 }
 

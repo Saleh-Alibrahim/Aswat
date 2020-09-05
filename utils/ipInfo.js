@@ -8,7 +8,8 @@ const ipCheck = async (ip) => {
 
     const data = await response.json();
 
-    if (data.vpn || data.proxy || data.tor || data.fraud_score > 85) {
+
+    if (data.vpn || data.proxy || data.tor || data.fraud_score > 85 || data.active_vpn || data.active_tor) {
         return false;
     }
 

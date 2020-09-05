@@ -24,9 +24,6 @@ const app = express();
 // Connect to the database
 connectDB();
 
-// Connect to redis cache
-cache.connectCache();
-
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -84,14 +81,16 @@ if (process.env.NODE_ENV === 'production') {
 
   app.use(Limiter);
 
+  // Connect to redis cache
+  cache.connectCache();
+
 }
 
 
 // Routes
-app.use('/create', require('./routes/createRoute'));
-
-app.use('/auth', require('./routes/authRoute'));
 app.use('/', require('./routes/indexRoute'));
+app.use('/create', require('./routes/createRoute'));
+app.use('/auth', require('./routes/authRoute'));
 app.use('/vote', require('./routes/voteRoute'));
 
 // Catch 404 to route does not exist and forward it to the error handler

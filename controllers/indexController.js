@@ -22,6 +22,11 @@ exports.getPoll = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
   }
 
+  // Check if the user request create of pass id of poll
+  if (id == 'create') {
+    return next();
+  }
+
   // Find the poll with sent id
   const poll = await PollModel.findById(id);
 

@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 
 const { getMainView, getPoll,
-  getPollResult, sendEmail } = require('../controllers/indexController')
+  getPollResult, sendEmail } = require('../controllers/indexController');
 
 
 router.get('/', getMainView);
+
 
 router.get('/:id', getPoll);
 

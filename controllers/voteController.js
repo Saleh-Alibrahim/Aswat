@@ -35,7 +35,7 @@ exports.addVote = asyncHandler(async (req, res, next) => {
     const checkVPN = await ipCheck(ip);
 
     if (!checkVPN) {
-      return next(new ErrorResponse(429, 'فشل التحقق من  ip address', true));
+      return next(new ErrorResponse(' IP Address  فشل التحقق من الـ', 429, true));
     }
 
   }
