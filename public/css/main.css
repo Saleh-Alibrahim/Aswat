@@ -291,7 +291,7 @@ font-weight: 500;
 
 
  /* In case of tablet users: */
- @media screen and (min-width: 701px) and (max-width: 1050px) {
+ @media screen  (max-width: 991px) {
   .jumbotron{
 		margin:auto;
   }
