@@ -55,7 +55,7 @@ body{
   height: 50px;
 }
 .footer-bottom p {
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .padding{
@@ -207,7 +207,7 @@ body{
 #vote-count{
   text-align: center;
   font-family: 'Tajawal', sans-serif;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 500;
 }
 #poll-link{

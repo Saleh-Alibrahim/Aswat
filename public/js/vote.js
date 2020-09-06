@@ -3,7 +3,7 @@ const selectAlert = document.getElementById('select-alert');
 const voteAlert = document.getElementById('vote-alert');
 const pollID = document.getElementById('pollID').value;
 const pollList = JSON.parse(localStorage.getItem('pollList')) || [];
-let token, clintIpAddress;
+let recaptchaToken, clintIpAddress;
 
 // Submit the vote
 document.getElementById('vote-button').addEventListener('click', async function (e) {
@@ -27,7 +27,7 @@ document.getElementById('vote-button').addEventListener('click', async function 
         headers: {
             'content-type': 'application/json',
         },
-        body: JSON.stringify({ optionID, token, ip: clintIpAddress, pollID })
+        body: JSON.stringify({ optionID, token: recaptchaToken, ip: clintIpAddress, pollID })
     });
     try {
         const data = await response.json();
@@ -114,9 +114,9 @@ function runRecaptcha() {
         // Do request for recaptcha token
         // Response is promise with passed token
         grecaptcha.execute('6LdVI6kZAAAAACbNTvMKBFb7-eThFAU0VbsTLQI-', { action: 'validate_captcha' })
-            .then(function (recaptchaToken) {
+            .then(function (token) {
                 // Add token value to form
-                token = recaptchaToken;
+                recaptchaToken = token;
             });
     });
 }

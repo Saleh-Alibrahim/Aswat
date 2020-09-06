@@ -5,7 +5,7 @@ $('#copy-button').click(function (e) {
         const pollUrl = window.location.href;
 
         // Remove the /r from the end
-        const url = pollUrl.slice(0, res_url.length - 2);
+        const url = pollUrl.slice(0, pollUrl.length - 2);
 
         // Source https://stackoverflow.com/questions/49618618/copy-current-url-to-clipboard
         const dummy = document.createElement('input');
