@@ -7,29 +7,46 @@
         <a class="navbar-brand logo-image" href="/"><img src="images/logo.svg" alt="alternative"></a> -->
 
     <!-- Mobile Menu Toggle Button -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar"
+        aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-awesome fas fa-bars"></span>
         <span class="navbar-toggler-awesome fas fa-times"></span>
     </button>
     <!-- end of mobile menu toggle button -->
 
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav ml-auto">
+    <div class="collapse navbar-collapse" id="main-navbar">
+        <ul id="main-nav-display" class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a id="login" class="nav-link " href="/auth/login">تسجيل الدخول</a>
+                <a id="login" class="nav-link" href="/auth/login">تسجيل الدخول</a>
             </li>
             <li class="nav-item">
-                <a id="logout" class="nav-link " href="/auth/logout">تسجيل الخروج</a>
+                <a id="logout" class="nav-link" href="/auth/logout">تسجيل الخروج</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="/create">إنشاء التصويت</a>
+                <a class="nav-link" href="/create">إنشاء التصويت</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="/#contact">تواصل معنا</a>
+                <a class="nav-link" href="/#contact">تواصل معنا</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="/">الرئيسية</a>
+                <a class="nav-link" href="/">الرئيسية</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto" id="mobile-nav-display">
+            <li class="nav-item">
+                <a class="nav-link order-md-1 float-right" href="/">الرئيسية</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link order-sm-2 float-right" href="/#contact">تواصل معنا</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link order-sm-3 float-right" href="/create">إنشاء التصويت</a>
+            </li>
+            <li class="nav-item">
+                <a id="login" class="nav-link order-sm-5 float-right" href="/auth/login">تسجيل الدخول</a>
+            </li>
+            <li class="nav-item">
+                <a id="logout" class="nav-link order-sm-4 float-right" href="/auth/logout">تسجيل الخروج</a>
             </li>
         </ul>
     </div>

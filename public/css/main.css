@@ -27,6 +27,8 @@ body{
   margin: auto;
 }
 
+
+
 .body-background{
   height: 100%;
   display: flex;
@@ -277,6 +279,9 @@ font-weight: 500;
  */
 
 
+#mobile-nav-display{
+  display: none !important;
+}
 
 
 
@@ -290,12 +295,24 @@ font-weight: 500;
   .jumbotron{
 		margin:auto;
   }
+#main-nav-display{
+  display: none;
+}
+#mobile-nav-display{
+  display: flex !important;
+}
 }
   /* In case of mobile users: */
 @media screen and (max-width: 700px){
 
   .jumbotron{
 		margin:auto;
+  }
+  #main-nav-display{
+    display: none;
+  }
+  #mobile-nav-display{
+    display: flex !important;
   }
 }
 
