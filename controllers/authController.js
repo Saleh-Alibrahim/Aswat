@@ -28,7 +28,14 @@ exports.registerUsers = asyncHandler(async (req, res, next) => {
   const { username, email, password } = req.body;
 
   if (!username || !email || !password) {
-    return next(new ErrorResponse(`الرجاء ادخال الاسم و الايميل و كلمة المرور`, 400, true));
+    return next(new ErrorResponse(`الرجاء ادخال الاسم و الايميل و كلمة المرور`, 400));
+  }
+
+  // Check if the email exists
+  const userCheck = await User.findOne({ email: email });
+
+  if (userCheck) {
+    return next(new ErrorResponse(`هذا المستخدم موجود من قبل`, 400));
   }
 
   // Create user in the db
@@ -51,7 +58,7 @@ exports.loginUsers = asyncHandler(async (req, res, next) => {
 
   // Check  if email entered and password
   if (!email || !password) {
-    return next(new ErrorResponse(`الرجاء ادخال الايميل و كلمة المرور`, 400, true));
+    return next(new ErrorResponse(`الرجاء ادخال الايميل و كلمة المرور`, 400));
   }
 
   // Bring the user from the DB
@@ -62,7 +69,7 @@ exports.loginUsers = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`خطأ في الايميل او كلمة المرور`, 400));
   }
 
-  // Check the password
+  // Check the password if match or not
   const isMatch = await user.checkPassword(password);
 
   if (!isMatch) {

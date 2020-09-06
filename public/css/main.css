@@ -38,21 +38,6 @@ body{
   background: url('/images/header-background.jpg') center / cover no-repeat, white;
 }
 
-
-
-
-.jumbotron{
-  padding-top: 1rem;
-  padding-bottom: 10rem; 
-  background-color: white;
-  -webkit-box-shadow: 0px 0px 16px 6px rgba(204,202,204,1);
-  -moz-box-shadow: 0px 0px 16px 6px rgba(204,202,204,1);
-  box-shadow: 0px 0px 16px 6px rgba(204,202,204,1);
-  height: 100%;
-  width: 100%;
-  border-color: #00bfd8;
-  border-style: solid;
-} 
 .footer-bottom {
   height: 50px;
 }
@@ -143,7 +128,7 @@ body{
 .form-check label{
   font-family: 'Tajawal';
   margin-right: 30px;
-  font:550 1.4rem "Tajawal", sans-serif;
+  font:550 1rem "Tajawal", sans-serif;
   color:#393939;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -151,6 +136,7 @@ body{
   -moz-user-select: none; 
   -ms-user-select: none; 
   user-select: none;
+  cursor: pointer;
 }
 .res-name{
   font:550 1.4rem "Tajawal", sans-serif;
@@ -159,8 +145,6 @@ body{
 
 .form-check input{
   font-family: 'Tajawal';
-  margin-top: 10px;
-  
 }
 
 .hidden{
@@ -194,6 +178,7 @@ body{
 }
 #voteCount{
   float: left;
+  margin-left:5px;
 }
 #poll-option h4{
   display: inline;
@@ -250,16 +235,6 @@ hr{
 font-weight: 500;
 }
 
-.question label{
-  font:500 1.1rem "Tajawal", sans-serif;
-  color:#393939;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none; 
-  -moz-user-select: none; 
-  -ms-user-select: none; 
-  user-select: none;
-}
 
 
 
@@ -291,9 +266,10 @@ font-weight: 500;
 
 
  /* In case of tablet users: */
- @media screen  (max-width: 991px) {
-  .jumbotron{
-		margin:auto;
+ @media screen and (max-width: 991px) {
+
+  .poll-btn{
+    padding: 1rem 1.5rem 1rem 1.5rem;
   }
 #main-nav-display{
   display: none;
@@ -304,9 +280,8 @@ font-weight: 500;
 }
   /* In case of mobile users: */
 @media screen and (max-width: 700px){
-
-  .jumbotron{
-		margin:auto;
+  .poll-btn{
+    padding: 1rem 1.5rem 1rem 1.5rem;
   }
   #main-nav-display{
     display: none;

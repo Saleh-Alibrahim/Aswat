@@ -449,10 +449,6 @@ select::-ms-expand {
 	font: 400 0.75rem/1.25rem "Tajawal", sans-serif;
 }
 
-input[type='checkbox'] {
-	vertical-align: -15%;
-	margin-right: 0.375rem;
-}
 
 /* IE10+ hack to raise checkbox field position compared to the rest of the browsers */
 @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {  
