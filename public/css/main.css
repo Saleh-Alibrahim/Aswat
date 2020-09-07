@@ -27,6 +27,10 @@ body{
   margin: auto;
 }
 
+.card-container{
+  padding: 0 8%;
+}
+
 
 
 .body-background{
@@ -78,6 +82,8 @@ body{
     font-size: 1.3rem;
     background-color: white;
 }
+
+
 
 .form-control:focus {
   background-color: white;
@@ -237,7 +243,9 @@ font-weight: 500;
 }
 
 
-
+.options{
+  font-size:1.2rem !important;
+}
 
 
 
@@ -268,7 +276,9 @@ font-weight: 500;
 
  /* In case of tablet users: */
  @media screen and (max-width: 991px) {
-
+  .card-container{
+    padding:0;
+  }
   .poll-btn{
     padding: 1rem 1.5rem 1rem 1.5rem;
   }
@@ -281,6 +291,9 @@ font-weight: 500;
 }
   /* In case of mobile users: */
 @media screen and (max-width: 700px){
+  .card-container{
+    padding:10px;
+  }
   .poll-btn{
     padding: 1rem 1.5rem 1rem 1.5rem;
   }

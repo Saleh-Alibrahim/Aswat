@@ -21,7 +21,7 @@ exports.cacheIP = async (ip, pollID) => {
       // Check if the key exists 
       if (!data) {
         // Add the uniqueID to the cache and let the user continue
-        client.setex(uniqueID, 10800, true);
+        client.setex(uniqueID, 172800, true);
 
         resolve(true);
       }

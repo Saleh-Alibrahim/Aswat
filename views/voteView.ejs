@@ -6,7 +6,7 @@
     <%- include('partials/preloader') %>
 
     <%- include('partials/navbar') %>
-    <div class="container">
+    <div class="container card-container">
         <div class="card shadow-lg o-hidden border-0 my-5 text-center">
             <div class="card-body">
                 <div class="row">
@@ -16,7 +16,8 @@
                                 <h3 id="vote-title"><%= poll.title %></h3>
                                 <hr>
                                 <% poll.options.forEach( function(option) { %>
-                                <label for="<%= option.id %>" class="form-check-label"><%= option.name %></label>
+                                <label for="<%= option.id %>"
+                                    class="form-check-label options"><%= option.name %></label>
                                 <input type="radio" class="form-check-input custom-radio" name="option"
                                     id="<%= option.id %>">
                                 <hr>
