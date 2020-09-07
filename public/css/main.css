@@ -145,6 +145,7 @@ body{
 
 .form-check input{
   font-family: 'Tajawal';
+  cursor: pointer;
 }
 
 .hidden{

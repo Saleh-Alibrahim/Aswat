@@ -11,6 +11,7 @@ const ipCheck = require('../utils/ipInfo');
 exports.addVote = asyncHandler(async (req, res, next) => {
 
   const { pollID, optionID, token, ip } = req.body;
+  console.log("exports.addVote -> req.body", req.body)
 
   // No poll and options sent with the request
   if (!pollID || !optionID || !token || !ip) {
