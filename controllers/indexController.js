@@ -3,7 +3,7 @@ const PollModel = require('../models/PollModel');
 const AddressModel = require('../models/AddressModel');
 const asyncHandler = require('../middleware/async');
 const sendEmail = require('../utils/sendEmail');
-
+const getIpAddress = require('../utils/ipAddress');
 
 
 // @desc    Render the main page
@@ -44,21 +44,14 @@ exports.getPoll = asyncHandler(async (req, res, next) => {
 // @access    Public
 exports.getPollResult = asyncHandler(async (req, res, next) => {
 
-  var ip;
-  if (req.headers['x-forwarded-for']) {
-    ip = req.headers['x-forwarded-for'].split(",")[0];
-  } else if (req.connection && req.connection.remoteAddress) {
-    ip = req.connection.remoteAddress;
-  } else {
-    ip = req.ip;
-  } console.log("client IP is *********************" + ip);
-
   const id = req.params.id;
 
   // No id with sent with the request
   if (!id) {
     return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
   }
+
+
 
   // Get the poll from the id
   const poll = await PollModel.findById(id);
@@ -70,11 +63,13 @@ exports.getPollResult = asyncHandler(async (req, res, next) => {
 
   // Check if you need to vote before access the result
   if (poll.hidden) {
-    if (await !AddressModel.getAddress()) {
 
+    // Get the clint ip address
+    const ip = await getIpAddress(req);
+    if (! await AddressModel.getAddress(ip, id)) {
+      return res.redirect('/' + id);
     }
   }
-
 
   // Sort the options so the most votes become the first result to appear
   poll.options.sort((a, b) => b.voteCount - a.voteCount);

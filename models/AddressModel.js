@@ -13,7 +13,7 @@ const AddressSchema = new mongoose.Schema({
 // Static method Add address to the database
 AddressSchema.statics.addAddress = async function (ip, pollID) {
   try {
-    const address = await AddressSchema.findById(pollID);
+    const address = await this.model('Address').findById(pollID);
 
     // Check if the  ip address of the user already in the list if not add him
     if (!address.ipAddress.includes(ip)) {
@@ -33,7 +33,8 @@ AddressSchema.statics.addAddress = async function (ip, pollID) {
 // Static method Add address to the database
 AddressSchema.statics.getAddress = async function (ip, pollID) {
   try {
-    const address = await AddressSchema.findById(pollID);
+
+    const address = await this.model('Address').findById(pollID);
 
     // Check if the ip address of the user already in the list 
     if (address.ipAddress.includes(ip)) {

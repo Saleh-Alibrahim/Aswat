@@ -5,17 +5,23 @@ const checkRecaptcha = require('../utils/recaptcha');
 const asyncHandler = require('../middleware/async');
 const cache = require('../config/cashe.js');
 const ipCheck = require('../utils/ipInfo');
+const getIpAddress = require('../utils/ipAddress');
 
 // @desc    Add new vote to given id
 // @route   POST /vote
 // @access    Public
 exports.addVote = asyncHandler(async (req, res, next) => {
 
-  const { pollID, optionID, token, ip } = req.body;
+  const { pollID, optionID, token } = req.body;
+
+  // Get the clint ip address
+  const ip = await getIpAddress(req);
+
+  console.log("exports.addVote -> ip", ip);
 
   // No poll and options sent with the request
   if (!pollID || !optionID || !token || !ip) {
-    return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات , ملاحظة: في الغالب المشكلة من المتصفح الخاص فيك', 400, true));
+    return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400, true));
   }
 
   // Call google API to check the token 
@@ -39,13 +45,13 @@ exports.addVote = asyncHandler(async (req, res, next) => {
 
   // Check if the client request one ip address peer vote
   if (poll.ipAddress) {
-    if (await !AddressModel.addAddress(ip, pollID)) {
+    if (!await AddressModel.addAddress(ip, pollID)) {
       return next(new ErrorResponse('لا يمكن التصويت اكثر من مرة', 429, true));
     }
   }
 
   // Check if the client request only users who voted can see the result
-  if (poll.hidden) {
+  if (poll.hidden && !poll.ipAddress) {
     await AddressModel.addAddress(ip, pollID);
   }
 

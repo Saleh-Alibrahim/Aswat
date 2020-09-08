@@ -47,3 +47,35 @@ exports.authorize = (...roles) => {
         next();
     };
 };
+
+// Add User if exists
+exports.getLoginUser = asycHandler(async (req, res, next) => {
+    let token;
+
+    // Check if it JWT
+    if
+        (
+        req.headers.authorization &&
+        req.headers.authorization.startsWith('Bearer')
+    ) {
+        token = req.headers.authorization.split(' ')[1];
+    }
+    else if (req.cookies.token) {
+        token = req.cookies.token;
+    }
+
+    if (!token) {
+        return next();
+    }
+    try {
+        // Verify token
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        // Get the user with ID
+        req.user = await User.findById(decoded.id);
+        next();
+    }
+    catch (err) {
+        return next(new ErrorResponse('route غير مصرح الدخول الى هذا الـ ', 401));
+    }
+
+});

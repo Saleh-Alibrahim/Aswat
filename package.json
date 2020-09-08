@@ -1,6 +1,6 @@
 {
-  "name": "strawpoll",
-  "version": "0.0.0",
+  "name": "Aswat",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node app.js",

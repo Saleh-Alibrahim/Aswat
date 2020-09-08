@@ -3,7 +3,7 @@ const selectAlert = document.getElementById('select-alert');
 const voteAlert = document.getElementById('vote-alert');
 const pollID = document.getElementById('pollID').value;
 const pollList = JSON.parse(localStorage.getItem('pollList')) || [];
-let recaptchaToken, clintIpAddress;
+let recaptchaToken;
 
 // Submit the vote
 document.getElementById('vote-button').addEventListener('click', async function (e) {
@@ -27,7 +27,7 @@ document.getElementById('vote-button').addEventListener('click', async function 
         headers: {
             'content-type': 'application/json',
         },
-        body: JSON.stringify({ optionID, token: recaptchaToken, ip: clintIpAddress, pollID })
+        body: JSON.stringify({ optionID, token: recaptchaToken, pollID })
     });
     try {
         const data = await response.json();
@@ -69,7 +69,7 @@ document.getElementById('vote-button').addEventListener('click', async function 
 });
 
 // Make the result button goes to the result page
-document.getElementById('result-button').addEventListener('click', (e) => {
+$('result-button').click((e) => {
     window.location.href = window.location.href + `/r`;
 });
 
@@ -126,16 +126,6 @@ runRecaptcha();
 // Refresh the recaptcha token  every 1 minutes
 setInterval(runRecaptcha, 60000);
 
-// Get the clint ip Address
-async function getUserIpAddress() {
-    // Get the ip address of the user
-    const res = await fetch('https://api.ipify.org?format=json');
-    const data = await res.json();
-    clintIpAddress = data.ip;
-}
-
-// Call to get the user ip address
-getUserIpAddress();
 
 
 

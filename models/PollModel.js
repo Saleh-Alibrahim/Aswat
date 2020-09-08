@@ -5,7 +5,12 @@ shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWX
 const PollSchema = new mongoose.Schema({
   _id: {
     type: String,
-    default: shortid.generate
+    default: shortid.generate,
+    required: true
+  },
+  pollToken: {
+    type: String,
+    required: true
   },
   title: {
     type: String,
@@ -69,9 +74,8 @@ PollSchema.methods.addPercentageToOptions = async function () {
 };
 
 // Create Address collections when poll created 
-PollSchema.post('save', async function (next) {
+PollSchema.post('save', async function () {
   await this.model('Address').create({ _id: this._id });
-  next();
 });
 
 // Cascade delete IpAddress when a poll is deleted

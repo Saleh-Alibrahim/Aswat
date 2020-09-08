@@ -74,5 +74,11 @@ UserSchema.methods.getResetPasswordToken = function () {
 
 };
 
+// Generate and poll token
+UserSchema.statics.generatePollToken = function () {
+    // Generate token
+    return crypto.randomBytes(20).toString('hex');
+};
+
 module.exports = mongoose.model('User', UserSchema);
 
