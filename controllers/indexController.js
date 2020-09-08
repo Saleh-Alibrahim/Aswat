@@ -1,7 +1,9 @@
 const ErrorResponse = require('../utils/errorResponse');
 const PollModel = require('../models/PollModel');
+const AddressModel = require('../models/AddressModel');
 const asyncHandler = require('../middleware/async');
 const sendEmail = require('../utils/sendEmail');
+
 
 
 // @desc    Render the main page
@@ -22,7 +24,7 @@ exports.getPoll = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
   }
 
-  // Check if the user request create of pass id of poll
+  // Check if the user request create poll options
   if (id == 'create') {
     return next();
   }
@@ -42,6 +44,15 @@ exports.getPoll = asyncHandler(async (req, res, next) => {
 // @access    Public
 exports.getPollResult = asyncHandler(async (req, res, next) => {
 
+  var ip;
+  if (req.headers['x-forwarded-for']) {
+    ip = req.headers['x-forwarded-for'].split(",")[0];
+  } else if (req.connection && req.connection.remoteAddress) {
+    ip = req.connection.remoteAddress;
+  } else {
+    ip = req.ip;
+  } console.log("client IP is *********************" + ip);
+
   const id = req.params.id;
 
   // No id with sent with the request
@@ -57,21 +68,22 @@ exports.getPollResult = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('الصفحة المطلوبة غير موجودة', 404));
   }
 
+  // Check if you need to vote before access the result
+  if (poll.hidden) {
+    if (await !AddressModel.getAddress()) {
+
+    }
+  }
+
 
   // Sort the options so the most votes become the first result to appear
   poll.options.sort((a, b) => b.voteCount - a.voteCount);
 
-  const totalVote = poll.total;
+  // Get the total vote
+  await poll.getTotalVotes();
 
   // Add percentage to each option
-  poll.options.forEach(option => {
-    option.percentage = (option.voteCount / totalVote) * 100;
-    if (!isFinite(option.percentage)) {
-      option.percentage = 0;
-    } else if (!Number.isInteger(option.percentage)) {
-      option.percentage = option.percentage.toFixed(2);
-    }
-  });
+  await poll.addPercentageToOptions();
 
   // Add the poll url to the result to make it easy to copy it
   const pollUrl = req.protocol + '://' + req.hostname + '/' + id;

@@ -1,5 +1,6 @@
 const ErrorResponse = require('../utils/errorResponse');
 const PollModel = require('../models/PollModel');
+const AddressModel = require('../models/AddressModel');
 const checkRecaptcha = require('../utils/recaptcha');
 const asyncHandler = require('../middleware/async');
 const cache = require('../config/cashe.js');
@@ -18,48 +19,40 @@ exports.addVote = asyncHandler(async (req, res, next) => {
   }
 
   // Call google API to check the token 
-  const recaptcha = await checkRecaptcha(token);
-
-  // Check if the recaptcha failed
-  if (!recaptcha) {
+  if (!await checkRecaptcha(token)) {
     return next(new ErrorResponse('فشل التحقق من ان المستخدم هو انسان', 429, true));
   }
 
-  // Get the main poll
-  const mainPoll = await PollModel.findById(pollID);
+  // Get main poll
+  const poll = await PollModel.findById(pollID);
 
-  // Check if the client request if the users used vpn
-  if (mainPoll.vpn) {
+  if (!poll) {
+    return next(new ErrorResponse('لا يوجد تصويت بهاذه المواصفات', 400, true));
+  }
 
-    // Call ip info and check if the users using vpn
-    const checkVPN = await ipCheck(ip);
-
-    if (!checkVPN) {
+  // Call ip info and check if the users using vpn or has bad ip
+  if (poll.vpn) {
+    if (!await ipCheck(ip)) {
       return next(new ErrorResponse(' IP Address  فشل التحقق من الـ', 429, true));
     }
-
   }
 
   // Check if the client request one ip address peer vote
-  if (mainPoll.ipAddress) {
-
-    const ipExist = await cache.cacheIP(ip, pollID);
-
-    if (!ipExist) {
+  if (poll.ipAddress) {
+    if (await !AddressModel.addAddress(ip, pollID)) {
       return next(new ErrorResponse('لا يمكن التصويت اكثر من مرة', 429, true));
     }
+  }
 
+  // Check if the client request only users who voted can see the result
+  if (poll.hidden) {
+    await AddressModel.addAddress(ip, pollID);
   }
 
 
   // Find the option by the id and increment it by 1 
-  await PollModel.findOneAndUpdate({ "options._id": optionID }, { $inc: { 'options.$.voteCount': 1 } });
-
-  // Get the  poll after the update
-  const pollAfterUpdate = await PollModel.findById(pollID);
-
-  // Update the total values
-  await pollAfterUpdate.updateTotalVotes();
+  await PollModel.findOneAndUpdate({ "options._id": optionID },
+    { $inc: { 'options.$.voteCount': 1 } });
 
   res.json({
     success: true,

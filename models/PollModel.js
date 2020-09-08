@@ -30,14 +30,15 @@ const PollSchema = new mongoose.Schema({
     required: false,
     default: false
   },
+  hidden: {
+    type: Boolean,
+    required: false,
+    default: false
+  },
   vpn: {
     type: Boolean,
     required: false,
     default: true
-  },
-  total: {
-    type: Number,
-    default: 0
   },
   createdAt: {
     type: Date,
@@ -46,21 +47,46 @@ const PollSchema = new mongoose.Schema({
 });
 
 
-// Update the total vote in the database
-PollSchema.methods.updateTotalVotes = async function () {
+// Get the total vote number 
+PollSchema.methods.getTotalVotes = async function () {
   let totalVote = 0;
   this.options.forEach(option => {
     totalVote += option.voteCount;
   });
   this.total = totalVote;
-  await this.save();
 };
 
+// Add percentage to each option
+PollSchema.methods.addPercentageToOptions = async function () {
+  this.options.forEach(option => {
+    option.percentage = (option.voteCount / this.total) * 100;
+    if (!isFinite(option.percentage)) {
+      option.percentage = 0;
+    } else if (!Number.isInteger(option.percentage)) {
+      option.percentage = option.percentage.toFixed(2);
+    }
+  });
+};
 
-// Cascade delete questions when a poll is deleted
-PollSchema.pre('remove', async function (next) {
-  await this.model('Questions').deleteMany({ _id: this._id });
+// Create Address collections when poll created 
+PollSchema.post('save', async function (next) {
+  await this.model('Address').create({ _id: this._id });
   next();
+});
+
+// Cascade delete IpAddress when a poll is deleted
+PollSchema.pre('remove', async function (next) {
+  await this.model('Address').deleteMany({ _id: this._id });
+  next();
+});
+
+
+// Reverse populate with virtuals
+PollSchema.virtual('addresses', {
+  ref: 'Address',
+  localField: '_id',
+  foreignField: '_id',
+  justOne: false
 });
 
 

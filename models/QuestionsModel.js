@@ -6,14 +6,7 @@ const QuestionsSchema = new mongoose.Schema({
     ref: 'PollItems._id',
     required: true
   },
-  answer: {
-    type: String,
-    required: true
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  }
+  answers: [String]
 });
 
 module.exports = mongoose.model('Questions', QuestionsSchema);

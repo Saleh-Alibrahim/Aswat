@@ -1,23 +1,51 @@
 const mongoose = require('mongoose');
-const ms = require('ms');
 
 const AddressSchema = new mongoose.Schema({
-  ipAddress: {
-    type: String,
-    required: true
-  },
-  pollID: {
+  _id: {
     type: String,
     ref: 'Polls._id',
     required: true
   },
-  expireAt: {
-    type: Date,
-    default: Date.now,
-    index: { expires: '1m' },
-  },
+  ipAddress: [String]
 
 });
 
+// Static method Add address to the database
+AddressSchema.statics.addAddress = async function (ip, pollID) {
+  try {
+    const address = await AddressSchema.findById(pollID);
+
+    // Check if the  ip address of the user already in the list if not add him
+    if (!address.ipAddress.includes(ip)) {
+      address.ipAddress.push(ip);
+      await address.save();
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  catch (err) {
+    console.log(err);
+  }
+};
+
+// Static method Add address to the database
+AddressSchema.statics.getAddress = async function (ip, pollID) {
+  try {
+    const address = await AddressSchema.findById(pollID);
+
+    // Check if the ip address of the user already in the list 
+    if (address.ipAddress.includes(ip)) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  catch (err) {
+    console.log(err);
+  }
+};
 
 module.exports = mongoose.model('Address', AddressSchema);

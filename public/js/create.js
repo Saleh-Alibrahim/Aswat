@@ -5,7 +5,7 @@ const optionsList = document.getElementById('options-list');
 const lastOption = document.querySelector('.last-input');
 const ip = document.getElementById('ip');
 const vpn = document.getElementById('vpn');
-
+const hidden = document.getElementById('hidden');
 
 // Make the last option add new option
 lastOption.addEventListener('keydown', addNewOption);
@@ -46,7 +46,10 @@ $('#submit-poll').click(async function (e) {
         headers: {
             'content-type': 'application/json',
         },
-        body: JSON.stringify({ title, options: JSON.stringify(optionsValues), ip: ip.checked, vpn: vpn.checked })
+        body: JSON.stringify({
+            title, options: JSON.stringify(optionsValues),
+            ip: ip.checked, vpn: vpn.checked, hidden: hidden.checked
+        })
     });
     try {
         const data = await response.json();

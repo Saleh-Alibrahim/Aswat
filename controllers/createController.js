@@ -15,7 +15,7 @@ exports.getCreateView = asyncHandler(async (req, res, next) => {
 // @access    Public
 exports.createPoll = asyncHandler(async (req, res, next) => {
 
-  const { title, options, ip, vpn } = req.body;
+  const { title, options, ip, vpn, hidden } = req.body;
 
   // Check if the title and at least  2 options is sent with the request
   if (!title.trim() || options.length < 2) {
@@ -23,7 +23,10 @@ exports.createPoll = asyncHandler(async (req, res, next) => {
   }
 
   // Create new Poll
-  const newPoll = await PollModel.create({ title, options: JSON.parse(options), ipAddress: ip, vpn: !vpn });
+  const newPoll = await PollModel.create({
+    title, options: JSON.parse(options),
+    ipAddress: ip, vpn: !vpn, hidden
+  });
 
 
   res.json({
