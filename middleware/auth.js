@@ -27,7 +27,7 @@ exports.protect = asycHandler(async (req, res, next) => {
     }
     try {
         // Verify token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET, { ignoreExpiration: true });
 
         // Get the user with ID
         req.user = await User.findById(decoded.id);
@@ -69,13 +69,14 @@ exports.getLoginUser = asycHandler(async (req, res, next) => {
     }
     try {
         // Verify token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET, { ignoreExpiration: true });
         // Get the user with ID
         req.user = await User.findById(decoded.id);
         next();
     }
     catch (err) {
-        return next(new ErrorResponse('route غير مصرح الدخول الى هذا الـ ', 401));
+        console.log('err', err);
+        return next(new ErrorResponse(' غير مصرح الدخول الى هنا :( ', 401));
     }
 
 });

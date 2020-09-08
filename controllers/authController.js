@@ -28,14 +28,14 @@ exports.registerUsers = asyncHandler(async (req, res, next) => {
   const { username, email, password } = req.body;
 
   if (!username || !email || !password) {
-    return next(new ErrorResponse(`الرجاء ادخال الاسم و الايميل و كلمة المرور`, 400));
+    return next(new ErrorResponse(`الرجاء ادخال الاسم و الايميل و كلمة المرور`, 400, true));
   }
 
   // Check if the email exists
   const userCheck = await User.findOne({ email: email });
 
   if (userCheck) {
-    return next(new ErrorResponse(`هذا المستخدم موجود من قبل`, 400));
+    return next(new ErrorResponse(`هذا المستخدم موجود من قبل`, 400, true));
   }
 
   // Create user in the db
@@ -45,7 +45,7 @@ exports.registerUsers = asyncHandler(async (req, res, next) => {
     password,
   });
 
-  sendTokenResponse(user, 200, res, true);
+  sendTokenResponse(user, 200, res, 'تم التسجيل بنجاح !', true);
 
 });
 
@@ -54,7 +54,7 @@ exports.registerUsers = asyncHandler(async (req, res, next) => {
 // @access    Public
 exports.loginUsers = asyncHandler(async (req, res, next) => {
 
-  const { email, password } = req.body;
+  const { email, password, rememberMe } = req.body;
 
   // Check  if email entered and password
   if (!email || !password) {
@@ -66,17 +66,17 @@ exports.loginUsers = asyncHandler(async (req, res, next) => {
 
   // Check if the user exist
   if (!user) {
-    return next(new ErrorResponse(`خطأ في الايميل او كلمة المرور`, 400));
+    return next(new ErrorResponse(`خطأ في الايميل او كلمة المرور`, 400, true));
   }
 
   // Check the password if match or not
   const isMatch = await user.checkPassword(password);
 
   if (!isMatch) {
-    return next(new ErrorResponse(`خطأ في الايميل او كلمة المرور`, 400));
+    return next(new ErrorResponse(`خطأ في الايميل او كلمة المرور`, 400, true));
   }
 
-  sendTokenResponse(user, 200, res);
+  sendTokenResponse(user, 200, res, 'مرحبا بعودتك', rememberMe);
 
 });
 
@@ -227,7 +227,7 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
 // @route     GET /auth/logout
 // @access    Private
 exports.logout = asyncHandler(async (req, res, next) => {
-  res.clearCookie('token');
+  await res.clearCookie('token');
   res.redirect('/');
 
 });
@@ -236,13 +236,17 @@ exports.logout = asyncHandler(async (req, res, next) => {
 
 
 
-const sendTokenResponse = (user, statusCode, res) => {
+const sendTokenResponse = (user, statusCode, res, msg, rememberMe) => {
+
+  const duration = rememberMe ? 2592000 : 86400;
+  console.log("sendTokenResponse -> duration", duration)
+  console.log("sendTokenResponse -> rememberMe", rememberMe)
 
   // Create token
-  const token = user.getSignedJwtToken();
+  const token = user.getSignedJwtToken(duration);
 
   const options = {
-    expires: new Date(Date.now() + process.env.JWT_EXPIRE_REMEMBER_ME * 24 * 60 * 60 * 1000),
+    expires: new Date(Date.now() + duration * 1000),
     httpOnly: false
   };
 
@@ -253,7 +257,10 @@ const sendTokenResponse = (user, statusCode, res) => {
   res
     .status(statusCode)
     .cookie('token', token, options)
-    .redirect('/');
+    .json({
+      success: true,
+      message: msg
+    });
 };
 
 

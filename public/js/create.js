@@ -1,6 +1,4 @@
 // ::: GLobal Variables :::
-const titleAlert = document.getElementById('title-alert');
-const optionsAlert = document.getElementById('options-alert');
 const optionsList = document.getElementById('options-list');
 const lastOption = document.querySelector('.last-input');
 const ip = document.getElementById('ip');

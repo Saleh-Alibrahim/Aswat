@@ -1,6 +1,4 @@
 // ::: GLobal Variables :::
-const selectAlert = document.getElementById('select-alert');
-const voteAlert = document.getElementById('vote-alert');
 const pollID = document.getElementById('pollID').value;
 const pollList = JSON.parse(localStorage.getItem('pollList')) || [];
 let recaptchaToken;
