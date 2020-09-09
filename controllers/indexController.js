@@ -66,7 +66,8 @@ exports.getPollResult = asyncHandler(async (req, res, next) => {
 
     // Get the clint ip address
     const ip = await getIpAddress(req);
-    if (! await AddressModel.getAddress(ip, id)) {
+
+    if (! await AddressModel.getAddress(ip, id) || !loginIsAdmin(req, poll) || !cookieIsAdmin(req, poll)) {
       return res.redirect('/' + id);
     }
   }
@@ -112,7 +113,33 @@ exports.sendEmail = ('/mail', asyncHandler(async (req, res, next) => {
   catch (e) {
     return next(new ErrorResponse(500, 'مشكلة في السيرفر', true));
   }
-}
-));
+}));
 
+const loginIsAdmin = async (req, poll) => {
+  // Check if user is logged in
+  if (!req.user) {
+    if (req.user._id == poll.adminID) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  return false;
+};
+
+
+const cookieIsAdmin = async (req, poll) => {
+  // Check if user is logged in
+  if (!req.cookies.adminList) {
+    const adminList = req.cookies.adminList;
+    if (adminList.includes(poll.adminID)) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  return false;
+};
 

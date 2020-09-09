@@ -8,7 +8,7 @@ const PollSchema = new mongoose.Schema({
     default: shortid.generate,
     required: true
   },
-  pollToken: {
+  adminID: {
     type: String,
     required: true
   },

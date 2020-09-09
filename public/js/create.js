@@ -56,9 +56,8 @@ $('#submit-poll').click(async function (e) {
             Swal.fire({
                 icon: 'success',
                 title: data.message,
-                confirmButtonText: 'الإنتقال الى النتائج',
                 timer: 1500,
-                confirmButtonColor: '#00bfd8',
+                showConfirmButton: false,
                 onAfterClose: () => {
                     location.href = `${location.origin}/${data.id}/r`;
                 }

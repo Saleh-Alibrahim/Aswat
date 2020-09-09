@@ -24,16 +24,17 @@ exports.createPoll = asyncHandler(async (req, res, next) => {
   }
 
   // Check if login user created the poll of guest if guest generate token
-  const pollToken = req.user ? req.user._id : await UserModel.generatePollToken();
+  const adminID = req.user ? req.user._id : await UserModel.generateAdminToken();
 
   // Create new Poll
   const newPoll = await PollModel.create({
     title, options: JSON.parse(options),
-    ipAddress: ip, vpn: !vpn, hidden, pollToken
+    ipAddress: ip, vpn: !vpn, hidden, adminID
   });
 
-  await getPollToken(req, res, pollToken);
-
+  if (!req.user) {
+    await getPollToken(req, res, adminID);
+  }
 
   res.json({
     success: true,
@@ -44,13 +45,13 @@ exports.createPoll = asyncHandler(async (req, res, next) => {
 
 });
 
-const getPollToken = async (req, res, pollToken) => {
+const getPollToken = async (req, res, adminID) => {
 
   // Get the admin token
-  const tokenList = req.cookies.pollToken || [];
+  const tokenList = req.cookies.adminList || [];
 
   const options = {
-    expires: new Date(Date.now() + '30d' * 24 * 60 * 60 * 1000),
+    expires: new Date(Date.now() + 2592000 * 24 * 60 * 60 * 1000),
     httpOnly: false
   };
 
@@ -58,11 +59,11 @@ const getPollToken = async (req, res, pollToken) => {
     options.secure = true;
   }
 
-  tokenList.push(pollToken);
+  tokenList.push(adminID);
 
-  res.cookie('pollToken', tokenList, options);
+  res.cookie('adminList', tokenList, options);
 
-}
+};
 
 
 

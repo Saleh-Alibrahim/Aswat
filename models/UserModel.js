@@ -2,9 +2,16 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const shortid = require('shortid');
+shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
 
 
 const UserSchema = new mongoose.Schema({
+    _id: {
+        type: String,
+        default: shortid.generate,
+        required: true
+    },
     username: {
         type: String,
         required: true
@@ -74,10 +81,10 @@ UserSchema.methods.getResetPasswordToken = function () {
 
 };
 
-// Generate and poll token
-UserSchema.statics.generatePollToken = function () {
+// Generate Admin token
+UserSchema.statics.generateAdminToken = function () {
     // Generate token
-    return crypto.randomBytes(20).toString('hex');
+    return crypto.randomBytes(10).toString();
 };
 
 module.exports = mongoose.model('User', UserSchema);

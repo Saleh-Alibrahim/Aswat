@@ -23,7 +23,7 @@ exports.protect = asycHandler(async (req, res, next) => {
 
     // Make sure token exists
     if (!token) {
-        return next(new ErrorResponse('route غير مصرح الدخول الى هذا الـ ', 401));
+        return res.redirect('/auth/login');
     }
     try {
         // Verify token
@@ -34,7 +34,7 @@ exports.protect = asycHandler(async (req, res, next) => {
         next();
     }
     catch (err) {
-        return next(new ErrorResponse('route غير مصرح الدخول الى هذا الـ ', 401));
+        return next(new ErrorResponse(' غير مصرح الدخول الى هنا :( ', 401));
     }
 
 });
@@ -76,7 +76,7 @@ exports.getLoginUser = asycHandler(async (req, res, next) => {
     }
     catch (err) {
         console.log('err', err);
-        return next(new ErrorResponse(' غير مصرح الدخول الى هنا :( ', 401));
+        return next(new ErrorResponse(' غير مصرح الدخول الى هنا :( ', 401, true));
     }
 
 });

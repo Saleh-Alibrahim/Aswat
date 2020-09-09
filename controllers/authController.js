@@ -45,7 +45,7 @@ exports.registerUsers = asyncHandler(async (req, res, next) => {
     password,
   });
 
-  sendTokenResponse(user, 200, res, 'تم التسجيل بنجاح !', true);
+  sendTokenResponse(user, 200, res, 'تم التسجيل بنجاح', true);
 
 });
 
@@ -239,8 +239,6 @@ exports.logout = asyncHandler(async (req, res, next) => {
 const sendTokenResponse = (user, statusCode, res, msg, rememberMe) => {
 
   const duration = rememberMe ? 2592000 : 86400;
-  console.log("sendTokenResponse -> duration", duration)
-  console.log("sendTokenResponse -> rememberMe", rememberMe)
 
   // Create token
   const token = user.getSignedJwtToken(duration);

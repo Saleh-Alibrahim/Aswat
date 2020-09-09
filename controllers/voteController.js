@@ -17,8 +17,6 @@ exports.addVote = asyncHandler(async (req, res, next) => {
   // Get the clint ip address
   const ip = await getIpAddress(req);
 
-  console.log("exports.addVote -> ip", ip);
-
   // No poll and options sent with the request
   if (!pollID || !optionID || !token || !ip) {
     return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400, true));
