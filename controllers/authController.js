@@ -4,7 +4,7 @@ const asyncHandler = require('../middleware/async');
 const sendEmail = require('../utils/sendEmail');
 const User = require('../models/UserModel');
 const ErrorResponse = require('../utils/errorResponse');
-
+const ms = require('ms');
 
 // @desc      Render the register page
 // @route     GET /auth/register
@@ -238,13 +238,13 @@ exports.logout = asyncHandler(async (req, res, next) => {
 
 const sendTokenResponse = (user, statusCode, res, msg, rememberMe) => {
 
-  const duration = rememberMe ? 2592000 : 86400;
+  const duration = rememberMe ? ms('30d') : ms('1d');
 
   // Create token
   const token = user.getSignedJwtToken(duration);
 
   const options = {
-    expires: new Date(Date.now() + duration * 1000),
+    expires: new Date(Date.now() + duration),
     httpOnly: false
   };
 

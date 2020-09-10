@@ -27,14 +27,14 @@ exports.protect = asycHandler(async (req, res, next) => {
     }
     try {
         // Verify token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET, { ignoreExpiration: true });
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY, { ignoreExpiration: true });
 
         // Get the user with ID
         req.user = await User.findById(decoded.id);
         next();
     }
     catch (err) {
-        return next(new ErrorResponse(' غير مصرح الدخول الى هنا :( ', 401));
+        return next(new ErrorResponse(' غير مصرح لك الدخول الى هنا ☹', 401));
     }
 
 });
@@ -69,7 +69,7 @@ exports.getLoginUser = asycHandler(async (req, res, next) => {
     }
     try {
         // Verify token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET, { ignoreExpiration: true });
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY, { ignoreExpiration: true });
         // Get the user with ID
         req.user = await User.findById(decoded.id);
         next();

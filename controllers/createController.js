@@ -2,7 +2,7 @@ const ErrorResponse = require('../utils/errorResponse');
 const PollModel = require('../models/PollModel');
 const UserModel = require('../models/UserModel');
 const asyncHandler = require('../middleware/async');
-
+const ms = require('ms');
 
 // @desc    Render the create poll page
 // @route   GET /create
@@ -23,17 +23,18 @@ exports.createPoll = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400, true));
   }
 
-  // Check if login user created the poll of guest if guest generate token
+  // Check if login user created this poll or a guest
+  // If guest generate token
   const adminID = req.user ? req.user._id : await UserModel.generateAdminToken();
 
   // Create new Poll
   const newPoll = await PollModel.create({
-    title, options: JSON.parse(options),
-    ipAddress: ip, vpn: !vpn, hidden, adminID
+    adminID, title, options: JSON.parse(options),
+    ipAddress: ip, vpn: !vpn, hidden
   });
 
   if (!req.user) {
-    await getPollToken(req, res, adminID);
+    await getAdminToken(req, res, adminID);
   }
 
   res.json({
@@ -45,13 +46,13 @@ exports.createPoll = asyncHandler(async (req, res, next) => {
 
 });
 
-const getPollToken = async (req, res, adminID) => {
+const getAdminToken = async (req, res, adminID) => {
 
   // Get the admin token
   const tokenList = req.cookies.adminList || [];
 
   const options = {
-    expires: new Date(Date.now() + 2592000 * 24 * 60 * 60 * 1000),
+    expires: new Date(Date.now() + ms('30d')),
     httpOnly: false
   };
 
@@ -59,7 +60,7 @@ const getPollToken = async (req, res, adminID) => {
     options.secure = true;
   }
 
-  tokenList.push(adminID);
+  tokenList.push('-' + adminID);
 
   res.cookie('adminList', tokenList, options);
 

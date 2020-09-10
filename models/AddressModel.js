@@ -6,11 +6,6 @@ const AddressSchema = new mongoose.Schema({
     ref: 'Polls._id',
     required: true
   },
-  adminID: {
-    type: String,
-    ref: 'Polls._id',
-    required: true
-  },
   ipAddress: [String]
 
 });

@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const shortid = require('shortid');
+const ms = require('ms');
 shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
 
 
@@ -55,7 +56,7 @@ UserSchema.pre('save', async function (next) {
 
 // Sign JWT and return
 UserSchema.methods.getSignedJwtToken = function (duration) {
-    return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
         expiresIn: duration
     });
 };
@@ -75,16 +76,16 @@ UserSchema.methods.getResetPasswordToken = function () {
     this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
 
     // Set expire
-    this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
+    this.resetPasswordExpire = Date.now() + ms('10m');
 
     return resetToken;
 
 };
 
 // Generate Admin token
-UserSchema.statics.generateAdminToken = function () {
+UserSchema.statics.generateAdminToken = async function () {
     // Generate token
-    return crypto.randomBytes(10).toString();
+    return shortid.generate();
 };
 
 module.exports = mongoose.model('User', UserSchema);

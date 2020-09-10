@@ -68,7 +68,13 @@ exports.getPollResult = asyncHandler(async (req, res, next) => {
     const ip = await getIpAddress(req);
 
     // Check if the user in the database
-    if (! await AddressModel.getAddress(ip, id) || !loginIsAdmin(req, poll) || !cookieIsAdmin(req, poll)) {
+    // Or it's the poll admin
+    // If both false redirect to the vote page
+    if (
+      await !AddressModel.getAddress(ip, id) ||
+      await !loginIsAdmin(req, poll) ||
+      await !cookieIsAdmin(req, poll)
+    ) {
       return res.redirect('/' + id);
     }
   }
@@ -117,22 +123,23 @@ exports.sendEmail = ('/mail', asyncHandler(async (req, res, next) => {
 }));
 
 const loginIsAdmin = async (req, poll) => {
+
   // Check if user is logged in
-  if (!req.user) {
+  if (req.user) {
     if (req.user._id == poll.adminID) {
       return true;
     }
     else {
       return false;
     }
-  }
-  return false;
+  } else
+    return false;
 };
 
 
 const cookieIsAdmin = async (req, poll) => {
   // Check if user is logged in
-  if (!req.cookies.adminList) {
+  if (req.cookies.adminList) {
     const adminList = req.cookies.adminList;
     if (adminList.includes(poll.adminID)) {
       return true;
@@ -141,6 +148,7 @@ const cookieIsAdmin = async (req, poll) => {
       return false;
     }
   }
-  return false;
+  else
+    return false;
 };
 
