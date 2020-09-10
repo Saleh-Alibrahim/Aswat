@@ -55,7 +55,7 @@ $('#submit-poll').click(async function (e) {
         if (data.status == 200) {
             Swal.fire({
                 icon: 'success',
-                title: data.message,
+                text: data.message,
                 timer: 1500,
                 showConfirmButton: false,
                 onAfterClose: () => {
@@ -122,7 +122,7 @@ function checkTitle() {
     if (!title.trim()) {
         Swal.fire({
             icon: 'error',
-            title: 'الرجاء ادخال العنوان',
+            text: 'الرجاء ادخال العنوان',
             confirmButtonText: 'المحاولة مرة اخرى',
             confirmButtonColor: '#00bfd8',
         });
@@ -138,7 +138,7 @@ function checkOptions(options) {
     if (options.length < 2) {
         Swal.fire({
             icon: 'error',
-            title: ' الرجاء ادخال على الاقل عنصرين لتصويت',
+            text: ' الرجاء ادخال على الاقل عنصرين لتصويت',
             confirmButtonText: 'المحاولة مرة اخرى',
             confirmButtonColor: '#00bfd8',
         });

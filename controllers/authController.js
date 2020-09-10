@@ -58,7 +58,7 @@ exports.loginUsers = asyncHandler(async (req, res, next) => {
 
   // Check  if email entered and password
   if (!email || !password) {
-    return next(new ErrorResponse(`الرجاء ادخال الايميل و كلمة المرور`, 400));
+    return next(new ErrorResponse(`الرجاء ادخال الايميل و كلمة المرور`, 400, true));
   }
 
   // Bring the user from the DB

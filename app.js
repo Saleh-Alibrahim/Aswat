@@ -14,7 +14,7 @@ const rateLimit = require('express-rate-limit');
 const errorHandler = require('./middleware/error');
 const ErrorResponse = require('./utils/errorResponse');
 const sslRedirect = require('heroku-ssl-redirect');
-const cache = require('./config/cashe.js');
+const cache = require('./config/cashe');
 
 // Load config
 dotenv.config({ path: './config/config.env' });
@@ -61,6 +61,7 @@ app.use(mongoSanitize());
 
 // Cookie parser
 app.use(cookieParser());
+
 
 
 // Add libraries to the development environment

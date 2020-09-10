@@ -9,6 +9,16 @@ $('#login-form').submit(async function (e) {
     const password = document.getElementById('password').value;
     let rememberMe = document.getElementById('formCheck').checked;
 
+    if (!email || !password) {
+        Swal.fire({
+            icon: 'error',
+            text: 'الرجاء ادخال الايميل وكلمة المرور',
+            confirmButtonText: 'المحاولة مرة اخرى',
+            confirmButtonColor: '#00bfd8',
+        });
+        return;
+    }
+
     const response = await fetch('/auth/login', {
         method: 'POST',
         headers: {
@@ -28,6 +38,17 @@ $('#register-form').submit(async function (e) {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     const password2 = document.getElementById('password2').value;
+
+
+    if (!email || !password || !username || !password2) {
+        Swal.fire({
+            icon: 'error',
+            text: 'الرجاء ادخال الاسم والايميل وكلمة المرور',
+            confirmButtonText: 'المحاولة مرة اخرى',
+            confirmButtonColor: '#00bfd8',
+        });
+        return;
+    }
 
     if (!checkPasswordsMatch(password, password2)) {
         return;
@@ -53,7 +74,7 @@ const checkResponse = async function (response) {
         if (data.success) {
             Swal.fire({
                 icon: 'success',
-                title: data.message,
+                text: data.message,
                 showConfirmButton: false,
                 timer: 1500,
                 onAfterClose: () => {
@@ -63,7 +84,7 @@ const checkResponse = async function (response) {
         } else {
             Swal.fire({
                 icon: 'error',
-                title: data.message,
+                text: data.message,
                 confirmButtonText: 'المحاولة مرة اخرى',
                 confirmButtonColor: '#00bfd8',
             });

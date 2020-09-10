@@ -67,6 +67,7 @@ exports.getPollResult = asyncHandler(async (req, res, next) => {
     // Get the clint ip address
     const ip = await getIpAddress(req);
 
+    // Check if the user in the database
     if (! await AddressModel.getAddress(ip, id) || !loginIsAdmin(req, poll) || !cookieIsAdmin(req, poll)) {
       return res.redirect('/' + id);
     }
