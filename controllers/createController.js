@@ -60,7 +60,7 @@ const getAdminToken = async (req, res, adminID) => {
     options.secure = true;
   }
 
-  tokenList.push('-' + adminID);
+  tokenList.push(adminID);
 
   res.cookie('adminList', tokenList, options);
 

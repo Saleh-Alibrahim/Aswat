@@ -1,12 +1,17 @@
 const express = require('express');
 const ms = require('ms');
-const bouncer = require("express-bouncer")(ms('1m'), ms('10m'), 4);
+const bouncer = require("express-bouncer")(ms('2m'), ms('10m'), 5);
 const ErrorResponse = require('../utils/errorResponse');
+const convert = require('convert-seconds');
+
 
 
 // In case we want to supply our own error (optional)
 bouncer.blocked = function (req, res, next, remaining) {
-    return next(new ErrorResponse(`لقد قمت بـ العديد من المحاولات الرجاء الانتظار ${(remaining / 1000).toFixed(0)} ثانية قبل اعادة المحاولة `, 403, true));
+    const time = convert((remaining / 1000).toFixed(0));
+    const seconds = time.seconds;
+    const minutes = time.minutes;
+    return next(new ErrorResponse(`لقد قمت بـ العديد من المحاولات الرجاء الانتظار  ${minutes}:${seconds} د قبل إعادة المحاولة `, 403, true));
 };
 
 const { getRegisterView,

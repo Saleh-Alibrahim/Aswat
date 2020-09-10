@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+
 const checkRecaptcha = async (token) => {
 
     // Check if the user is human or not by calling the recaptcha api from google
