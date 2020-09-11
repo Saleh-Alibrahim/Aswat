@@ -174,9 +174,8 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
     await sendEmail({
       email: user.email,
       subject: 'إستعادة كلمة المرور',
-      message,
-      forgot: true
-    });
+      message
+    }, true);
 
     res.status(200).json(
       {
