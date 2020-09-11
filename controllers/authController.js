@@ -25,11 +25,12 @@ exports.getLoginView = asyncHandler(async (req, res, next) => {
 // @access    Public
 exports.registerUsers = asyncHandler(async (req, res, next) => {
 
-  const { username, email, password } = req.body;
+  let { username, email, password } = req.body;
 
   if (!username || !email || !password) {
     return next(new ErrorResponse(`الرجاء ادخال الاسم و الايميل و كلمة المرور`, 400, true));
   }
+  email = email.lowerCase();
 
   // Check if the email exists
   const userCheck = await User.findOne({ email: email });
@@ -54,12 +55,13 @@ exports.registerUsers = asyncHandler(async (req, res, next) => {
 // @access    Public
 exports.loginUsers = asyncHandler(async (req, res, next) => {
 
-  const { email, password, rememberMe } = req.body;
+  let { email, password, rememberMe } = req.body;
 
   // Check  if email entered and password
   if (!email || !password) {
     return next(new ErrorResponse(`الرجاء ادخال الايميل و كلمة المرور`, 400, true));
   }
+  email = email.lowerCase();
 
   // Bring the user from the DB
   const user = await User.findOne({ email }).select('+password');
@@ -148,7 +150,9 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
 // @access    Public
 exports.forgotPassword = asyncHandler(async (req, res, next) => {
 
-  const user = await User.findOne({ email: req.body.email });
+  const email = req.body.email.lowerCase();
+
+  const user = await User.findOne({ email: email });
 
   if (!user) {
     return next(new ErrorResponse(`لا يوجد حساب بهذا الايميل `, 400, true));
