@@ -30,7 +30,7 @@ exports.registerUsers = asyncHandler(async (req, res, next) => {
   if (!username || !email || !password) {
     return next(new ErrorResponse(`الرجاء ادخال الاسم و الايميل و كلمة المرور`, 400, true));
   }
-  email = email.lowerCase();
+  email = email.toLowerCase();
 
   // Check if the email exists
   const userCheck = await User.findOne({ email: email });
@@ -61,7 +61,7 @@ exports.loginUsers = asyncHandler(async (req, res, next) => {
   if (!email || !password) {
     return next(new ErrorResponse(`الرجاء ادخال الايميل و كلمة المرور`, 400, true));
   }
-  email = email.lowerCase();
+  email = email.toLowerCase();
 
   // Bring the user from the DB
   const user = await User.findOne({ email }).select('+password');
@@ -150,7 +150,7 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
 // @access    Public
 exports.forgotPassword = asyncHandler(async (req, res, next) => {
 
-  const email = req.body.email.lowerCase();
+  const email = req.body.email.toLowerCase();
 
   const user = await User.findOne({ email: email });
 
