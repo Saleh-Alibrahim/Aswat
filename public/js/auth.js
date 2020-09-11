@@ -103,6 +103,40 @@ const checkResponse = async function (response) {
 
 };
 
+
+// Submit the vote
+$('#forgot-form').submit(async function (e) {
+
+    e.preventDefault();
+
+
+    const email = document.getElementById('forgot-email').value;
+
+
+    if (!email) {
+        Swal.fire({
+            icon: 'error',
+            text: 'الرجاء إدخال الإيميل',
+            confirmButtonText: 'المحاولة مرة اخرى',
+            confirmButtonColor: '#00bfd8',
+        });
+        return;
+    }
+    $('#btn-msg').css('display', 'none');
+    $('#btn-spinner').css('display', 'inline-block');
+    const response = await fetch('/auth/forgotpassword', {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({ email })
+    });
+
+    $('#btn-msg').css('display', 'inline-block');
+    $('#btn-spinner').css('display', 'none');
+    await checkResponse(response);
+});
+
 // Check passwords match
 function checkPasswordsMatch(password1, password2) {
     if (password1 !== password2) {

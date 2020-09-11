@@ -201,7 +201,9 @@ body{
   margin: 30px 0;
   font-size: 2rem;
 }
-
+#btn-spinner{
+  display: none;
+}
 #vote-count{
   text-align: center;
   font-family: 'Tajawal', sans-serif;

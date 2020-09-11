@@ -42,7 +42,7 @@ router.get('/logout', protect, logout);
 router.put('/updatedetails', protect, updateDetails);
 router.put('/updatepassword', protect, updatePassword);
 router.get('/forgotpassword', getforgotPasswordView);
-router.post('/forgotpassword', forgotPassword);
+router.post('/forgotpassword', bouncer.block, forgotPassword);
 router.put('/resetpassword/:resettoken', resetPassword);
 
 

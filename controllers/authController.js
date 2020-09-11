@@ -151,7 +151,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
-    return next(new ErrorResponse(` ${req.body.email}لا يوجد حساب بهذا الايميل `, 400));
+    return next(new ErrorResponse(`لا يوجد حساب بهذا الايميل `, 400, true));
   }
 
   // Get reset token
@@ -163,20 +163,20 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
   // Create reset url
   const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/auth/resetpassword/${resetToken}`;
 
-  const message = `You are receiving this email because you (or someone else) has requested the reset of a password. Please make a PUT request to: \n\n ${resetUrl}`;
+  const message = `أنت تتلقى هذا البريد الإلكتروني لأنك (أو أي شخص آخر) طلبت إعادة تعيين كلمة المرور \n\n  ${resetUrl} يمكنك إستعادة حسابك من هنا`;
 
   try {
 
     await sendEmail({
       email: user.email,
-      subject: 'Password reset token',
+      subject: 'إستعادة كلمة المرور',
       message
     });
 
     res.status(200).json(
       {
         success: true,
-        data: 'Email sent'
+        message: 'تم إرسال الايميل بـ نجاح'
       });
 
 
@@ -186,7 +186,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
     await user.save({ validateBeforeSave: false });
-    return next(new ErrorResponse('Email could not be sent', 500));
+    return next(new ErrorResponse('لا يمكن إرسال الإيميل في الوقت الحالي', 500, true));
   }
 
 
