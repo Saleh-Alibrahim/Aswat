@@ -151,7 +151,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
-    return next(new ErrorResponse(`There is no user with this email ${req.body.email}`, 400));
+    return next(new ErrorResponse(` ${req.body.email}لا يوجد حساب بهذا الايميل `, 400));
   }
 
   // Get reset token
@@ -230,6 +230,14 @@ exports.logout = asyncHandler(async (req, res, next) => {
   await res.clearCookie('token');
   res.redirect('/');
 
+});
+
+
+// @desc      Render the forget password page
+// @route     GET /auth/forgotpassword
+// @access    Public
+exports.getforgotPasswordView = asyncHandler(async (req, res, next) => {
+  res.render('forgotPasswordView');
 });
 
 

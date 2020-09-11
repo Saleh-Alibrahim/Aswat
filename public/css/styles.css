@@ -139,11 +139,10 @@ a.white {
 }
 
 #btn-user-submit {
-	border-color: #00bfd8 !important;
-	opacity: 0.90;
-	font-size: 1rem;
 	background-color: #00bfd8;
+	border: 2px solid #00bfd8 !important ;
 	font-weight: 700;
+	font-size: 1rem;
 }
 
 form.user .form-control-user {
@@ -159,8 +158,8 @@ form.user .form-control-user {
 }
 
 #btn-user-submit:hover {
-	opacity: 1;
-	filter: brightness(100%);
+	background-color: transparent;
+    color: #00bfd8 !important;
 }
 
 .btn.btn-primary.btn-block.text-white.btn-google.btn-user {
@@ -185,10 +184,9 @@ display: none;
 }
 #login-btn {
 	background-color: #00bfd8;
-	border-color: #00bfd8 !important;
+	border: 2px solid #00bfd8 ;
 	font-weight: 700;
 	font-size: 1rem;
-	opacity: 0.90;
 }
 
 
@@ -200,7 +198,8 @@ display: none;
 }
 
 #login-btn:hover {
-	opacity: 1;
+	background-color: transparent;
+    color: #00bfd8 !important;
 }
 
 #google-btn {

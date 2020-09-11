@@ -31,6 +31,10 @@ body{
   padding: 0 8%;
 }
 
+.forgot-container{
+  padding:  0 10%;
+}
+
 
 
 .body-background{
@@ -175,8 +179,8 @@ body{
   visibility:hidden;
   opacity:0;
 }
-.error-view{
- width: 500px;
+.width-view{
+ width: 500px !important;
 }
 
 #toast.show{
