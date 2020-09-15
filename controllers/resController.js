@@ -38,7 +38,7 @@ exports.getPollResult = asyncHandler(async (req, res, next) => {
 
     // Check if the user in the database
     // Or it's the poll admin
-    // If both false redirect to the vote page
+    // If either false redirect to the vote page
     if (
       await !AddressModel.getAddress(ip, id) ||
       await !loginIsAdmin(req, poll) ||
