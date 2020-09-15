@@ -36,6 +36,8 @@ AddressSchema.statics.getAddress = async function (ip, pollID) {
 
     const address = await this.model('Address').findById(pollID);
 
+    console.log("address.ipAddress", address.ipAddress);
+    console.log('address.ipAddress.includes(ip)', address.ipAddress.includes(ip))
     // Check if the ip address of the user already in the list 
     if (address.ipAddress.includes(ip)) {
       return true;
