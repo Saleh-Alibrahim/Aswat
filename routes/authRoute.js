@@ -33,16 +33,26 @@ bouncer.blocked = function (req, res, next, remaining) {
 
 
 
-router.get('/register', getRegisterView);
-router.get('/login', getLoginView);
-router.post('/register', registerUsers);
-router.post('/login', bouncer.block, loginUsers);
+router.route('/register')
+    .get(getRegisterView)
+    .post(registerUsers);
+
+router.route('/login')
+    .get(getLoginView)
+    .post(bouncer.block, loginUsers);
+
 router.get('/me', protect, getMe);
+
 router.get('/logout', protect, logout);
+
 router.put('/updatedetails', protect, updateDetails);
+
 router.put('/updatepassword', protect, updatePassword);
+
 router.get('/forgotpassword', getforgotPasswordView);
+
 router.post('/forgotpassword', bouncer.block, forgotPassword);
+
 router.put('/resetpassword/:resettoken', resetPassword);
 
 

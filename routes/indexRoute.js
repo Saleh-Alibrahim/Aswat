@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // Controllers 
-const { getMainView, getPoll, sendEmail } = require('../controllers/indexController');
+const { getMainView, getPoll, sendEmail } = require('../controllers/mainController');
 const { getPollResult } = require('../controllers/resController');
 const { getCreateView, createPoll } = require('../controllers/createController');
 const { addVote } = require('../controllers/voteController');

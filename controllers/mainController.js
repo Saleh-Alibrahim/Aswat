@@ -42,17 +42,12 @@ exports.sendEmail = ('/mail', asyncHandler(async (req, res, next) => {
   const { email, subject, message } = req.body;
 
   try {
-    await sendEmail({
-      email,
-      subject,
-      message
-    });
+    await sendEmail({ email, subject, message });
 
-    res.status(200).json(
-      {
-        success: true,
-        data: 'Email sent'
-      });
+    res.status(200).json({
+      success: true,
+      data: 'Email sent'
+    });
   }
   catch (e) {
     return next(new ErrorResponse(500, 'مشكلة في السيرفر', true));
