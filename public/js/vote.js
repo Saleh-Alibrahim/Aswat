@@ -36,8 +36,8 @@ document.getElementById('vote-button').addEventListener('click', async function 
             Swal.fire({
                 icon: 'success',
                 text: data.message,
-                confirmButtonText: 'الإنتقال الى النتائج',
                 timer: 1500,
+                showConfirmButton: false,
                 confirmButtonColor: '#00bfd8',
                 onAfterClose: () => {
                     location.href = `${location.origin}/${pollID}/r`;
@@ -46,7 +46,6 @@ document.getElementById('vote-button').addEventListener('click', async function 
         } else {
             Swal.fire({
                 icon: 'error',
-                title: data.status,
                 text: data.message,
                 confirmButtonText: 'المحاولة مرة اخرى',
                 confirmButtonColor: '#00bfd8',

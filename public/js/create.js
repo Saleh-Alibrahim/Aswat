@@ -65,7 +65,6 @@ $('#submit-poll').click(async function (e) {
         } else {
             Swal.fire({
                 icon: 'error',
-                title: data.status,
                 text: data.message,
                 confirmButtonText: 'المحاولة مرة اخرى',
                 confirmButtonColor: '#00bfd8',

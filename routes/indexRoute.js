@@ -1,20 +1,32 @@
 const express = require('express');
 const router = express.Router();
 
-const { getMainView, getPoll,
-  getPollResult, sendEmail } = require('../controllers/indexController');
+// Controllers 
+const { getMainView, getPoll, sendEmail } = require('../controllers/indexController');
+const { getPollResult } = require('../controllers/resController');
+const { getCreateView, createPoll } = require('../controllers/createController');
+const { addVote } = require('../controllers/voteController');
 
+// Middleware
 const { getLoginUser } = require('../middleware/auth');
 
 
 router.get('/', getMainView);
 
+router.route('/create')
+  .get(getCreateView)
+  .post(getLoginUser, createPoll);
 
 router.get('/:id', getPoll);
 
 router.get('/:id/r', getLoginUser, getPollResult);
 
 router.post('/mail', sendEmail);
+
+
+
+router.post('/vote', addVote);
+
 
 
 

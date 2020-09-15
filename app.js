@@ -94,9 +94,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // Routes
 app.use('/', require('./routes/indexRoute'));
-app.use('/create', require('./routes/createRoute'));
 app.use('/auth', require('./routes/authRoute'));
-app.use('/vote', require('./routes/voteRoute'));
 
 // Catch 404 to route does not exist and forward it to the error handler
 app.use((req, res, next) => {
