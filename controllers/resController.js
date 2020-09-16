@@ -39,31 +39,33 @@ exports.getPollResult = asyncHandler(async (req, res, next) => {
     // Check if the user in the database
     // Or it's the poll admin
     // If either false redirect to the vote page
-    if (
-      await !AddressModel.getAddress(ip, id) ||
-      await !loginIsAdmin(req, poll) ||
-      await !cookieIsAdmin(req, poll)
-    ) {
+
+    checkUser:
+    if (!await AddressModel.getAddress(ip, id)) {
+      if (await cookieIsAdmin(req, poll) || await loginIsAdmin(req, poll)) { break checkUser; }
       return res.redirect('/' + id);
     }
+
+
+    // Sort the options so the most votes become the first result to appear
+    poll.options.sort((a, b) => b.voteCount - a.voteCount);
+
+    // Get the total vote
+    await poll.getTotalVotes();
+
+    // Add percentage to each option
+    await poll.addPercentageToOptions();
+
+    // Add the poll url to the result to make it easy to copy it
+    const pollUrl = req.protocol + '://' + req.hostname + '/' + id;
+
+    poll.pollUrl = pollUrl;
+
+    res.render('resView', { poll });
   }
-
-  // Sort the options so the most votes become the first result to appear
-  poll.options.sort((a, b) => b.voteCount - a.voteCount);
-
-  // Get the total vote
-  await poll.getTotalVotes();
-
-  // Add percentage to each option
-  await poll.addPercentageToOptions();
-
-  // Add the poll url to the result to make it easy to copy it
-  const pollUrl = req.protocol + '://' + req.hostname + '/' + id;
-
-  poll.pollUrl = pollUrl;
-
-  res.render('resView', { poll });
 });
+
+
 
 
 const loginIsAdmin = async (req, poll) => {
