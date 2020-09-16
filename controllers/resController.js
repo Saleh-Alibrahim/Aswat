@@ -21,7 +21,6 @@ exports.getPollResult = asyncHandler(async (req, res, next) => {
   }
 
 
-
   // Get the poll from the id
   const poll = await PollModel.findById(id);
 
@@ -40,10 +39,9 @@ exports.getPollResult = asyncHandler(async (req, res, next) => {
     // Or it's the poll admin
     // If either false redirect to the vote page
 
-    checkUser:
     if (!await AddressModel.getAddress(ip, id)) {
-      if (await cookieIsAdmin(req, poll) || await loginIsAdmin(req, poll)) { break checkUser; }
-      return res.redirect('/' + id);
+      if (!await cookieIsAdmin(req, poll) &&
+        !await loginIsAdmin(req, poll)) { return res.redirect('/' + id); }
     }
 
 
@@ -84,6 +82,7 @@ const loginIsAdmin = async (req, poll) => {
 
 
 const cookieIsAdmin = async (req, poll) => {
+
   // Check if user is logged in
   if (req.cookies.adminList) {
     const adminList = req.cookies.adminList;

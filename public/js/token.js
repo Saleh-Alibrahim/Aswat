@@ -34,9 +34,15 @@ function deleteCookie(name) {
         createCookie(name, "", -1,);
 }
 function getCookie(name) {
-    const regexp = new RegExp("(?:^" + name + "|;\s*" + name + ")=(.*?)(?:;|$)", "g");
-    const result = regexp.exec(document.cookie);
-    return (result === null) ? null : result[1];
+    let result;
+    const cookieList = document.cookie.split(';');
+    cookieList.forEach(cookie => {
+        if (cookie.trim().startsWith(name)) {
+            result = cookie;
+            return;
+        }
+    });
+    return (result == null) ? null : result;
 }
 function parseJwt(token) {
     const base64Url = token.split('.')[1];
@@ -44,7 +50,6 @@ function parseJwt(token) {
     const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
-
     return JSON.parse(jsonPayload);
 }
 
