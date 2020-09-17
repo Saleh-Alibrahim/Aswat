@@ -12,6 +12,7 @@ $('#login-form').submit(async function (e) {
     if (!email || !password) {
         Swal.fire({
             icon: 'error',
+            heightAuto: false,
             text: 'الرجاء ادخال الايميل وكلمة المرور',
             confirmButtonText: 'المحاولة مرة اخرى',
             confirmButtonColor: '#00bfd8',
@@ -42,6 +43,7 @@ $('#register-form').submit(async function (e) {
 
     if (!email || !password || !username || !password2) {
         Swal.fire({
+            heightAuto: false,
             icon: 'error',
             text: 'الرجاء ادخال الاسم والايميل وكلمة المرور',
             confirmButtonText: 'المحاولة مرة اخرى',
@@ -79,6 +81,7 @@ $('#forgot-form').submit(async function (e) {
     if (!email) {
         Swal.fire({
             icon: 'error',
+            heightAuto: false,
             text: 'الرجاء إدخال الإيميل',
             confirmButtonText: 'المحاولة مرة اخرى',
             confirmButtonColor: '#00bfd8',
@@ -113,6 +116,7 @@ $('#reset-form').submit(async function (e) {
     if (!password || !password2) {
         Swal.fire({
             icon: 'error',
+            heightAuto: false,
             text: 'الرجاء ادخال كلمة المرور',
             confirmButtonText: 'المحاولة مرة اخرى',
             confirmButtonColor: '#00bfd8',
@@ -149,6 +153,7 @@ const checkResponse = async function (response) {
             Swal.fire({
                 icon: 'success',
                 text: data.message,
+                heightAuto: false,
                 showConfirmButton: false,
                 timer: 1500,
                 onAfterClose: () => {
@@ -159,6 +164,7 @@ const checkResponse = async function (response) {
             Swal.fire({
                 icon: 'error',
                 text: data.message,
+                heightAuto: false,
                 confirmButtonText: 'المحاولة مرة اخرى',
                 confirmButtonColor: '#00bfd8',
             });
@@ -170,6 +176,7 @@ const checkResponse = async function (response) {
             icon: 'error',
             title: 500,
             text: 'مشكلة في السيرفر',
+            heightAuto: false,
             confirmButtonText: 'المحاولة مرة اخرى',
             confirmButtonColor: '#00bfd8',
         });
@@ -182,7 +189,9 @@ function checkPasswordsMatch(password1, password2) {
     if (password1 !== password2) {
         Swal.fire({
             icon: 'error',
+
             text: 'كلمة المرور غير متطابقة',
+            heightAuto: false,
             confirmButtonText: 'المحاولة مرة اخرى',
             confirmButtonColor: '#00bfd8',
         });

@@ -37,6 +37,7 @@ document.getElementById('vote-button').addEventListener('click', async function 
                 icon: 'success',
                 text: data.message,
                 timer: 1500,
+                heightAuto: false,
                 showConfirmButton: false,
                 confirmButtonColor: '#00bfd8',
                 onAfterClose: () => {
@@ -47,6 +48,7 @@ document.getElementById('vote-button').addEventListener('click', async function 
             Swal.fire({
                 icon: 'error',
                 text: data.message,
+                heightAuto: false,
                 confirmButtonText: 'المحاولة مرة اخرى',
                 confirmButtonColor: '#00bfd8',
             });
@@ -57,6 +59,7 @@ document.getElementById('vote-button').addEventListener('click', async function 
         Swal.fire({
             icon: 'error',
             title: 500,
+            heightAuto: false,
             text: 'مشكلة في السيرفر',
             confirmButtonText: 'المحاولة مرة اخرى',
             confirmButtonColor: '#00bfd8',
@@ -75,6 +78,7 @@ function checkSelectedAlert(selectedOption) {
     if (!selectedOption) {
         Swal.fire({
             icon: 'error',
+            heightAuto: false,
             text: 'الرجاء اختيار صوت لتصويت',
             confirmButtonText: 'المحاولة مرة اخرى',
             confirmButtonColor: '#00bfd8',
@@ -91,6 +95,7 @@ function checkLocalStorage() {
         Swal.fire({
             icon: 'error',
             text: 'لا يمكن التصويت اكثر من مرة',
+            heightAuto: false,
             confirmButtonText: 'المحاولة مرة اخرى',
             confirmButtonColor: '#00bfd8',
         });

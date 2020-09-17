@@ -4,6 +4,7 @@ const lastOption = document.querySelector('.last-input');
 const ip = document.getElementById('ip');
 const vpn = document.getElementById('vpn');
 const hidden = document.getElementById('hidden');
+let question = '';
 
 // Make the last option add new option
 lastOption.addEventListener('keydown', addNewOption);
@@ -15,9 +16,14 @@ $('[data-toggle="tooltip"]').tooltip();
 // Get the main form
 $('#submit-poll').click(async function (e) {
 
-    // Check if title is added
-    if (!checkTitle()) { return; }
+    // Get the title of the poll
+    const title = document.getElementById('title').value;
 
+    // Check if there is title of not
+    if (!title.trim()) {
+        errorAlert('الرجاء ادخال العنوان');
+        return;
+    }
 
     // Get all the options
     const options = document.querySelectorAll('.option');
@@ -32,12 +38,10 @@ $('#submit-poll').click(async function (e) {
     });
 
     // Check  if at least 2 options is added
-    if (!checkOptions(optionsValues)) {
+    if (optionsValues.length < 2) {
+        errorAlert('الرجاء ادخال على الاقل عنصرين لتصويت');
         return;
     }
-
-    // Get the title from the field
-    const title = document.getElementById('title').value;
 
     const response = await fetch('/create', {
         method: 'POST',
@@ -46,7 +50,8 @@ $('#submit-poll').click(async function (e) {
         },
         body: JSON.stringify({
             title, options: JSON.stringify(optionsValues),
-            ip: ip.checked, vpn: vpn.checked, hidden: hidden.checked
+            ip: ip.checked, vpn: vpn.checked, hidden: hidden.checked,
+            question: question.trim()
         })
     });
     try {
@@ -57,33 +62,48 @@ $('#submit-poll').click(async function (e) {
                 icon: 'success',
                 text: data.message,
                 timer: 1500,
+                heightAuto: false,
                 showConfirmButton: false,
                 onAfterClose: () => {
                     location.href = `${location.origin}/${data.id}/r`;
                 }
             });
         } else {
-            Swal.fire({
-                icon: 'error',
-                text: data.message,
-                confirmButtonText: 'المحاولة مرة اخرى',
-                confirmButtonColor: '#00bfd8',
-            });
+
+            errorAlert(data.message);
         }
     }
     catch (error) {
         console.log(error);
-        Swal.fire({
-            icon: 'error',
-            title: 500,
-            text: 'مشكلة في السيرفر',
-            confirmButtonText: 'المحاولة مرة اخرى',
-            confirmButtonColor: '#00bfd8',
-        });
+        errorAlert('مشكلة في السيرفر', 500);
     }
 });
 
 
+$('#question').change(function (e) {
+    if (e.target.checked) {
+        Swal.fire({
+            icon: 'question',
+            text: 'إضافة سؤال عند التصويت',
+            input: 'text',
+            customClass: {
+                input: 'option',
+                confirmButton: 'btn-solid-lg',
+            },
+            inputPlaceholder: 'الرجاء ادخال الإسم لتصويت',
+            heightAuto: false,
+            confirmButtonText: 'إضافة السؤال',
+            confirmButtonColor: '#00bfd8',
+            allowOutsideClick: () => {
+                e.target.checked = false;
+                return true;
+            },
+            preConfirm: (answer) => {
+                question = answer;
+            }
+        });
+    }
+})
 
 // JS function to add new filed every time you reach the last filed
 function addNewOption(e) {
@@ -111,40 +131,6 @@ function addNewOption(e) {
 
 }
 
-// Title require alert
-function checkTitle() {
-
-    // Get the title of the poll
-    const title = document.getElementById('title').value;
-
-    // Check if there is title of not
-    if (!title.trim()) {
-        Swal.fire({
-            icon: 'error',
-            text: 'الرجاء ادخال العنوان',
-            confirmButtonText: 'المحاولة مرة اخرى',
-            confirmButtonColor: '#00bfd8',
-        });
-        return false;
-    }
-    return true;
-
-}
-
-// Two options required alert
-function checkOptions(options) {
-    // Check the options length
-    if (options.length < 2) {
-        Swal.fire({
-            icon: 'error',
-            text: ' الرجاء ادخال على الاقل عنصرين لتصويت',
-            confirmButtonText: 'المحاولة مرة اخرى',
-            confirmButtonColor: '#00bfd8',
-        });
-        return false;
-    }
-    return true;
-}
 
 
 

@@ -44,23 +44,23 @@ exports.getPollResult = asyncHandler(async (req, res, next) => {
         !await loginIsAdmin(req, poll)) { return res.redirect('/' + id); }
     }
 
-
-    // Sort the options so the most votes become the first result to appear
-    poll.options.sort((a, b) => b.voteCount - a.voteCount);
-
-    // Get the total vote
-    await poll.getTotalVotes();
-
-    // Add percentage to each option
-    await poll.addPercentageToOptions();
-
-    // Add the poll url to the result to make it easy to copy it
-    const pollUrl = req.protocol + '://' + req.hostname + '/' + id;
-
-    poll.pollUrl = pollUrl;
-
-    res.render('resView', { poll });
   }
+  // Sort the options so the most votes become the first result to appear
+  poll.options.sort((a, b) => b.voteCount - a.voteCount);
+
+  // Get the total vote
+  await poll.getTotalVotes();
+
+  // Add percentage to each option
+  await poll.addPercentageToOptions();
+
+  // Add the poll url to the result to make it easy to copy it
+  const pollUrl = req.protocol + '://' + req.hostname + '/' + id;
+
+  poll.pollUrl = pollUrl;
+
+
+  res.render('resView', { poll });
 });
 
 

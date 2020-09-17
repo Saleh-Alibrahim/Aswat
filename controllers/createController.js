@@ -1,6 +1,7 @@
 const ErrorResponse = require('../utils/errorResponse');
 const PollModel = require('../models/PollModel');
 const UserModel = require('../models/UserModel');
+const QuestionsModel = require('../models/QuestionsModel');
 const asyncHandler = require('../middleware/async');
 const ms = require('ms');
 
@@ -16,7 +17,7 @@ exports.getCreateView = asyncHandler(async (req, res, next) => {
 // @access    Public
 exports.createPoll = asyncHandler(async (req, res, next) => {
 
-  const { title, options, ip, vpn, hidden } = req.body;
+  const { title, options, ip, vpn, hidden, question } = req.body;
 
   // Check if the title and at least  2 options is sent with the request
   if (!title.trim() || options.length < 2) {
@@ -30,7 +31,7 @@ exports.createPoll = asyncHandler(async (req, res, next) => {
   // Create new Poll
   const newPoll = await PollModel.create({
     adminID, title, options: JSON.parse(options),
-    ipAddress: ip, vpn: !vpn, hidden
+    ipAddress: ip, vpn: !vpn, hidden, question
   });
 
   if (!req.user) {

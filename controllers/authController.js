@@ -83,23 +83,6 @@ exports.loginUsers = asyncHandler(async (req, res, next) => {
 });
 
 
-// @desc      Get the logined user
-// @route     GET /auth/me
-// @access    Private
-exports.getMe = asyncHandler(async (req, res, next) => {
-
-  res.status(200).json(
-    {
-      success: true,
-      user: req.user
-    }
-  );
-
-
-});
-
-
-
 
 // @desc      Forgot password
 // @route     POST /auth/forgotpassword
@@ -152,7 +135,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
 
 });
 
-// @desc      Get the logined user
+// @desc      Reset password with the token user
 // @route     PUT /auth/resetpassword/:resettoken
 // @access    Public
 exports.resetPassword = asyncHandler(async (req, res, next) => {
@@ -177,8 +160,6 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
   await user.save();
 
   sendTokenResponse(user, 200, res, 'تم تغيير كلمة المرور بنجاح', true);
-
-
 
 });
 

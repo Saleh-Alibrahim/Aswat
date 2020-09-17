@@ -41,17 +41,15 @@ router.route('/login')
     .get(getLoginView)
     .post(bouncer.block, loginUsers);
 
-router.get('/me', protect, getMe);
-
 router.get('/logout', protect, logout);
 
 router.get('/forgotpassword', getforgotPasswordView);
 
 router.post('/forgotpassword', bouncer.block, forgotPassword);
 
-router.get('/resetpassword/:resettoken', getResetPasswordView);
-
-router.put('/resetpassword/:resettoken', resetPassword);
+router.route('/resetpassword/:resettoken')
+    .get(getResetPasswordView)
+    .put(resetPassword);
 
 
 

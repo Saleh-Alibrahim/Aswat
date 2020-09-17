@@ -1,6 +1,7 @@
 const ErrorResponse = require('../utils/errorResponse');
 const PollModel = require('../models/PollModel');
 const AddressModel = require('../models/AddressModel');
+const QuestionsModel = require('../models/QuestionsModel');
 const checkRecaptcha = require('../utils/recaptcha');
 const asyncHandler = require('../middleware/async');
 const cache = require('../config/cashe.js');
@@ -12,7 +13,7 @@ const getIpAddress = require('../utils/ipAddress');
 // @access    Public
 exports.addVote = asyncHandler(async (req, res, next) => {
 
-  const { pollID, optionID, token } = req.body;
+  const { pollID, optionID, token, answer } = req.body;
 
   // Get the clint ip address
   const ip = await getIpAddress(req);
@@ -52,6 +53,12 @@ exports.addVote = asyncHandler(async (req, res, next) => {
   if (poll.hidden && !poll.ipAddress) {
     await AddressModel.addAddress(ip, pollID);
   }
+
+  if (poll.question) {
+    console.log("exports.addVote -> poll.question", poll.question)
+
+  }
+
 
 
   // Find the option by the id and increment it by 1 

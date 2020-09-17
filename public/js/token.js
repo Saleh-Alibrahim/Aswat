@@ -53,4 +53,15 @@ function parseJwt(token) {
     return JSON.parse(jsonPayload);
 }
 
+function errorAlert(msg, status) {
+    Swal.fire({
+        icon: 'error',
+        heightAuto: false,
+        text: msg,
+        title: status,
+        confirmButtonText: 'المحاولة مرة اخرى',
+        confirmButtonColor: '#00bfd8',
+    });
+}
+
 

@@ -32,17 +32,17 @@ const PollSchema = new mongoose.Schema({
   }],
   ipAddress: {
     type: Boolean,
-    required: false,
     default: false
   },
   hidden: {
     type: Boolean,
-    required: false,
     default: false
+  },
+  question: {
+    type: String,
   },
   vpn: {
     type: Boolean,
-    required: false,
     default: true
   },
   createdAt: {
@@ -75,19 +75,29 @@ PollSchema.methods.addPercentageToOptions = async function () {
 
 // Create Address collections when poll created 
 PollSchema.post('save', async function () {
-  await this.model('Address').create({ _id: this._id });
+  if (this.hidden || this.ipAddress) { await this.model('Address').create({ _id: this._id }); }
+  if (this.question) { await this.model('Questions').create({ _id: this._id }); }
 });
 
 // Cascade delete IpAddress when a poll is deleted
 PollSchema.pre('remove', async function (next) {
-  await this.model('Address').deleteMany({ _id: this._id });
+  if (this.hidden || this.ipAddress) { await this.model('Address').deleteMany({ _id: this._id }); }
+  if (this.question) { await this.model('Questions').deleteMany({ _id: this._id }); }
   next();
 });
 
 
-// Reverse populate with virtuals
+// Reverse populate Address with virtuals
 PollSchema.virtual('addresses', {
   ref: 'Address',
+  localField: '_id',
+  foreignField: '_id',
+  justOne: false
+});
+
+// Reverse populate Questions with virtuals
+PollSchema.virtual('questions', {
+  ref: 'Questions',
   localField: '_id',
   foreignField: '_id',
   justOne: false
