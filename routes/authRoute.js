@@ -11,8 +11,7 @@ const { getRegisterView,
     forgotPassword,
     getforgotPasswordView,
     resetPassword,
-    updateDetails,
-    updatePassword,
+    getResetPasswordView,
     logout } = require('../controllers/authController');
 const { protect, authorize } = require('../middleware/auth');
 
@@ -26,7 +25,8 @@ bouncer.blocked = function (req, res, next, remaining) {
     const time = convert((remaining / 1000).toFixed(0));
     const seconds = time.seconds;
     const minutes = time.minutes;
-    return next(new ErrorResponse(`لقد قمت بـ العديد من المحاولات الرجاء الانتظار  ${minutes}:${seconds} د قبل إعادة المحاولة `, 403, true));
+    return next(new ErrorResponse(`لقد قمت بـ العديد من المحاولات الرجاء الانتظار  ${minutes}:${seconds} د قبل إعادة المحاولة `,
+        403, true));
 };
 
 
@@ -45,13 +45,11 @@ router.get('/me', protect, getMe);
 
 router.get('/logout', protect, logout);
 
-router.put('/updatedetails', protect, updateDetails);
-
-router.put('/updatepassword', protect, updatePassword);
-
 router.get('/forgotpassword', getforgotPasswordView);
 
 router.post('/forgotpassword', bouncer.block, forgotPassword);
+
+router.get('/resetpassword/:resettoken', getResetPasswordView);
 
 router.put('/resetpassword/:resettoken', resetPassword);
 

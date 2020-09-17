@@ -23,8 +23,6 @@ router.get('/:id/r', getLoginUser, getPollResult);
 
 router.post('/mail', sendEmail);
 
-
-
 router.post('/vote', addVote);
 
 

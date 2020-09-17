@@ -98,50 +98,6 @@ exports.getMe = asyncHandler(async (req, res, next) => {
 
 });
 
-// @desc      Update user details
-// @route     PUT /auth/updatedetails
-// @access    Private
-exports.updateDetails = asyncHandler(async (req, res, next) => {
-
-  const filesToUpdate = {
-    name: req.body.name,
-    email: req.body.email
-  };
-
-  const user = await User.findByIdAndUpdate(req.user.id, filesToUpdate, {
-    new: true,
-    runValidators: true
-  });
-
-  res.status(200).json(
-    {
-      success: true,
-      user
-    }
-  );
-
-
-});
-
-// @desc      Update password
-// @route     GET /auth/updatepassword
-// @access    Private
-exports.updatePassword = asyncHandler(async (req, res, next) => {
-
-  const user = await User.findById(req.user.id).select('+password');
-
-  if (!(await user.checkPassword(req.body.currentPassword))) {
-    return next(new ErrorResponse('Password is incorrect', 401));
-  }
-
-  user.password = req.body.newPassword;
-
-  await user.save();
-
-  sendTokenResponse(user, 200, res);
-
-
-});
 
 
 
@@ -165,7 +121,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   // Create reset url
-  const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/auth/resetpassword/${resetToken}`;
+  const resetUrl = `${req.protocol}://${req.get('host')}/auth/resetpassword/${resetToken}`;
 
   const message = `أنت تتلقى هذا البريد الإلكتروني لأنك (أو أي شخص آخر) طلبت إعادة تعيين كلمة المرور \n\n  ${resetUrl} يمكنك إستعادة حسابك من هنا`;
 
@@ -211,19 +167,41 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
   });
 
   if (!user) {
-    return next(new ErrorResponse('Invalid  token', 400));
+    return next(new ErrorResponse('لا يوجد حساب بهذا الحساب ', 400, true));
   }
 
   // Set new password
-
   user.password = req.body.password;
   user.resetPasswordToken = undefined;
   user.resetPasswordExpire = undefined;
   await user.save();
 
-  sendTokenResponse(user, 200, res);
+  sendTokenResponse(user, 200, res, 'تم تغيير كلمة المرور بنجاح', true);
 
 
+
+});
+
+// @desc      Render the reset password view
+// @route     GET /auth/resetpassword/:resettoken
+// @access    Public
+exports.getResetPasswordView = asyncHandler(async (req, res, next) => {
+
+  // Get hashed token
+  const resetPasswordToken = crypto.createHash('sha256').update(req.params.resettoken).digest('hex');
+
+
+  const user = await User.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() }
+  });
+
+  if (!user) {
+    return next(new ErrorResponse('لا يوجد حساب بهذا الرمز', 400));
+  }
+  else {
+    res.render('resetPasswordView');
+  }
 
 });
 
