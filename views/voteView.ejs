@@ -1,6 +1,10 @@
 <%- include('partials/head') %>
 </head>
 
+<% if(poll.question) { %>
+<input type="hidden" id="question" value="<%=poll.question%>">
+<% } %>
+
 <body class="body-background">
 
     <%- include('partials/preloader') %>

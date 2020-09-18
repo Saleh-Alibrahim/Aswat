@@ -10,13 +10,7 @@ $('#login-form').submit(async function (e) {
     let rememberMe = document.getElementById('formCheck').checked;
 
     if (!email || !password) {
-        Swal.fire({
-            icon: 'error',
-            heightAuto: false,
-            text: 'الرجاء ادخال الايميل وكلمة المرور',
-            confirmButtonText: 'المحاولة مرة اخرى',
-            confirmButtonColor: '#00bfd8',
-        });
+        errorAlert('الرجاء ادخال الايميل وكلمة المرور');
         return;
     }
 
@@ -27,8 +21,19 @@ $('#login-form').submit(async function (e) {
         },
         body: JSON.stringify({ email, password, rememberMe })
     });
-
-    await checkResponse(response);
+    try {
+        const data = await response.json();
+        // Show alert if v or show error otherwise
+        if (response.status == 200) {
+            successAlertTimer(data.message, `${location.origin}`)
+        } else {
+            errorAlert(data.message);
+        }
+    }
+    catch (error) {
+        console.log(error);
+        errorAlert('مشكلة في السيرفر', 500);
+    }
 });
 
 $('#register-form').submit(async function (e) {
@@ -42,17 +47,12 @@ $('#register-form').submit(async function (e) {
 
 
     if (!email || !password || !username || !password2) {
-        Swal.fire({
-            heightAuto: false,
-            icon: 'error',
-            text: 'الرجاء ادخال الاسم والايميل وكلمة المرور',
-            confirmButtonText: 'المحاولة مرة اخرى',
-            confirmButtonColor: '#00bfd8',
-        });
+        errorAlert('الرجاء ادخال الاسم والايميل وكلمة المرور');
         return;
     }
 
-    if (!checkPasswordsMatch(password, password2)) {
+    if (password !== password2) {
+        errorAlert('كلمة المرور غير متطابقة');
         return;
     }
 
@@ -65,7 +65,19 @@ $('#register-form').submit(async function (e) {
         body: JSON.stringify({ username, email, password })
     });
 
-    await checkResponse(response);
+    try {
+        const data = await response.json();
+        // Show alert if v or show error otherwise
+        if (response.status == 200) {
+            successAlertTimer(data.message, `${location.origin}`)
+        } else {
+            errorAlert(data.message);
+        }
+    }
+    catch (error) {
+        console.log(error);
+        errorAlert('مشكلة في السيرفر', 500);
+    }
 });
 
 
@@ -79,13 +91,7 @@ $('#forgot-form').submit(async function (e) {
 
 
     if (!email) {
-        Swal.fire({
-            icon: 'error',
-            heightAuto: false,
-            text: 'الرجاء إدخال الإيميل',
-            confirmButtonText: 'المحاولة مرة اخرى',
-            confirmButtonColor: '#00bfd8',
-        });
+        errorAlert('الرجاء إدخال الإيميل');
         return;
     }
     $('#btn-msg').css('display', 'none');
@@ -100,7 +106,19 @@ $('#forgot-form').submit(async function (e) {
 
     $('#btn-msg').css('display', 'inline-block');
     $('#btn-spinner').css('display', 'none');
-    await checkResponse(response);
+    try {
+        const data = await response.json();
+        // Show alert if v or show error otherwise
+        if (response.status == 200) {
+            successAlertTimer(data.message, `${location.origin}/auth/login`);
+        } else {
+            errorAlert(data.message);
+        }
+    }
+    catch (error) {
+        console.log(error);
+        errorAlert('مشكلة في السيرفر', 500);
+    }
 });
 
 // Submit the vote
@@ -114,17 +132,12 @@ $('#reset-form').submit(async function (e) {
 
 
     if (!password || !password2) {
-        Swal.fire({
-            icon: 'error',
-            heightAuto: false,
-            text: 'الرجاء ادخال كلمة المرور',
-            confirmButtonText: 'المحاولة مرة اخرى',
-            confirmButtonColor: '#00bfd8',
-        });
+        errorAlert('الرجاء ادخال كلمة المرور');
         return;
     }
 
-    if (!checkPasswordsMatch(password, password2)) {
+    if (password !== password2) {
+        errorAlert('كلمة المرور غير متطابقة');
         return;
     }
 
@@ -140,65 +153,22 @@ $('#reset-form').submit(async function (e) {
 
     $('#btn-msg').css('display', 'inline-block');
     $('#btn-spinner').css('display', 'none');
-    await checkResponse(response);
-});
-
-
-
-const checkResponse = async function (response) {
     try {
         const data = await response.json();
-        // Show alert if failed or show error otherwise
-        if (data.success) {
-            Swal.fire({
-                icon: 'success',
-                text: data.message,
-                heightAuto: false,
-                showConfirmButton: false,
-                timer: 1500,
-                onAfterClose: () => {
-                    location.href = `${location.origin}`;
-                }
-            });
+        // Show alert if v or show error otherwise
+        if (response.status == 200) {
+            successAlertTimer(data.message, `${location.origin}`)
         } else {
-            Swal.fire({
-                icon: 'error',
-                text: data.message,
-                heightAuto: false,
-                confirmButtonText: 'المحاولة مرة اخرى',
-                confirmButtonColor: '#00bfd8',
-            });
+            errorAlert(data.message);
         }
     }
     catch (error) {
         console.log(error);
-        Swal.fire({
-            icon: 'error',
-            title: 500,
-            text: 'مشكلة في السيرفر',
-            heightAuto: false,
-            confirmButtonText: 'المحاولة مرة اخرى',
-            confirmButtonColor: '#00bfd8',
-        });
+        errorAlert('مشكلة في السيرفر', 500);
     }
+});
 
-};
 
-// Check passwords match
-function checkPasswordsMatch(password1, password2) {
-    if (password1 !== password2) {
-        Swal.fire({
-            icon: 'error',
-
-            text: 'كلمة المرور غير متطابقة',
-            heightAuto: false,
-            confirmButtonText: 'المحاولة مرة اخرى',
-            confirmButtonColor: '#00bfd8',
-        });
-        return false;
-    }
-    return true;
-}
 
 
 

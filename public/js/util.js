@@ -1,5 +1,27 @@
-
 const token = getCookie("token");
+
+function successAlertTimer(msg, url) {
+    Swal.fire({
+        icon: 'success',
+        text: msg,
+        timer: 1500,
+        heightAuto: false,
+        showConfirmButton: false,
+        onAfterClose: () => {
+            location.href = url;
+        }
+    });
+}
+function errorAlert(msg, status) {
+    Swal.fire({
+        icon: 'error',
+        heightAuto: false,
+        text: msg,
+        title: status,
+        confirmButtonText: 'المحاولة مرة اخرى',
+        confirmButtonColor: '#00bfd8',
+    });
+}
 
 // Check if the user login or not
 if (token) {
@@ -52,16 +74,3 @@ function parseJwt(token) {
     }).join(''));
     return JSON.parse(jsonPayload);
 }
-
-function errorAlert(msg, status) {
-    Swal.fire({
-        icon: 'error',
-        heightAuto: false,
-        text: msg,
-        title: status,
-        confirmButtonText: 'المحاولة مرة اخرى',
-        confirmButtonColor: '#00bfd8',
-    });
-}
-
-

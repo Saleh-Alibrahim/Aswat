@@ -42,6 +42,10 @@ exports.addVote = asyncHandler(async (req, res, next) => {
     }
   }
 
+  if (poll.question && !answer.trim()) {
+    return next(new ErrorResponse('الرجاء الإجابة على السؤال', 400, true));
+  }
+
   // Check if the client request one ip address peer vote
   if (poll.ipAddress) {
     if (!await AddressModel.addAddress(ip, pollID)) {
@@ -54,8 +58,14 @@ exports.addVote = asyncHandler(async (req, res, next) => {
     await AddressModel.addAddress(ip, pollID);
   }
 
+  // Check if the client request answer to his question 
+  // if yes save the the answer
   if (poll.question) {
-    console.log("exports.addVote -> poll.question", poll.question)
+    const question = await QuestionsModel.findById(pollID);
+
+    question.answers.push(answer);
+
+    await question.save();
 
   }
 

@@ -58,16 +58,7 @@ $('#submit-poll').click(async function (e) {
         const data = await response.json();
         // Show alert if success or show error otherwise
         if (data.status == 200) {
-            Swal.fire({
-                icon: 'success',
-                text: data.message,
-                timer: 1500,
-                heightAuto: false,
-                showConfirmButton: false,
-                onAfterClose: () => {
-                    location.href = `${location.origin}/${data.id}/r`;
-                }
-            });
+            successAlertTimer(data.message, `${location.origin}/${data.id}/r`)
         } else {
 
             errorAlert(data.message);
