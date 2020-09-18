@@ -4,6 +4,9 @@
 <% if(poll.question) { %>
 <input type="hidden" id="question" value="<%=poll.question%>">
 <% } %>
+<% if(poll.hidden) { %>
+<input type="hidden" id="hidden">
+<% } %>
 
 <body class="body-background">
 
@@ -19,7 +22,7 @@
                             <div class="form-check  text-right">
                                 <h3 id="vote-title"><%= poll.title %></h3>
                                 <hr>
-                                <% poll.options.forEach( function(option) { %>
+                                <% poll.options.forEach( (option)=> { %>
                                 <label for="<%= option.id %>"
                                     class="form-check-label options"><%= option.name %></label>
                                 <input type="radio" class="form-check-input custom-radio" name="option"

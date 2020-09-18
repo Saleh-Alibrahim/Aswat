@@ -74,8 +74,24 @@ document.getElementById('vote-button').addEventListener('click', async function 
 
 
 // Make the result button goes to the result page
-$('result-button').click((e) => {
-    window.location.href = window.location.href + `/r`;
+$('#result-button').click(async (e) => {
+    console.log("location.href + `/resultAccess`", location.href + `/resultAccess`)
+    if ($('#hidden')) {
+        const response = await fetch(location.href + `/resultAccess`);
+        try {
+            // Show alert if v or show error otherwise
+            if (response.status != 200) {
+                errorAlert('تحتاج لتصويت للوصول الى النتائج');
+                return;
+            }
+        }
+        catch (error) {
+            console.log(error);
+            errorAlert('مشكلة في السيرفر', 500);
+        }
+
+    }
+    location.href = location.href + '/r';
 });
 
 

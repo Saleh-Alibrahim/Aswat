@@ -78,6 +78,46 @@ exports.getPollResult = asyncHandler(async (req, res, next) => {
 });
 
 
+// @desc    Check if the user can access the result page
+// @route   GET /:id/resultAccess
+// @access    Public
+exports.getResultAccses = asyncHandler(async (req, res, next) => {
+
+  const id = req.params.id;
+
+  // No id with sent with the request
+  if (!id) {
+    return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400, true));
+  }
+
+
+  // Get the poll from the id
+  const poll = await PollModel.findById(id);
+
+  const cookie = await cookieIsAdmin(req, poll);
+  const login = await loginIsAdmin(req, poll);
+
+  // No poll with the given id
+  if (!poll) {
+    return next(new ErrorResponse('الصفحة المطلوبة غير موجودة', 404, true));
+  }
+
+  // Get the clint ip address
+  const ip = await getIpAddress(req);
+
+  // Check if the user in the database
+  // Or it's the poll admin
+  // If either false redirect to the vote page
+  if (!await AddressModel.getAddress(ip, id)) {
+    if (!cookie && !login) {
+      return res.status(401).json({ success: false });
+    }
+  }
+  res.status(200).json({ success: true });
+
+});
+
+
 
 
 const loginIsAdmin = async (req, poll) => {

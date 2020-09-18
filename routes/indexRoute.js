@@ -3,7 +3,7 @@ const router = express.Router();
 
 // Controllers 
 const { getMainView, getPoll, sendEmail } = require('../controllers/mainController');
-const { getPollResult } = require('../controllers/resController');
+const { getPollResult, getResultAccses } = require('../controllers/resController');
 const { getCreateView, createPoll } = require('../controllers/createController');
 const { addVote } = require('../controllers/voteController');
 
@@ -20,6 +20,8 @@ router.route('/create')
 router.get('/:id', getPoll);
 
 router.get('/:id/r', getLoginUser, getPollResult);
+
+router.get('/:id/resultAccess', getLoginUser, getResultAccses);
 
 router.post('/mail', sendEmail);
 
