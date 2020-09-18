@@ -1,6 +1,7 @@
 const ErrorResponse = require('../utils/errorResponse');
 const PollModel = require('../models/PollModel');
 const AddressModel = require('../models/AddressModel');
+const QuestionsModel = require('../models/QuestionsModel');
 const asyncHandler = require('../middleware/async');
 const sendEmail = require('../utils/sendEmail');
 const getIpAddress = require('../utils/ipAddress');
@@ -24,6 +25,9 @@ exports.getPollResult = asyncHandler(async (req, res, next) => {
   // Get the poll from the id
   const poll = await PollModel.findById(id);
 
+  const cookie = await cookieIsAdmin(req, poll);
+  const login = await loginIsAdmin(req, poll);
+
   // No poll with the given id
   if (!poll) {
     return next(new ErrorResponse('الصفحة المطلوبة غير موجودة', 404));
@@ -38,13 +42,19 @@ exports.getPollResult = asyncHandler(async (req, res, next) => {
     // Check if the user in the database
     // Or it's the poll admin
     // If either false redirect to the vote page
-
     if (!await AddressModel.getAddress(ip, id)) {
-      if (!await cookieIsAdmin(req, poll) &&
-        !await loginIsAdmin(req, poll)) { return res.redirect('/' + id); }
+      if (!cookie && !login) {
+        return res.redirect('/' + id);
+      }
     }
 
   }
+  // If user request answers 
+  if (poll.question && (cookie || login)) {
+    const question = await QuestionsModel.findOne({ _id: poll._id, adminID: poll.adminID });
+    poll.answers = question.answers;
+  }
+
   // Sort the options so the most votes become the first result to appear
   poll.options.sort((a, b) => b.voteCount - a.voteCount);
 
@@ -53,6 +63,10 @@ exports.getPollResult = asyncHandler(async (req, res, next) => {
 
   // Add percentage to each option
   await poll.addPercentageToOptions();
+
+
+
+  poll.admin = cookie || login;
 
   // Add the poll url to the result to make it easy to copy it
   const pollUrl = req.protocol + '://' + req.hostname + '/' + id;

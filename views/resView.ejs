@@ -39,14 +39,42 @@
                                 <button id="copy-button" type="button" class="btn-solid-reg float-left poll-btn">نسخ
                                     الرابط</button>
                                 <button id="goVote-button" type="button"
-                                    class="btn-solid-reg float-right poll-btn">تصويت</button>
+                                    class="btn-solid-reg float-right poll-btn">الرجوع لتصويت</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        <% if(poll.question && poll.admin){ %>
+        <div class="card shadow-lg o-hidden border-0 my-5 text-center">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="p-0">
+                            <h3 class="mb-5"><%= poll.question %></h3>
+                            <table class="table table-striped ">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">الإجابة</th>
+                                        <th scope="col">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for(let i=0; i<poll.answers.length; i++) {%>
+                                    <tr>
+                                        <td><%=poll.answers[i] %> </td>
+                                        <th scope="row"><%=i+1 %></th>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
         <%- include('partials/footer') %>
 
         <script src="/js/res.js"></script>

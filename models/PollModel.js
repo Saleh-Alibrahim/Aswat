@@ -76,7 +76,7 @@ PollSchema.methods.addPercentageToOptions = async function () {
 // Create Address collections when poll created 
 PollSchema.post('save', async function () {
   if (this.hidden || this.ipAddress) { await this.model('Address').create({ _id: this._id }); }
-  if (this.question) { await this.model('Questions').create({ _id: this._id }); }
+  if (this.question) { await this.model('Questions').create({ _id: this._id, adminID: this.adminID }); }
 });
 
 // Cascade delete IpAddress when a poll is deleted

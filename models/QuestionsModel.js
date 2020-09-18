@@ -3,7 +3,12 @@ const mongoose = require('mongoose');
 const QuestionsSchema = new mongoose.Schema({
   _id: {
     type: String,
-    ref: 'PollItems._id',
+    ref: 'Polls._id',
+    required: true
+  },
+  adminID: {
+    type: String,
+    ref: 'Polls.adminID',
     required: true
   },
   answers: [String]

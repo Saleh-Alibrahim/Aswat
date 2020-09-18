@@ -18,6 +18,8 @@ document.getElementById('vote-button').addEventListener('click', async function 
         errorAlert('لا يمكن التصويت اكثر من مرة');
         return;
     }
+
+    // If the creator request answer to his question get the answer
     if (question) {
         await Swal.fire({
             icon: 'question',
@@ -32,14 +34,13 @@ document.getElementById('vote-button').addEventListener('click', async function 
             confirmButtonText: 'إدخال الإجابة',
             confirmButtonColor: '#00bfd8',
             preConfirm: (text) => {
-                answer = text;
+                answer = text.trim();
             }
         });
         if (!answer) {
             errorAlert('الرجاء الإجابة على السؤال');
             return;
         }
-
     }
 
 
