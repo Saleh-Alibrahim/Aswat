@@ -59,6 +59,7 @@ exports.sendEmail = ('/mail', asyncHandler(async (req, res, next) => {
 exports.dashboard = asyncHandler(async (req, res, next) => {
 
   let pollList;
+
   if (req.user && req.cookies.adminID) {
     pollListOne = await PollModel.find({ adminID: req.user._id });
     pollListTwo = await PollModel.find({ adminID: req.cookies.adminID });
@@ -68,7 +69,9 @@ exports.dashboard = asyncHandler(async (req, res, next) => {
     const adminID = req.user ? req.user._id : req.cookies.adminID;
     pollList = await PollModel.find({ adminID });
   }
+
   let url = req.protocol + '://' + req.hostname;
+
   if (process.env.NODE_ENV === 'development') {
     url = url + ':' + process.env.PORT;
   }
