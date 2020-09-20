@@ -1,6 +1,7 @@
 const ErrorResponse = require('../utils/errorResponse');
 const PollModel = require('../models/PollModel');
 const UserModel = require('../models/UserModel');
+const AddressModel = require('../models/AddressModel');
 const QuestionsModel = require('../models/QuestionsModel');
 const asyncHandler = require('../middleware/async');
 const ms = require('ms');
@@ -44,8 +45,8 @@ exports.createPoll = asyncHandler(async (req, res, next) => {
     ipAddress: ip, vpn: !vpn, hidden, question
   });
 
-  if (hidden != 0 || ipAddress) { await this.model('Address').create({ _id: this._id }); }
-  if (question) { await this.model('Questions').create({ _id: this._id, adminID: this.adminID }); }
+  if (hidden != 0 || ip) { await AddressModel.create({ _id: newPoll._id }); }
+  if (question) { await QuestionsModel.create({ _id: newPoll._id, adminID: newPoll.adminID }); }
 
 
   res.json({
