@@ -54,7 +54,7 @@ exports.addVote = asyncHandler(async (req, res, next) => {
   }
 
   // Check if the client request only users who voted can see the result
-  if (poll.hidden && !poll.ipAddress) {
+  if (poll.hidden != 0 && !poll.ipAddress) {
     await AddressModel.addAddress(ip, pollID);
   }
 
@@ -71,9 +71,13 @@ exports.addVote = asyncHandler(async (req, res, next) => {
 
 
 
+
   // Find the option by the id and increment it by 1 
-  await PollModel.findOneAndUpdate({ "options._id": optionID },
-    { $inc: { 'options.$.voteCount': 1 } });
+  const newPoll = await PollModel.findOneAndUpdate({ "options._id": optionID },
+    { $inc: { 'options.$.voteCount': 1 } }, { new: true });
+
+  // add  total vote
+  await newPoll.addTotalVote();
 
   res.json({
     success: true,

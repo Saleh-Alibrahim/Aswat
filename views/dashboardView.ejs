@@ -1,0 +1,43 @@
+<%- include('partials/head') %>
+</head>
+
+<body class="body-background">
+
+    <%- include('partials/preloader') %>
+
+    <%- include('partials/navbar') %>
+    <div class="container card-container">
+        <div class="card shadow-lg o-hidden border-0 my-5 text-center admin-area">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="p-0">
+                            <table class="table table-striped ">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">تاريخ الإنتهاء</th>
+                                        <th scope="col">اجمالي الأصوات</th>
+                                        <th scope="col">العنوان</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for(let i=0; i<pollList.length; i++) {%>
+                                    <tr class="title-link">
+                                        <td>لا يوجد </td>
+                                        <td><%= pollList[i].total %> </td>
+                                        <td><a href="<%= url %>/<%= pollList[i]._id %> "><%= pollList[i].title %>
+                                            </a>&nbsp;(<a href="<%= url %>/<%= pollList[i]._id %>/r ">النتائج</a>)
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%- include('partials/footer') %>
+</body>
+
+</html>

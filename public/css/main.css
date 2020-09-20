@@ -211,6 +211,14 @@ body{
   font-size: 2rem;
   line-height: normal;
 }
+
+.title-link a{
+  text-decoration: none;
+  color: black;
+}
+.title-link a:hover{
+  color :#00bfd8
+}
 #btn-spinner{
   display: none;
 }

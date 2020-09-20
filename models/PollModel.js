@@ -30,6 +30,10 @@ const PollSchema = new mongoose.Schema({
       default: 0
     }
   }],
+  total: {
+    type: Number,
+    default: 0
+  },
   ipAddress: {
     type: Boolean,
     default: false
@@ -54,12 +58,13 @@ const PollSchema = new mongoose.Schema({
 
 
 // Get the total vote number 
-PollSchema.methods.getTotalVotes = async function () {
+PollSchema.methods.addTotalVote = async function () {
   let totalVote = 0;
   this.options.forEach(option => {
     totalVote += option.voteCount;
   });
   this.total = totalVote;
+  await this.save();
 };
 
 // Add percentage to each option
@@ -75,9 +80,11 @@ PollSchema.methods.addPercentageToOptions = async function () {
 };
 
 // Create Address collections when poll created 
-PollSchema.post('save', async function () {
-  if (this.hidden || this.ipAddress) { await this.model('Address').create({ _id: this._id }); }
-  if (this.question) { await this.model('Questions').create({ _id: this._id, adminID: this.adminID }); }
+PollSchema.pre('save', async function () {
+  if (this.isModified()) {
+    if (this.hidden || this.ipAddress) { await this.model('Address').create({ _id: this._id }); }
+    if (this.question) { await this.model('Questions').create({ _id: this._id, adminID: this.adminID }); }
+  }
 });
 
 // Cascade delete IpAddress when a poll is deleted

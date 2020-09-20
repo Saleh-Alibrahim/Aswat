@@ -64,9 +64,6 @@ exports.getPollResult = asyncHandler(async (req, res, next) => {
   // Sort the options so the most votes become the first result to appear
   poll.options.sort((a, b) => b.voteCount - a.voteCount);
 
-  // Get the total vote
-  await poll.getTotalVotes();
-
   // Add percentage to each option
   await poll.addPercentageToOptions();
 
@@ -149,10 +146,10 @@ const loginIsAdmin = async (req, poll) => {
 
 const cookieIsAdmin = async (req, poll) => {
 
+  const adminID = req.cookies.adminID;
   // Check if user is logged in
-  if (req.cookies.adminList) {
-    const adminList = req.cookies.adminList;
-    if (adminList.includes(poll.adminID)) {
+  if (adminID) {
+    if (adminID == poll.adminID) {
       return true;
     }
     else {

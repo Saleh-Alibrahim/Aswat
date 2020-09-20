@@ -1,9 +1,7 @@
 const ErrorResponse = require('../utils/errorResponse');
 const PollModel = require('../models/PollModel');
-const AddressModel = require('../models/AddressModel');
 const asyncHandler = require('../middleware/async');
 const sendEmail = require('../utils/sendEmail');
-const getIpAddress = require('../utils/ipAddress');
 
 
 // @desc    Render the main page
@@ -53,5 +51,28 @@ exports.sendEmail = ('/mail', asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(500, 'مشكلة في السيرفر', true));
   }
 }));
+
+
+// @desc    Render the dashboard page
+// @route   GET /dashboard
+// @access    Public
+exports.dashboard = asyncHandler(async (req, res, next) => {
+
+  let pollList;
+  if (req.user && req.cookies.adminID) {
+    pollListOne = await PollModel.find({ adminID: req.user._id });
+    pollListTwo = await PollModel.find({ adminID: req.cookies.adminID });
+    pollList = pollListOne.concat(pollListTwo);
+  }
+  else {
+    const adminID = req.user ? req.user._id : req.cookies.adminID;
+    pollList = await PollModel.find({ adminID });
+  }
+
+  const url = req.protocol + '://' + req.hostname + ':' + process.env.PORT;
+
+  res.render('dashboardView', { pollList, url });
+
+});
 
 
