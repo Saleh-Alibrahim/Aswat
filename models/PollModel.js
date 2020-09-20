@@ -35,8 +35,9 @@ const PollSchema = new mongoose.Schema({
     default: false
   },
   hidden: {
-    type: Boolean,
-    default: false
+    type: Number,
+    enum: [0, 1, 2,],
+    default: 0
   },
   question: {
     type: String,

@@ -50,7 +50,7 @@ $('#submit-poll').click(async function (e) {
         },
         body: JSON.stringify({
             title, options: JSON.stringify(optionsValues),
-            ip: ip.checked, vpn: vpn.checked, hidden: hidden.checked,
+            ip: ip.checked, vpn: vpn.checked, hidden: hidden.selectedIndex,
             question: question.trim()
         })
     });
@@ -83,6 +83,7 @@ $('#question').change(function (e) {
             },
             inputPlaceholder: 'الرجاء ادخال الإسم لتصويت',
             heightAuto: false,
+            onOpen: () => Swal.getConfirmButton().focus(),
             confirmButtonText: 'إضافة السؤال',
             confirmButtonColor: '#00bfd8',
             allowOutsideClick: () => {

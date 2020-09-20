@@ -4,7 +4,7 @@
 <% if(poll.question) { %>
 <input type="hidden" id="question" value="<%=poll.question%>">
 <% } %>
-<% if(poll.hidden) { %>
+<% if(poll.hidden!=0) { %>
 <input type="hidden" id="hidden">
 <% } %>
 

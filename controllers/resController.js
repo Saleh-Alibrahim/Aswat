@@ -34,17 +34,23 @@ exports.getPollResult = asyncHandler(async (req, res, next) => {
   }
 
   // Check if you need to vote before access the result
-  if (poll.hidden) {
+  if (poll.hidden != 0) {
 
     // Get the clint ip address
     const ip = await getIpAddress(req);
-
-    // Check if the user in the database
-    // Or it's the poll admin
-    // If either false redirect to the vote page
-    if (!await AddressModel.getAddress(ip, id)) {
+    if (poll.hidden == 1) {
+      // Check if the user in the database
+      // Or it's the poll admin
+      // If either false redirect to the vote page
+      if (!await AddressModel.getAddress(ip, id)) {
+        if (!cookie && !login) {
+          return res.redirect('/' + id);
+        }
+      }
+    }
+    else {
       if (!cookie && !login) {
-        return res.redirect('/' + id);
+        return next(new ErrorResponse('لا يمكن الإطلاع على النتائج في هذا التصويت', 401));
       }
     }
 
@@ -104,13 +110,19 @@ exports.getResultAccses = asyncHandler(async (req, res, next) => {
 
   // Get the clint ip address
   const ip = await getIpAddress(req);
-
-  // Check if the user in the database
-  // Or it's the poll admin
-  // If either false redirect to the vote page
-  if (!await AddressModel.getAddress(ip, id)) {
+  if (poll.hidden == 1) {
+    // Check if the user in the database
+    // Or it's the poll admin
+    // If either false redirect to the vote page
+    if (!await AddressModel.getAddress(ip, id)) {
+      if (!cookie && !login) {
+        return res.status(401).json({ success: false, msg: 'تحتاج لتصويت للوصول الى النتائج' });
+      }
+    }
+  }
+  else if (poll.hidden == 2) {
     if (!cookie && !login) {
-      return res.status(401).json({ success: false });
+      return res.status(401).json({ success: false, msg: 'لا يمكن الإطلاع على النتائج في هذا التصويت' });
     }
   }
   res.status(200).json({ success: true });

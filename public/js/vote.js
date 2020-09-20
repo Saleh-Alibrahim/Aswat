@@ -31,6 +31,7 @@ document.getElementById('vote-button').addEventListener('click', async function 
             },
             inputPlaceholder: 'إجابة السؤال',
             heightAuto: false,
+            onOpen: () => Swal.getConfirmButton().focus(),
             confirmButtonText: 'إدخال الإجابة',
             confirmButtonColor: '#00bfd8',
             preConfirm: (text) => {
@@ -75,13 +76,13 @@ document.getElementById('vote-button').addEventListener('click', async function 
 
 // Make the result button goes to the result page
 $('#result-button').click(async (e) => {
-    console.log("location.href + `/resultAccess`", location.href + `/resultAccess`)
-    if ($('#hidden')) {
+    if ($('#hidden').length > 0) {
         const response = await fetch(location.href + `/resultAccess`);
         try {
+            const data = await response.json();
             // Show alert if v or show error otherwise
             if (response.status != 200) {
-                errorAlert('تحتاج لتصويت للوصول الى النتائج');
+                errorAlert(data.msg);
                 return;
             }
         }
