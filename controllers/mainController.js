@@ -68,8 +68,10 @@ exports.dashboard = asyncHandler(async (req, res, next) => {
     const adminID = req.user ? req.user._id : req.cookies.adminID;
     pollList = await PollModel.find({ adminID });
   }
-
-  const url = req.protocol + '://' + req.hostname + ':' + process.env.PORT;
+  let url = req.protocol + '://' + req.hostname;
+  if (process.env.NODE_ENV === 'development') {
+    url = url + ':' + process.env.PORT;
+  }
 
   res.render('dashboardView', { pollList, url });
 

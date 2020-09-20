@@ -76,8 +76,11 @@ exports.addVote = asyncHandler(async (req, res, next) => {
   const newPoll = await PollModel.findOneAndUpdate({ "options._id": optionID },
     { $inc: { 'options.$.voteCount': 1 } }, { new: true });
 
+
   // add  total vote
   await newPoll.addTotalVote();
+
+
 
   res.json({
     success: true,

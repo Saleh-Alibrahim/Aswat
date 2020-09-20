@@ -44,6 +44,9 @@ exports.createPoll = asyncHandler(async (req, res, next) => {
     ipAddress: ip, vpn: !vpn, hidden, question
   });
 
+  if (hidden != 0 || ipAddress) { await this.model('Address').create({ _id: this._id }); }
+  if (question) { await this.model('Questions').create({ _id: this._id, adminID: this.adminID }); }
+
 
   res.json({
     success: true,
