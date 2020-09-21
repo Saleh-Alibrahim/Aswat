@@ -13,12 +13,12 @@
                     <div class="col">
                         <div class="p-2">
                             <div class="form-check  text-right">
-                                <h3 id="res-title"><%= poll.title %></h3>
+                                <h3 id="poll-title"><%= poll.title %></h3>
                                 <hr>
                                 <% poll.options.forEach(function(option) { %>
-                                <div id="poll-option">
-                                    <h4 class="res-name"><%= option.name %></h4>
-                                    <h4 id="voteCount"><%= option.voteCount %></h4>
+                                <div class="poll-option">
+                                    <h4 class="option-name"><%= option.name %></h4>
+                                    <h4 class="vote-count"><%= option.voteCount %></h4>
                                     <hr class="text-center progress-hr">
                                     <div class="text-center">
                                         <div class="progress center-block">
@@ -42,6 +42,22 @@
                                     class="btn-solid-reg float-right poll-btn">الرجوع لتصويت</button>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="poll-options"></div>
+
+        <div class="card shadow-lg o-hidden border-0 my-5 text-center admin-area">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="p-0">
+                            <h3 class="my-3">الرسوم البيانية</h3>
+                            <hr>
+                        </div>
+                        <canvas id="pie-chart" width="800" height="450"></canvas>
                     </div>
                 </div>
             </div>
@@ -80,7 +96,9 @@
         <% } %>
         <%- include('partials/footer') %>
 
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
         <script src="/js/res.js"></script>
+        <script src="/js/chart.js"></script>
 </body>
 
 </html>

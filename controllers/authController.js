@@ -2,7 +2,8 @@ const crypto = require('crypto');
 const path = require('path');
 const asyncHandler = require('../middleware/async');
 const sendEmail = require('../utils/sendEmail');
-const User = require('../models/UserModel');
+const UserModel = require('../models/UserModel');
+const PollModel = require('../models/PollModel');
 const ErrorResponse = require('../utils/errorResponse');
 const ms = require('ms');
 
@@ -33,18 +34,20 @@ exports.registerUsers = asyncHandler(async (req, res, next) => {
   email = email.toLowerCase();
 
   // Check if the email exists
-  const userCheck = await User.findOne({ email: email });
+  const userCheck = await UserModel.findOne({ email: email });
 
   if (userCheck) {
     return next(new ErrorResponse(`هذا المستخدم موجود من قبل`, 400, true));
   }
 
   // Create user in the db
-  const user = await User.create({
+  const user = await UserModel.create({
     username,
     email,
     password,
   });
+
+  await convertCookieToLogin(req, res, user._id);
 
   sendTokenResponse(user, 200, res, 'تم التسجيل بنجاح', true);
 
@@ -64,7 +67,7 @@ exports.loginUsers = asyncHandler(async (req, res, next) => {
   email = email.toLowerCase();
 
   // Bring the user from the DB
-  const user = await User.findOne({ email }).select('+password');
+  const user = await UserModel.findOne({ email }).select('+password');
 
   // Check if the user exist
   if (!user) {
@@ -77,6 +80,8 @@ exports.loginUsers = asyncHandler(async (req, res, next) => {
   if (!isMatch) {
     return next(new ErrorResponse(`خطأ في الايميل او كلمة المرور`, 400, true));
   }
+
+  await convertCookieToLogin(req, res, user._id);
 
   sendTokenResponse(user, 200, res, 'مرحبا بعودتك', rememberMe);
 
@@ -91,7 +96,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
 
   const email = req.body.email.toLowerCase();
 
-  const user = await User.findOne({ email: email });
+  const user = await UserModel.findOne({ email: email });
 
   if (!user) {
     return next(new ErrorResponse(`لا يوجد حساب بهذا الايميل `, 400, true));
@@ -144,7 +149,7 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
   const resetPasswordToken = crypto.createHash('sha256').update(req.params.resettoken).digest('hex');
 
 
-  const user = await User.findOne({
+  const user = await UserModel.findOne({
     resetPasswordToken,
     resetPasswordExpire: { $gt: Date.now() }
   });
@@ -159,6 +164,8 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
   user.resetPasswordExpire = undefined;
   await user.save();
 
+  await convertCookieToLogin(req, res, user._id);
+
   sendTokenResponse(user, 200, res, 'تم تغيير كلمة المرور بنجاح', true);
 
 });
@@ -172,7 +179,7 @@ exports.getResetPasswordView = asyncHandler(async (req, res, next) => {
   const resetPasswordToken = crypto.createHash('sha256').update(req.params.resettoken).digest('hex');
 
 
-  const user = await User.findOne({
+  const user = await UserModel.findOne({
     resetPasswordToken,
     resetPasswordExpire: { $gt: Date.now() }
   });
@@ -231,6 +238,15 @@ const sendTokenResponse = (user, statusCode, res, msg, rememberMe) => {
       message: msg
     });
 };
+
+const convertCookieToLogin = async (req, res, userID) => {
+
+  const adminID = req.cookies.adminID;
+  if (adminID) {
+    await PollModel.findOneAndUpdate({ adminID }, { adminID: userID });
+  }
+  await res.clearCookie('adminID');
+}
 
 
 

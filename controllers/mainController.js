@@ -58,17 +58,9 @@ exports.sendEmail = ('/mail', asyncHandler(async (req, res, next) => {
 // @access    Public
 exports.dashboard = asyncHandler(async (req, res, next) => {
 
-  let pollList;
+  const adminID = req.user ? req.user._id : req.cookies.adminID;
 
-  if (req.user && req.cookies.adminID) {
-    pollListOne = await PollModel.find({ adminID: req.user._id });
-    pollListTwo = await PollModel.find({ adminID: req.cookies.adminID });
-    pollList = pollListOne.concat(pollListTwo);
-  }
-  else {
-    const adminID = req.user ? req.user._id : req.cookies.adminID;
-    pollList = await PollModel.find({ adminID });
-  }
+  const pollList = await PollModel.find({ adminID });
 
   let url = req.protocol + '://' + req.hostname;
 

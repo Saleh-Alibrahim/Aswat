@@ -81,7 +81,7 @@ $('#question').change(function (e) {
                 input: 'option',
                 confirmButton: 'btn-solid-lg',
             },
-            inputPlaceholder: 'الرجاء ادخال الإسم لتصويت',
+            inputPlaceholder: 'الأسم',
             heightAuto: false,
             onOpen: () => Swal.getConfirmButton().focus(),
             confirmButtonText: 'إضافة السؤال',

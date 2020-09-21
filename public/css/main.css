@@ -157,7 +157,7 @@ body{
   user-select: none;
   cursor: pointer;
 }
-.res-name{
+.option-name{
   font:550 1.4rem "Tajawal", sans-serif;
   color:#393939;
 }
@@ -196,15 +196,15 @@ body{
   visibility:visible;
   animation:fadeInOut 3s;
 }
-#voteCount{
+.vote-count{
   float: left;
   margin-left:5px;
 }
-#poll-option h4{
+.poll-option h4{
   display: inline;
   font-family: 'Tajawal', sans-serif;
 }
-#res-title{
+#poll-title{
   text-align: center;
   font-family: 'Tajawal', sans-serif;
   margin: 30px 0;
