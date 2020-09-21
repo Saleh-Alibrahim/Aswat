@@ -15,6 +15,7 @@
                             <table class="table table-striped ">
                                 <thead>
                                     <tr>
+                                        <th scope="col">#</th>
                                         <th scope="col">تاريخ الإنتهاء</th>
                                         <th scope="col">اجمالي الأصوات</th>
                                         <th scope="col">العنوان</th>
@@ -22,13 +23,21 @@
                                 </thead>
                                 <tbody>
                                     <% for(let i=0; i<pollList.length; i++) {%>
-                                    <tr class="title-link">
-                                        <td>لا يوجد </td>
-                                        <td><%= pollList[i].total %> </td>
-                                        <td><a href="<%= url %>/<%= pollList[i]._id %> "><%= pollList[i].title %>
-                                            </a>&nbsp;(<a href="<%= url %>/<%= pollList[i]._id %>/r ">النتائج</a>)
-                                        </td>
-                                    </tr>
+                                    <div class="qwer">
+                                        <tr class="title-link">
+                                            <td>
+                                                <button class="fas fa-trash btn btn-link delete-button"
+                                                    value="<%= pollList[i]._id %>">
+                                                </button>
+                                            </td>
+                                            <td>لا يوجد </td>
+                                            <td><%= pollList[i].total %> </td>
+                                            <td>
+                                                <a href="<%= url %>/<%= pollList[i]._id %> "><%= pollList[i].title %>
+                                                </a>&nbsp;(<a href="<%= url %>/<%= pollList[i]._id %>/r ">النتائج</a>)
+                                            </td>
+                                        </tr>
+                                    </div>
                                     <% } %>
                                 </tbody>
                             </table>
@@ -38,6 +47,46 @@
             </div>
         </div>
         <%- include('partials/footer') %>
+        <script>
+            $('.delete-button').click((e) => {
+                const poll = e.target.parentElement.parentElement;
+                Swal.fire({
+                    title: 'هل انت متأكد',
+                    text: "لا تستطيع التراجع عن هذا القرار",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#00bfd8',
+                    cancelButtonColor: '#d33',
+                    heightAuto: false,
+                    confirmButtonText: 'تراجع',
+                    cancelButtonText: 'متأكد'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(`/${poll.value}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        }).then(res => {
+                            if (res.status == 200) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'تم حذف التصويت',
+                                    timer: 1500,
+                                    heightAuto: false,
+                                    showConfirmButton: false,
+                                });
+                                poll.remove();
+                            }
+                            else {
+                                errorAlert('مشكلة في السيرفر', 500);
+                            }
+                        })
+                    }
+                })
+
+            });
+        </script>
 </body>
 
 </html>

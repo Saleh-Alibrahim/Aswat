@@ -12,6 +12,7 @@ function successAlertTimer(msg, url) {
         }
     });
 }
+
 function errorAlert(msg, status) {
     Swal.fire({
         icon: 'error',

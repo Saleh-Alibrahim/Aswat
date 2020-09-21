@@ -1,5 +1,4 @@
 const crypto = require('crypto');
-const path = require('path');
 const asyncHandler = require('../middleware/async');
 const sendEmail = require('../utils/sendEmail');
 const UserModel = require('../models/UserModel');
