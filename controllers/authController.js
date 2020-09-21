@@ -242,7 +242,7 @@ const convertCookieToLogin = async (req, res, userID) => {
 
   const adminID = req.cookies.adminID;
   if (adminID) {
-    await PollModel.findOneAndUpdate({ adminID }, { adminID: userID });
+    await PollModel.updateMany({ adminID }, { adminID: userID });
   }
   await res.clearCookie('adminID');
 }

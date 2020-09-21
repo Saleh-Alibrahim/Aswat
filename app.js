@@ -44,11 +44,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Prevent XSS attack
 app.use(xss());
 
-
-
 // Prevent http param pollution
 app.use(hpp());
-
 
 // Enable CORS
 app.use(cors());
@@ -81,7 +78,7 @@ if (process.env.NODE_ENV === 'production') {
   // Rate Limiting
   const Limiter = rateLimit({
     windowMs: 10 * 60 * 1000, // 10 mins
-    max: 10
+    max: 100
   });
 
   app.use(Limiter);
