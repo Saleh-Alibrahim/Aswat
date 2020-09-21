@@ -6,9 +6,9 @@
     <%- include('partials/preloader') %>
 
     <%- include('partials/navbar') %>
-    <div class="card-container">
+    <div class="">
         <div class="card shadow-lg o-hidden border-0 my-5 text-center">
-            <div class="card-body">
+            <div class="card-body p-2">
                 <div class="row">
                     <div class="col">
                         <div class="p-0">
@@ -16,26 +16,24 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">اجمالي الأصوات</th>
+                                        <th scope="col">إجمالي الأصوات</th>
                                         <th scope="col">العنوان</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <% for(let i=0; i<pollList.length; i++) {%>
-                                    <div class="qwer">
-                                        <tr class="title-link">
-                                            <td>
-                                                <button class="fas fa-trash btn btn-link delete-button"
-                                                    value="<%= pollList[i]._id %>">
-                                                </button>
-                                            </td>
-                                            <td><%= pollList[i].total %> </td>
-                                            <td>
-                                                <a href="<%= url %>/<%= pollList[i]._id %> "><%= pollList[i].title %>
-                                                </a>&nbsp;(<a href="<%= url %>/<%= pollList[i]._id %>/r ">النتائج</a>)
-                                            </td>
-                                        </tr>
-                                    </div>
+                                    <tr class="title-link">
+                                        <td>
+                                            <button class="fas fa-trash btn btn-link delete-button"
+                                                value="<%= pollList[i]._id %>">
+                                            </button>
+                                        </td>
+                                        <td><%= pollList[i].total %> </td>
+                                        <td>
+                                            <a href="<%= url %>/<%= pollList[i]._id %> "><%= pollList[i].title %>
+                                            </a>&nbsp;(<a href="<%= url %>/<%= pollList[i]._id %>/r ">النتائج</a>)
+                                        </td>
+                                    </tr>
                                     <% } %>
                                 </tbody>
                             </table>
