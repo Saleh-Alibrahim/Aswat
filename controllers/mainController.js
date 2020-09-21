@@ -32,6 +32,28 @@ exports.getPoll = asyncHandler(async (req, res, next) => {
   res.render('voteView', { poll });
 });
 
+// @desc    Delete the poll
+// @route   Delete /:id
+// @access    Private
+exports.deletePoll = asyncHandler(async (req, res, next) => {
+  const id = req.params.id;
+
+  // Check if id is sent with request
+  if (!id) {
+    return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
+  }
+
+  // Find the poll with sent id
+  const poll = await PollModel.findByIdAndRemove({ _id: id });
+
+  // No poll with given id
+  if (!poll) {
+    return next(new ErrorResponse('لا يوجد تصويت بهذا الايدي', 404));
+  }
+
+  res.json({ success: true });
+});
+
 // @desc    Send email
 // @route   POST /mail
 // @access    Public

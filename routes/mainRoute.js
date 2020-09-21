@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // Controllers 
-const { getMainView, getPoll, dashboard, sendEmail } = require('../controllers/mainController');
+const { getMainView, getPoll, deletePoll, dashboard, sendEmail } = require('../controllers/mainController');
 const { getPollResult, getResultAccses } = require('../controllers/resController');
 const { getCreateView, createPoll } = require('../controllers/createController');
 const { addVote } = require('../controllers/voteController');
@@ -20,6 +20,8 @@ router.route('/create')
 router.get('/dashboard', getLoginUser, dashboard);
 
 router.get('/:id', getPoll);
+
+router.delete('/:id', deletePoll);
 
 
 router.get('/:id/r', getLoginUser, getPollResult);

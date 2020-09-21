@@ -49,7 +49,8 @@
         <%- include('partials/footer') %>
         <script>
             $('.delete-button').click((e) => {
-                const poll = e.target.parentElement.parentElement;
+                const pollParent = e.target.parentElement.parentElement;
+                const pollID = e.target.value;
                 Swal.fire({
                     title: 'هل انت متأكد',
                     text: "لا تستطيع التراجع عن هذا القرار",
@@ -58,11 +59,11 @@
                     confirmButtonColor: '#00bfd8',
                     cancelButtonColor: '#d33',
                     heightAuto: false,
-                    confirmButtonText: 'تراجع',
-                    cancelButtonText: 'متأكد'
+                    confirmButtonText: 'متأكد',
+                    cancelButtonText: 'تراجع'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        fetch(`/${poll.value}`, {
+                        fetch(`/${pollID}`, {
                             method: 'DELETE',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -76,7 +77,7 @@
                                     heightAuto: false,
                                     showConfirmButton: false,
                                 });
-                                poll.remove();
+                                pollParent.remove();
                             }
                             else {
                                 errorAlert('مشكلة في السيرفر', 500);
