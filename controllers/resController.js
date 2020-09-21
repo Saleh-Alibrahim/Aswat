@@ -25,13 +25,14 @@ exports.getPollResult = asyncHandler(async (req, res, next) => {
   // Get the poll from the id
   const poll = await PollModel.findById(id);
 
-  const cookie = await cookieIsAdmin(req, poll);
-  const login = await loginIsAdmin(req, poll);
-
   // No poll with the given id
   if (!poll) {
     return next(new ErrorResponse('الصفحة المطلوبة غير موجودة', 404));
   }
+
+  const cookie = await cookieIsAdmin(req, poll);
+  const login = await loginIsAdmin(req, poll);
+
 
   // Check if you need to vote before access the result
   if (poll.hidden != 0) {
