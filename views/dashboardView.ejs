@@ -8,10 +8,11 @@
     <%- include('partials/navbar') %>
     <div class="">
         <div class="card shadow-lg o-hidden border-0 my-5 text-center">
-            <div class="card-body p-2">
+            <div class="card-body">
                 <div class="row">
                     <div class="col">
                         <div class="p-0">
+                            <% if(pollList.length>0){ %>
                             <table class="table table-striped ">
                                 <thead>
                                     <tr>
@@ -37,6 +38,10 @@
                                     <% } %>
                                 </tbody>
                             </table>
+                            <%}else{%>
+                            <h3 class="m-5"> 😥 لا يوجد لديك اصوات </h3>
+                            <a class="btn-solid-lg btn-solid-margin text-center" href="/create">إنشاء تصويت</a>
+                            <% } %>
                         </div>
                     </div>
                 </div>

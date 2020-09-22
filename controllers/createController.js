@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const ErrorResponse = require('../utils/errorResponse');
 const PollModel = require('../models/PollModel');
 const UserModel = require('../models/UserModel');
@@ -9,7 +10,7 @@ const ms = require('ms');
 // @desc    Render the create poll page
 // @route   GET /create
 // @access    Public
-exports.getCreateView = asyncHandler(async (req, res, next) => {
+exports.getCreateView = asyncHandler(async (req, res) => {
   res.render('createView');
 });
 
