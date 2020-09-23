@@ -196,6 +196,14 @@ body{
   visibility:visible;
   animation:fadeInOut 3s;
 }
+.delete-button{
+  color:#00bfd8;
+}
+
+.info-button{
+  color:#00bfd8;
+}
+
 .vote-count{
   float: left;
   margin-left:5px;

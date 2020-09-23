@@ -28,6 +28,11 @@
                                             <button class="fas fa-trash btn btn-link delete-button"
                                                 value="<%= pollList[i]._id %>">
                                             </button>
+                                            <% let {hidden,ipAddress,vpn,question}=pollList[i] %>
+                                            <% let data={hidden,ipAddress,vpn,question}%>
+                                            <button class="fas fa-info btn btn-link info-button"
+                                                value="<%= JSON.stringify(data) %>">
+                                            </button>
                                         </td>
                                         <td><%= pollList[i].total %> </td>
                                         <td>
@@ -48,47 +53,7 @@
             </div>
         </div>
         <%- include('partials/footer') %>
-        <script>
-            $('.delete-button').click((e) => {
-                const pollParent = e.target.parentElement.parentElement;
-                const pollID = e.target.value;
-                Swal.fire({
-                    title: 'هل انت متأكد',
-                    text: "لا تستطيع التراجع عن هذا القرار",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#00bfd8',
-                    cancelButtonColor: '#d33',
-                    heightAuto: false,
-                    confirmButtonText: 'متأكد',
-                    cancelButtonText: 'تراجع'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        fetch(`/${pollID}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            }
-                        }).then(res => {
-                            if (res.status == 200) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: 'تم حذف التصويت',
-                                    timer: 1500,
-                                    heightAuto: false,
-                                    showConfirmButton: false,
-                                });
-                                pollParent.remove();
-                            }
-                            else {
-                                errorAlert('مشكلة في السيرفر', 500);
-                            }
-                        })
-                    }
-                })
-
-            });
-        </script>
+        <script src="../js/dashboard.js"></script>
 </body>
 
 </html>

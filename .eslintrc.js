@@ -1,21 +1,21 @@
 module.exports = {
-    'env': {
-        'node': true,
-        'commonjs': true,
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "node": true,
+        "jquery": true
     },
-    'extends': 'eslint:recommended',
-    'parserOptions': {
-        'ecmaVersion': 12
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 12
     },
-    'rules': {
-        'quotes': [
-            'error',
-            'single'
-        ],
-        'semi': [
-            'error',
-            'always'
-        ]
+    "rules": {
+        "no-unused-vars": 0
     },
+    "globals": {
+        "errorAlert": true,
+        "successAlertTimer": true,
+        "Swal": true
+    }
 };
-
