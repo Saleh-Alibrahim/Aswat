@@ -39,7 +39,7 @@ $('.delete-button').click((e) => {
 
 $('.info-button').click((e) => {
     const options = JSON.parse(e.target.value);
-    console.log('object :>> ', options);
+    console.log("options", options)
     let msg = "";
 
     if (options.hidden == 0) {
@@ -49,17 +49,24 @@ $('.info-button').click((e) => {
         msg += "<li>إظهار النتائج بعد التصويت</li>"
     }
     else if (options.hidden == 2) {
-        msg += "<li>إخفاء النتائج بعد للجميع</li>"
+        msg += "<li>إخفاء النتائج للجميع</li>"
     }
 
     if (options.ipAddress) {
         msg += "<li>تصويت واحد لكل شبكة</li>"
     }
+    else {
+        msg += "<li>يمكن إعادة التصويت من نفس الشبكة</li>"
+    }
     if (options.question) {
         msg += "<li>يوجد سؤال عند التصويت</li>"
+    } else {
+        msg += "<li>لا يوجد سؤال عند التصويت</li>"
     }
-    if (!options.vpn) {
-        msg += "<li> لا يسمح لـ VPN بتصويت  </li>"
+    if (options.vpn) {
+        msg += "<li> لا يسمح لـ VPN بتصويت</li>"
+    } else {
+        msg += "<li>  يسمح لـ VPN بتصويت</li>"
     }
     console.log('msg', msg)
     Swal.fire({
