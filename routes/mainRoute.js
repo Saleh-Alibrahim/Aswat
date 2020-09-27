@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 
 // Controllers 
-const { getMainView, getPoll, deletePoll, dashboard, sendEmail } = require('../controllers/mainController');
+const { getMainView, getPoll, deletePoll, dashboard, settings, sendEmail } = require('../controllers/mainController');
 const { getPollResult, getResultAccses } = require('../controllers/resController');
 const { getCreateView, createPoll } = require('../controllers/createController');
 const { addVote } = require('../controllers/voteController');
 
 // Middleware
-const { getLoginUser } = require('../middleware/auth');
+const { protect, getLoginUser } = require('../middleware/auth');
 
 
 router.get('/', getMainView);
@@ -18,6 +18,7 @@ router.route('/create')
   .post(getLoginUser, createPoll);
 
 router.get('/dashboard', getLoginUser, dashboard);
+router.get('/settings', protect, settings);
 
 router.get('/:id', getPoll);
 

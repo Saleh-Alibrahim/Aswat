@@ -90,7 +90,27 @@ exports.dashboard = asyncHandler(async (req, res, next) => {
     url = url + ':' + process.env.PORT;
   }
 
-  res.render('dashboardView', { pollList, url });
+  res.render('dashboardView', { pollList, url, user: req.user });
+
+});
+
+
+// @desc    Render the settings page
+// @route   GET /settings
+// @access    Private
+exports.settings = asyncHandler(async (req, res, next) => {
+
+  const adminID = req.user ? req.user._id : req.cookies.adminID;
+
+  const pollList = await PollModel.find({ adminID });
+
+  let url = req.protocol + '://' + req.hostname;
+
+  if (process.env.NODE_ENV === 'development') {
+    url = url + ':' + process.env.PORT;
+  }
+
+  res.render('settingsView', { pollList, url, user: req.user });
 
 });
 

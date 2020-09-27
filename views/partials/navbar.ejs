@@ -17,10 +17,13 @@
     <div class="collapse navbar-collapse" id="main-navbar">
         <ul id="main-nav-display" class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a id="login" class="nav-link" href="/auth/login">تسجيل الدخول</a>
+                <a class="logout nav-link d-none" href="/auth/logout">تسجيل الخروج</a>
             </li>
             <li class="nav-item">
-                <a id="logout" class="nav-link" href="/auth/logout">تسجيل الخروج</a>
+                <a class="settings nav-link d-none" href="/auth/settings">الإعدادات</a>
+            </li>
+            <li class="nav-item">
+                <a class="login nav-link" href="/auth/login">تسجيل الدخول</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/dashboard">اصواتي</a>
@@ -37,22 +40,25 @@
         </ul>
         <ul class="navbar-nav ml-auto" id="mobile-nav-display">
             <li class="nav-item">
-                <a class="nav-link order-md-1 float-right" href="/">الرئيسية</a>
+                <a class="nav-link  float-right" href="/">الرئيسية</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link order-sm-2 float-right" href="/#contact">تواصل معنا</a>
+                <a class="nav-link  float-right" href="/#contact">تواصل معنا</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link order-sm-3 float-right" href="/dashboard">اصواتي</a>
+                <a class="nav-link  float-right" href="/dashboard">اصواتي</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link order-sm-4 float-right" href="/create">إنشاء التصويت</a>
+                <a class="nav-link  float-right" href="/create">إنشاء التصويت</a>
             </li>
             <li class="nav-item">
-                <a id="login" class="nav-link order-sm-6 float-right" href="/auth/login">تسجيل الدخول</a>
+                <a class="login nav-link float-right" href="/auth/login">تسجيل الدخول</a>
             </li>
             <li class="nav-item">
-                <a id="logout" class="nav-link order-sm-5 float-right" href="/auth/logout">تسجيل الخروج</a>
+                <a class="settings nav-link d-none float-right" href="/auth/settings">الإعدادات</a>
+            </li>
+            <li class="nav-item">
+                <a class="logout nav-link d-none float-right" href="/auth/logout">تسجيل الخروج</a>
             </li>
         </ul>
     </div>

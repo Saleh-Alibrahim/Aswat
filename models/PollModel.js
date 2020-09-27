@@ -10,7 +10,8 @@ const PollSchema = new mongoose.Schema({
   },
   adminID: {
     type: String,
-    required: true
+    required: true,
+    select: false
   },
   title: {
     type: String,
@@ -66,7 +67,6 @@ PollSchema.methods.addTotalVote = async function () {
   this.total = totalVote;
   await this.save();
 };
-
 // Add percentage to each option
 PollSchema.methods.addPercentageToOptions = async function () {
   this.options.forEach(option => {

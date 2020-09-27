@@ -23,7 +23,7 @@ exports.getPollResult = asyncHandler(async (req, res, next) => {
 
 
   // Get the poll from the id
-  const poll = await PollModel.findById(id);
+  const poll = await PollModel.findById(id).select('+adminID');
 
   // No poll with the given id
   if (!poll) {

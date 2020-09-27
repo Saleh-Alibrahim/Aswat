@@ -11,7 +11,7 @@ const UserSchema = new mongoose.Schema({
     _id: {
         type: String,
         default: shortid.generate,
-        required: true
+        required: true,
     },
     username: {
         type: String,

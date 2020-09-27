@@ -203,6 +203,19 @@ body{
 .info-button{
   color:#00bfd8;
 }
+.nav-tabs{
+  text-shadow: none;
+  color:#495057;
+  text-decoration: none;
+}
+.table th, .table td{
+  vertical-align: middle;
+}
+.table thead th{
+  vertical-align: middle;
+  font-weight: 500;
+  font-size: 1.2rem;
+}
 
 .vote-count{
   float: left;

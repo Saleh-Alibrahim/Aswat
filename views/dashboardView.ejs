@@ -9,11 +9,37 @@
     <div class="">
         <div class="card shadow-lg o-hidden border-0 my-5 text-center">
             <div class="card-body">
+                <% if(user) { %>
+                <div class="row mb-3">
+                    <div class="col text-right">
+                        <h3><%= user.username %> </h3>
+                        <p>مستخدم اصوات</p>
+                    </div>
+                    <div class="col-3">
+                        <div class="image-wrapper">
+                            <img class="img-fluid" src="/images/team-member-2.svg" alt="alternative">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <nav>
+                            <div class="nav nav-tabs float-right" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link nav-tabs" href="<%=url  %>/settings"
+                                    aria-controls="nav-profile" aria-selected="false">الإعدادت</a>
+                                <a class="nav-item nav-link active nav-tabs" href="<%=url  %>/dashboard"
+                                    aria-controls="nav-home" aria-selected="true">اصواتي</a>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <% } %>
                 <div class="row">
                     <div class="col">
                         <div class="p-0">
                             <% if(pollList.length>0){ %>
-                            <table class="table table-striped ">
+                            <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -44,7 +70,8 @@
                                 </tbody>
                             </table>
                             <%}else{%>
-                            <h3 class="m-5"> 😥 لا يوجد لديك اصوات </h3>
+                            <h3 class="mx-5 mt-5"> لا يوجد لديك اصوات </h3>
+                            <h3 class="mx-5 mb-5">😥</h3>
                             <a class="btn-solid-lg btn-solid-margin text-center" href="/create">إنشاء تصويت</a>
                             <% } %>
                         </div>

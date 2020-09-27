@@ -47,7 +47,7 @@ exports.createPoll = asyncHandler(async (req, res, next) => {
   });
 
   if (hidden != 0 || ip) { await AddressModel.create({ _id: newPoll._id }); }
-  if (question) { await QuestionsModel.create({ _id: newPoll._id, adminID: newPoll.adminID }); }
+  if (question) { await QuestionsModel.create({ _id: newPoll._id, adminID }); }
 
 
   res.json({

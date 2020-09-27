@@ -9,7 +9,8 @@ const QuestionsSchema = new mongoose.Schema({
   adminID: {
     type: String,
     ref: 'Polls.adminID',
-    required: true
+    required: true,
+    select: false
   },
   answers: [String]
 });

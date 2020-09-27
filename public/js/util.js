@@ -26,10 +26,9 @@ function errorAlert(msg, status) {
 
 // Check if the user login or not
 if (token) {
-    // Hide the login button
-    $('#login').css('display', 'none');
-    // Show the logout button
-    $('#logout').css('display', 'inline-block');
+    $('.logout').removeClass('d-none');
+    $('.login').addClass('d-none');
+    $('.settings').removeClass('d-none');
 }
 
 function createCookie(name, value, expires) {
