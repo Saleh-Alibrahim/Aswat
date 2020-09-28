@@ -13,6 +13,7 @@ const { getRegisterView,
     getUpdatePasswordView,
     updatePassword,
     getResetPasswordView,
+    updateDetails,
     logout } = require('../controllers/authController');
 const { protect, authorize, getLoginUser } = require('../middleware/auth');
 
@@ -53,6 +54,9 @@ router.route('/resetpassword/:resettoken')
     .put(resetPassword);
 
 router.get('/updatepassword', protect, getUpdatePasswordView);
+
+
+router.put('/updatedetails', protect, updateDetails);
 
 router.post('/updatepassword', protect, updatePassword);
 

@@ -36,7 +36,7 @@
                 </div>
                 <div class="row justify-content-end">
                     <div class="col-6">
-                        <form class="user">
+                        <form id="update-form" class="user">
                             <div class="form-group mt-4 text-right">
                                 <label for="username">
                                     <p class="settings-label mr-3">إسم المستخدم </p>
@@ -71,6 +71,33 @@
         </div>
         <%- include('partials/footer') %>
         <script src="../js/dashboard.js"></script>
+        <script>
+            $('#update-form').on('submit', async function (e) {
+                e.preventDefault();
+                const username = $('#username').val();
+                const email = $('#email').val();
+                const response = await fetch('/auth/updatedetails', {
+                    method: 'PUT',
+                    headers: {
+                        'content-type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, email })
+                });
+                try {
+                    const data = await response.json();
+                    // Show alert if v or show error otherwise
+                    if (response.status == 200) {
+                        successAlertTimer(data.message, `${location.href}`)
+                    } else {
+                        errorAlert(data.message);
+                    }
+                }
+                catch (error) {
+                    console.log(error);
+                    errorAlert('مشكلة في السيرفر', 500);
+                }
+            })
+        </script>
 </body>
 
 </html>

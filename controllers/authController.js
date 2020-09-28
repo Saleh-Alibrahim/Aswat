@@ -243,6 +243,39 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
 
 });
 
+// @desc      Update user details
+// @route     PUT /api/v1/auth/updatedetails
+// @access    Private
+exports.updateDetails = async (req, res, next) => {
+
+  try {
+
+    const filesToUpdate = {
+      username: req.body.username,
+      email: req.body.email
+    };
+
+    const user = await UserModel.findByIdAndUpdate(req.user.id, filesToUpdate, {
+      new: true,
+      runValidators: true
+    });
+
+    res.status(200).json(
+      {
+        success: true,
+        message: 'تم تعديل البيانات'
+      }
+    );
+  }
+  catch (e) {
+    if (e.code == 11000) {
+      return next(new ErrorResponse('هذا الايميل موحود من قبل', 401, true));
+    }
+  }
+
+
+};
+
 // @desc      Render update password view
 // @route     GET /api/v1/auth/updatepassword
 // @access    Private
