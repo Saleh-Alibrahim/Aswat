@@ -36,20 +36,30 @@ exports.getPoll = asyncHandler(async (req, res, next) => {
 // @route   Delete /:id
 // @access    Private
 exports.deletePoll = asyncHandler(async (req, res, next) => {
+
   const id = req.params.id;
+  console.log("exports.deletePoll -> id", id)
 
   // Check if id is sent with request
   if (!id) {
-    return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400));
+    return next(new ErrorResponse('الرجاء ارسال جميع المتطلبات', 400, true));
   }
 
   // Find the poll with sent id
-  const poll = await PollModel.findByIdAndRemove({ _id: id });
+  const poll = await PollModel.findOne({ _id: id }).select('+adminID');
 
   // No poll with given id
   if (!poll) {
-    return next(new ErrorResponse('لا يوجد تصويت بهذا الايدي', 404));
+    return next(new ErrorResponse('لا يوجد تصويت بهذا الايدي', 404, true));
   }
+
+  const adminID = req.user ? req.user._id : req.cookies.adminID;
+
+  if (poll.adminID != adminID) {
+    return next(new ErrorResponse('غير مسموح لك بحذف هذا التصويت', 401, true));
+  }
+
+  await poll.deleteOne();
 
   res.json({ success: true });
 });
@@ -84,6 +94,10 @@ exports.dashboard = asyncHandler(async (req, res, next) => {
 
   const pollList = await PollModel.find({ adminID });
 
+  if (!pollList) {
+    return next(new ErrorResponse('لا يوجد اصوات لهذا المستخدم', 401));
+  }
+
   let url = req.protocol + '://' + req.hostname;
 
   if (process.env.NODE_ENV === 'development') {
@@ -100,17 +114,13 @@ exports.dashboard = asyncHandler(async (req, res, next) => {
 // @access    Private
 exports.settings = asyncHandler(async (req, res, next) => {
 
-  const adminID = req.user ? req.user._id : req.cookies.adminID;
-
-  const pollList = await PollModel.find({ adminID });
-
   let url = req.protocol + '://' + req.hostname;
 
   if (process.env.NODE_ENV === 'development') {
     url = url + ':' + process.env.PORT;
   }
 
-  res.render('settingsView', { pollList, url, user: req.user });
+  res.render('settingsView', { user: req.user, url });
 
 });
 

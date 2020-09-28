@@ -7,13 +7,14 @@ const { getRegisterView,
     getLoginView,
     registerUsers,
     loginUsers,
-    getMe,
     forgotPassword,
     getforgotPasswordView,
     resetPassword,
+    getUpdatePasswordView,
+    updatePassword,
     getResetPasswordView,
     logout } = require('../controllers/authController');
-const { protect, authorize } = require('../middleware/auth');
+const { protect, authorize, getLoginUser } = require('../middleware/auth');
 
 
 
@@ -34,12 +35,12 @@ bouncer.blocked = function (req, res, next, remaining) {
 
 
 router.route('/register')
-    .get(getRegisterView)
-    .post(registerUsers);
+    .get(getLoginUser, getRegisterView)
+    .post(getLoginUser, bouncer.block, registerUsers);
 
 router.route('/login')
-    .get(getLoginView)
-    .post(bouncer.block, loginUsers);
+    .get(getLoginUser, getLoginView)
+    .post(getLoginUser, bouncer.block, loginUsers);
 
 router.get('/logout', protect, logout);
 
@@ -50,6 +51,10 @@ router.post('/forgotpassword', bouncer.block, forgotPassword);
 router.route('/resetpassword/:resettoken')
     .get(getResetPasswordView)
     .put(resetPassword);
+
+router.get('/updatepassword', protect, getUpdatePasswordView);
+
+router.post('/updatepassword', protect, updatePassword);
 
 
 

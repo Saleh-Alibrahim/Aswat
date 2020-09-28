@@ -107,7 +107,7 @@ function addNewOption(e) {
     newOption.setAttribute("type", "text");
 
     newOption.setAttribute("placeholder", "إضافة إجابة");
-    newOption.classList = 'option form-control last-input';
+    newOption.classList = 'option form-control empty last-input';
 
 
     newOption.addEventListener('keydown', addNewOption);

@@ -10,6 +10,9 @@ const ms = require('ms');
 // @route     GET /auth/register
 // @access    Public
 exports.getRegisterView = asyncHandler(async (req, res, next) => {
+  if (req.user) {
+    return res.redirect('/');
+  }
   res.render('registerView');
 });
 
@@ -17,6 +20,9 @@ exports.getRegisterView = asyncHandler(async (req, res, next) => {
 // @route     GET /auth/login
 // @access    Public
 exports.getLoginView = asyncHandler(async (req, res, next) => {
+  if (req.user) {
+    return res.redirect('/');
+  }
   res.render('loginView');
 });
 
@@ -25,6 +31,9 @@ exports.getLoginView = asyncHandler(async (req, res, next) => {
 // @access    Public
 exports.registerUsers = asyncHandler(async (req, res, next) => {
 
+  if (req.user) {
+    return res.redirect('/');
+  }
   let { username, email, password } = req.body;
 
   if (!username || !email || !password) {
@@ -56,6 +65,10 @@ exports.registerUsers = asyncHandler(async (req, res, next) => {
 // @route     POST /auth/login
 // @access    Public
 exports.loginUsers = asyncHandler(async (req, res, next) => {
+
+  if (req.user) {
+    return res.redirect('/');
+  }
 
   let { email, password, rememberMe } = req.body;
 
@@ -207,6 +220,36 @@ exports.logout = asyncHandler(async (req, res, next) => {
 // @access    Public
 exports.getforgotPasswordView = asyncHandler(async (req, res, next) => {
   res.render('forgotPasswordView');
+});
+
+// @desc      Update password
+// @route     GET /api/v1/auth/updatepassword
+// @access    Private
+exports.updatePassword = asyncHandler(async (req, res, next) => {
+
+  const { oldPassword, newPassword } = req.body;
+
+  const user = await UserModel.findById(req.user.id).select('+password');
+
+  if (!(await user.checkPassword(req.body.oldPassword))) {
+    return next(new ErrorResponse('خطأ في كلمة المرور السابقة', 401, true));
+  }
+
+  user.password = req.body.newPassword;
+
+  await user.save();
+
+  sendTokenResponse(user, 200, res, 'تم تغيير كلمة المرور بنجاح', true);
+
+});
+
+// @desc      Render update password view
+// @route     GET /api/v1/auth/updatepassword
+// @access    Private
+exports.getUpdatePasswordView = asyncHandler(async (req, res, next) => {
+
+  res.render('updatePasswordView', { user: req.user });
+
 });
 
 

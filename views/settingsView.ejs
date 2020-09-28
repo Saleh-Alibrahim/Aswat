@@ -1,4 +1,5 @@
-<%- include('partials/head') %>
+<%- include('partials/head2') %>
+
 </head>
 
 <body class="body-background">
@@ -6,80 +7,70 @@
     <%- include('partials/preloader') %>
 
     <%- include('partials/navbar') %>
-    <div class="card shadow-lg o-hidden border-0 my-5 text-center">
-        <div class="card-body">
-            <% if(user) { %>
-            <div class="row mb-3">
-                <div class="col text-right">
-                    <h3><%= user.username %> </h3>
-                    <p>مستخدم اصوات</p>
-                </div>
-                <div class="col-3">
-                    <div class="image-wrapper">
-                        <img class="img-fluid" src="/images/team-member-2.svg" alt="alternative">
+    <div class="container dashboard-view">
+        <div class="card shadow-lg o-hidden border-0 my-5 text-center">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col text-right user-details pt-5">
+                        <h3><%= user.username %> </h3>
+                        <p class="settings-label"><%=user.role %></p>
                     </div>
-
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <nav>
-                        <div class="nav nav-tabs float-right" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active nav-tabs" href="<%=url  %>/settings"
-                                aria-selected="true">الإعدادت</a>
-                            <a class="nav-item nav-link nav-tabs" href="<%=url  %>/dashboard"
-                                aria-selected="false">اصواتي</a>
+                    <div class="col-lg-3 col-md-3  col-sm-3 col-6">
+                        <div class="image-wrapper">
+                            <img class="img-fluid user-img" src="/images/team-member-2.svg" alt="alternative">
                         </div>
-                    </nav>
-                </div>
-            </div>
-            <% } %>
-            <div class="row">
-                <div class="col">
-                    <div class="p-0">
-                        <% if(pollList.length>0){ %>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">إجمالي الأصوات</th>
-                                    <th scope="col">العنوان</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% for(let i=0; i<pollList.length; i++) {%>
-                                <tr class="title-link">
-                                    <td>
-                                        <button class="fas fa-trash btn btn-link delete-button"
-                                            value="<%= pollList[i]._id %>">
-                                        </button>
-                                        <% let {hidden,ipAddress,vpn,question}=pollList[i] %>
-                                        <% let data={hidden,ipAddress,vpn,question}%>
-                                        <button class="fas fa-info btn btn-link info-button"
-                                            value="<%= JSON.stringify(data) %>">
-                                        </button>
-                                    </td>
-                                    <td><%= pollList[i].total %> </td>
-                                    <td>
-                                        <a href="<%= url %>/<%= pollList[i]._id %> "><%= pollList[i].title %>
-                                        </a>&nbsp;(<a href="<%= url %>/<%= pollList[i]._id %>/r ">النتائج</a>)
-                                    </td>
-                                </tr>
-                                <% } %>
-                            </tbody>
-                        </table>
-                        <%}else{%>
-                        <h3 class="mx-5 mt-5"> لا يوجد لديك اصوات </h3>
-                        <h3 class="mx-5 mb-5">😥</h3>
-                        <a class="btn-solid-lg btn-solid-margin text-center" href="/create">إنشاء تصويت</a>
-                        <% } %>
+
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col">
+                        <nav>
+                            <div class="nav nav-tabs float-right" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active nav-tabs" href="<%=url  %>/settings"
+                                    aria-controls="nav-profile" aria-selected="true">الإعدادت</a>
+                                <a class="nav-item nav-link  nav-tabs" href="<%=url  %>/dashboard"
+                                    aria-controls="nav-home" aria-selected="false">اصواتي</a>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <div class="row justify-content-end">
+                    <div class="col-6">
+                        <form class="user">
+                            <div class="form-group mt-4 text-right">
+                                <label for="username">
+                                    <p class="settings-label mr-3">إسم المستخدم </p>
+                                </label>
+                                <input class="form-control form-control-user" type="text" id="username"
+                                    placeholder="إسم المستخدم" name="username" value="<%=user.username %> ">
+                            </div>
+                            <div class="form-group text-right">
+                                <label for="email">
+                                    <p class="settings-label mr-3">الإيميل</p>
+                                </label>
+                                <input class="form-control form-control-user" type="email" id="email"
+                                    placeholder="الإيميل" name="email" value="<%=user.email %> ">
+                            </div>
+                            <div class="form-group">
+                                <a href="<%=url  %>/auth/updatepassword" style="text-decoration: none;"
+                                    class="btn btn-primary btn-block text-white btn-user" id="password-btn">تغيير كلمة
+                                    المرور</a>
+                            </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="col">
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block text-white btn-user p-3" id="submit-btn"
+                            type="submit">حفظ
+                            التغييرات</button>
+                    </div>
+                </div>
+                </form>
             </div>
         </div>
-    </div>
-    <%- include('partials/footer') %>
-    <script src="../js/dashboard.js"></script>
+        <%- include('partials/footer') %>
+        <script src="../js/dashboard.js"></script>
 </body>
 
 </html>

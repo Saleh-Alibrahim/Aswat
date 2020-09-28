@@ -65,6 +65,37 @@ body{
     border: 0;
     background-color: white;
 }
+#title:focus{
+  background-color: white;
+  border-color: white; 
+  box-shadow: 0 0 0 0 white;
+}
+
+.settings-label{
+  font-size: 1.1rem;
+}
+
+#submit-btn {
+	background-color: #00bfd8;
+	border: 2px solid #00bfd8 ;
+	font-weight: 700;
+  font-size: 1.2rem;
+}
+#password-btn{
+  background-color:#ff2a26 ;
+	border: 2px solid #ff2a26  ;
+	font-weight: 700;
+	font-size: 1rem;
+}
+
+#password-btn:hover {
+	background-color: transparent;
+    color: #ff2a26 !important;
+}
+#submit-btn:hover {
+	background-color: transparent;
+    color: #00bfd8 !important;
+}
 
 #add-questions{
   float: right;
@@ -98,12 +129,15 @@ body{
 
 
 
-.form-control:focus {
+.option:focus {
   background-color: white;
   border-color: white; 
   box-shadow: 0 0 0 0 white;
-  
 }
+
+
+
+
 
 #buttons-list{
   margin-top: 50px;
@@ -184,7 +218,7 @@ body{
   border-radius:4px;
   text-align:center;
   z-index:1;
-  box-shadow:0 0 20px rgba(0,0,0,0.3);
+  box-shadow:0 0 20px rgba(208, 136, 136, 0.3);
   visibility:hidden;
   opacity:0;
 }
@@ -192,6 +226,15 @@ body{
  width: 500px !important;
 }
 
+.dashboard-view{
+  width: 800px !important;
+}
+.user-img{
+  border-radius: 50%;
+}
+.user-details{
+  vertical-align:middle;
+}
 #toast.show{
   visibility:visible;
   animation:fadeInOut 3s;
@@ -264,6 +307,12 @@ hr{
   margin-bottom:0.5rem;
   margin-top: 0.5rem;
   border-top:2px solid rgba(0, 0, 0, 0.1)
+}
+
+.rem-hr{
+  margin-bottom:1rem;
+  margin-top: 1rem;
+  border-top:1px solid rgba(0, 0, 0, 0.1)
 }
 
 

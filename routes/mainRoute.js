@@ -17,13 +17,14 @@ router.route('/create')
   .get(getCreateView)
   .post(getLoginUser, createPoll);
 
+
 router.get('/dashboard', getLoginUser, dashboard);
+
 router.get('/settings', protect, settings);
 
 router.get('/:id', getPoll);
 
-router.delete('/:id', deletePoll);
-
+router.post('/vote', addVote);
 
 router.get('/:id/r', getLoginUser, getPollResult);
 
@@ -31,7 +32,8 @@ router.get('/:id/resultAccess', getLoginUser, getResultAccses);
 
 router.post('/mail', sendEmail);
 
-router.post('/vote', addVote);
+
+router.delete('/:id', getLoginUser, deletePoll);
 
 
 

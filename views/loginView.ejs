@@ -1,13 +1,11 @@
-<%- include('partials/head') %>
-<link rel="stylesheet" href="/css_lib/bootstrap.min.css">
-<link rel="stylesheet" href="/css/styles.css">
+<%- include('partials/head2') %>
 </head>
 
 <body class="body-background">
     <%- include('partials/preloader') %>
 
     <%- include('partials/navbar') %>
-    <div class="container card-container">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-9 col-lg-12 col-xl-10">
                 <div class="card shadow-lg o-hidden border-0 my-5">
@@ -24,9 +22,9 @@
                                         <h3 class="text-dark mb-4" data-bs-hover-animate="tada">مرحبا بعودتك<br></h3>
                                     </div>
                                     <form id="login-form" class="user">
-                                        <div class="form-group"><input class="form-control form-control-user"
-                                                type="email" id="email" aria-describedby="emailHelp"
-                                                placeholder="الإيميل" name="email"></div>
+                                        <div class="form-group">
+                                            <input class="form-control form-control-user" type="email" id="email"
+                                                aria-describedby="emailHelp" placeholder="الإيميل" name="email"></div>
                                         <div class="form-group"><input class="form-control form-control-user"
                                                 type="password" id="password" placeholder="كلمة المرور" name="password">
                                         </div>
@@ -48,7 +46,7 @@
                                             role="button" id="facebook-btn"><i
                                                 class="fab fa-facebook-f"></i>&nbsp;Facebook
                                             الدخول</a> -->
-                                        <hr>
+                                        <hr class="rem-hr">
                                     </form>
                                     <div class="text-center"><a class="small redirect-password"
                                             href="/auth/forgotpassword">نسيت كلمة المرور ؟</a></div>
