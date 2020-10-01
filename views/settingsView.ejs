@@ -10,12 +10,14 @@
     <div class="container dashboard-view">
         <div class="card shadow-lg o-hidden border-0 my-5 text-center">
             <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col text-right user-details pt-5">
+                <div class="row mb-3 justify-content-center">
+                    <div class="col text-lg-right text-md-right text-sm-right user-details pt-5 order-1
+                    order-lg-0 order-sm-0 order-md-0">
                         <h3><%= user.username %> </h3>
                         <p class="settings-label"><%=user.role %></p>
                     </div>
-                    <div class="col-lg-3 col-md-3  col-sm-3 col-6">
+                    <div class="col-lg-3 col-md-3  col-sm-3 col-6 justify-content-center order-0 
+                     order-lg-1 order-sm-1 order-md-1">
                         <div class="image-wrapper">
                             <img class="img-fluid user-img" src="/images/team-member-2.svg" alt="alternative">
                         </div>
@@ -35,7 +37,7 @@
                     </div>
                 </div>
                 <div class="row justify-content-end">
-                    <div class="col-6">
+                    <div class="col-lg-6">
                         <form id="update-form" class="user">
                             <div class="form-group mt-4 text-right">
                                 <label for="username">
