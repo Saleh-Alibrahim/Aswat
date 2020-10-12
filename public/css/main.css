@@ -321,6 +321,14 @@ hr{
   margin-top: 1rem;
 }
 
+.form-control:focus{
+  box-shadow:none;
+}
+
+.custom-control-input:checked~.custom-control-label:before{
+  border-color:#00bfd8;
+  background-color:#00bfd8;
+}
 .progress-hr{
   margin-top: 0.5rem !important;
   margin-bottom: 0 !important;
