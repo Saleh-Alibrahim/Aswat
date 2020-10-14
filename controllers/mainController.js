@@ -38,7 +38,6 @@ exports.getPoll = asyncHandler(async (req, res, next) => {
 exports.deletePoll = asyncHandler(async (req, res, next) => {
 
   const id = req.params.id;
-  console.log("exports.deletePoll -> id", id)
 
   // Check if id is sent with request
   if (!id) {

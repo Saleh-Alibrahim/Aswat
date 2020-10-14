@@ -13,7 +13,7 @@ exports.getRegisterView = asyncHandler(async (req, res, next) => {
   if (req.user) {
     return res.redirect('/');
   }
-  res.render('registerView');
+  res.render('auth/registerView');
 });
 
 // @desc      Render the login page
@@ -23,7 +23,7 @@ exports.getLoginView = asyncHandler(async (req, res, next) => {
   if (req.user) {
     return res.redirect('/');
   }
-  res.render('loginView');
+  res.render('auth/loginView');
 });
 
 // @desc      Register user
@@ -200,7 +200,7 @@ exports.getResetPasswordView = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('لا يوجد حساب بهذا الرمز', 400));
   }
   else {
-    res.render('resetPasswordView');
+    res.render('auth/resetPasswordView');
   }
 
 });
@@ -219,7 +219,7 @@ exports.logout = asyncHandler(async (req, res, next) => {
 // @route     GET /auth/forgotpassword
 // @access    Public
 exports.getforgotPasswordView = asyncHandler(async (req, res, next) => {
-  res.render('forgotPasswordView');
+  res.render('auth/forgotPasswordView');
 });
 
 // @desc      Update password
@@ -281,7 +281,7 @@ exports.updateDetails = async (req, res, next) => {
 // @access    Private
 exports.getUpdatePasswordView = asyncHandler(async (req, res, next) => {
 
-  res.render('updatePasswordView', { user: req.user });
+  res.render('auth/updatePasswordView', { user: req.user });
 
 });
 
