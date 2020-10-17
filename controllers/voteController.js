@@ -61,9 +61,13 @@ exports.addVote = asyncHandler(async (req, res, next) => {
   // Check if the client request answer to his question 
   // if yes save the the answer
   if (poll.question) {
+
     const question = await QuestionsModel.findById(pollID);
 
-    question.answers.push(answer);
+    let name = await PollModel.findOne({ "options._id": optionID }, { "options.$": 1 });
+    name = name.options[0].name
+
+    question.answers.push({ name, answer });
 
     await question.save();
 

@@ -75,6 +75,7 @@
                             <table class="table table-striped ">
                                 <thead>
                                     <tr>
+                                        <th scope="col">الخيار</th>
                                         <th scope="col">الإجابة</th>
                                         <th scope="col">#</th>
                                     </tr>
@@ -82,7 +83,8 @@
                                 <tbody>
                                     <% for(let i=0; i<poll.answers.length; i++) {%>
                                     <tr>
-                                        <td><%=poll.answers[i] %> </td>
+                                        <td><%=poll.answers[i].name %> </td>
+                                        <td><%=poll.answers[i].answer %> </td>
                                         <th scope="row"><%=i+1 %></th>
                                     </tr>
                                     <% } %>
