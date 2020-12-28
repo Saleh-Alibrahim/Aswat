@@ -19,19 +19,14 @@ const cache = require('./config/cashe');
 // Load config
 dotenv.config({ path: './config/config.env' });
 
-
 const app = express();
 
 // Connect to the database
 connectDB();
 
-
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
-
-
 
 // Body parser
 app.use(express.urlencoded({ extended: true }));
