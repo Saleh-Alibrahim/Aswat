@@ -81,7 +81,7 @@ exports.addVote = asyncHandler(async (req, res, next) => {
     { $inc: { 'options.$.voteCount': 1 } }, { new: true });
 
 
-  // add  total vote
+  // add total vote
   await newPoll.addTotalVote();
 
 
