@@ -13,7 +13,7 @@ const connectDB = async () => {
     console.log(`MongoDB Connected: ${connection.connection.host}`.blue);
   } catch (err) {
     console.error(err);
-    //process.exit(1);
+    //process.exita(1);
   }
 };
 
