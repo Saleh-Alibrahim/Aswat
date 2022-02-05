@@ -34,6 +34,6 @@ npm run dev
 
 ### Application Hosted
 
-This project already has been hosted using heroku at : https://www.aswat.live
+This project already has been hosted using heroku at : https://www.aswat.art
 
 
