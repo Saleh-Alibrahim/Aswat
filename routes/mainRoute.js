@@ -17,7 +17,6 @@ router.route('/create')
   .get(getCreateView)
   .post(getLoginUser, createPoll);
 
-
 router.get('/dashboard', getLoginUser, dashboard);
 
 router.get('/settings', protect, settings);

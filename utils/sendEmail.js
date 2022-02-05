@@ -26,7 +26,7 @@ const sendEmail = async (options, forgot = false) => {
     };
   }
 
-  const info = await transporter.sendMail(message);
+  await transporter.sendMail(message);
 
 };
 

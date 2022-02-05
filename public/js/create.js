@@ -60,7 +60,6 @@ $('#submit-poll').click(async function (e) {
         if (data.status == 200) {
             successAlertTimer(data.message, `${location.origin}/${data.id}/r`)
         } else {
-
             errorAlert(data.message);
         }
     }

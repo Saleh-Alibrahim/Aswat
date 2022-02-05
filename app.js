@@ -83,7 +83,6 @@ if (process.env.NODE_ENV === 'production') {
 
 }
 
-
 // Routes
 app.use('/', require('./routes/mainRoute'));
 app.use('/auth', require('./routes/authRoute'));
@@ -95,8 +94,6 @@ app.use((req, res, next) => {
 
 // Handle all the errors
 app.use(errorHandler);
-
-
 
 const PORT = process.env.PORT || 3000;
 

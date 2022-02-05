@@ -18,7 +18,6 @@ exports.getCreateView = asyncHandler(async (req, res) => {
 // @route   POST /create
 // @access    Public
 exports.createPoll = asyncHandler(async (req, res, next) => {
-
   const { title, options, ip, vpn, hidden, question } = req.body;
 
   // Check if the title and at least  2 options is sent with the request
@@ -33,38 +32,40 @@ exports.createPoll = asyncHandler(async (req, res, next) => {
   if (!(req.user || req.cookies.adminID)) {
     adminID = await UserModel.generateAdminToken();
     await createAdminToken(res, adminID);
-  }
-  else {
+  } else {
     adminID = req.user ? req.user._id : req.cookies.adminID;
   }
 
-
-
   // Create new Poll
   const newPoll = await PollModel.create({
-    adminID, title, options: JSON.parse(options),
-    ipAddress: ip, vpn: !vpn, hidden, question
+    adminID,
+    title,
+    options: JSON.parse(options),
+    ipAddress: ip,
+    vpn: !vpn,
+    hidden,
+    question,
   });
 
-  if (hidden != 0 || ip) { await AddressModel.create({ _id: newPoll._id }); }
-  if (question) { await QuestionsModel.create({ _id: newPoll._id, adminID }); }
-
+  if (hidden != 0 || ip) {
+    await AddressModel.create({ _id: newPoll._id });
+  }
+  if (question) {
+    await QuestionsModel.create({ _id: newPoll._id, adminID });
+  }
 
   res.json({
     success: true,
     status: 200,
     id: newPoll.id,
-    message: 'تم إنشاء التصويت بـ نجاح'
+    message: 'تم إنشاء التصويت بـ نجاح',
   });
-
 });
 
 const createAdminToken = async (res, adminID) => {
-
-
   const options = {
     expires: new Date(Date.now() + ms('30d')),
-    httpOnly: false
+    httpOnly: false,
   };
 
   if (process.env.NODE_ENV == 'production') {
@@ -72,8 +73,4 @@ const createAdminToken = async (res, adminID) => {
   }
 
   res.cookie('adminID', adminID, options);
-
 };
-
-
-
