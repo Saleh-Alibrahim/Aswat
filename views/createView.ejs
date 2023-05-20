@@ -1,89 +1,90 @@
 <%- include('partials/head') %>
-</head>
+    </head>
 
-<body class="body-background">
-
-    <%- include('partials/preloader') %>
-
-    <%- include('partials/navbar') %>
-
-    <div class="container card-container">
-        <div class="card shadow-lg o-hidden border-0 my-5 text-center">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                        <div class="p-2">
-                            <div id="options-list" class="form-group text-right">
-                                <input class="form-control" id="title" name="title" type="text"
-                                    placeholder="إضافة عنوان" autocomplete="off">
-                                <hr>
-                                <input class="option form-control" type="text" placeholder="إضافة إجابه">
-                                <hr>
-                                <input class="option form-control" type="text" placeholder="إضافة إجابه">
-                                <hr>
-                                <input class="option form-control last-input" type="text" placeholder="إضافة إجابه">
-                                <hr>
+    <body class="body-background">
+        <%- include('partials/preloader') %>
+            <%- include('partials/navbar') %>
+                <div class="container card-container">
+                    <div class="card shadow-lg o-hidden border-0 my-5 text-center">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="p-2">
+                                        <div id="options-list" class="form-group text-right">
+                                            <input class="form-control" id="title" name="title" type="text"
+                                                placeholder="إضافة عنوان" autocomplete="off">
+                                            <hr>
+                                            <input class="option form-control" type="text" placeholder="إضافة إجابه">
+                                            <hr>
+                                            <input class="option form-control" type="text" placeholder="إضافة إجابه">
+                                            <hr>
+                                            <input class="option form-control last-input" type="text"
+                                                placeholder="إضافة إجابه">
+                                            <hr>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="result-footer mx-4">
+                            <div class="row my-3">
+                                <div class="col mr-4">
+                                    <div class="form-check  text-right">
+                                        <label for="ip" class="form-check-label" data-toggle="tooltip"
+                                            data-placement="top" title="صوت واحد لكل بيت , جامعة "> تصويت واحد لكل شبكة
+                                        </label>
+                                        <input type="checkbox" class="form-check-input custom-radio" name="option"
+                                            id="ip">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row my-3">
+                                <div class="col mr-4">
+                                    <div class="form-check  text-right">
+                                        <label for="question" class="form-check-label" data-toggle="tooltip"
+                                            data-placement="top" title="يجب على كل صوت الإجابة على هذا السؤال">إضافة
+                                            سؤال عند التصويت
+                                        </label>
+                                        <input type="checkbox" class="form-check-input custom-radio" name="option"
+                                            id="question">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row my-3">
+                                <div class="col mr-4">
+                                    <div class="form-check  text-right">
+                                        <label data-toggle="tooltip" data-placement="top"
+                                            title="تحذير : لا ينصح باختيار هذا الخيار" for="vpn"
+                                            class="form-check-label">
+                                            بتصويت VPN السماح لـ
+                                        </label>
+                                        <input type="checkbox" class="form-check-input custom-radio" name="option"
+                                            id="vpn">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col mr-4">
+                                    <select id="hidden"
+                                        class="form-control border text-right select-hide w-auto  ml-auto">
+                                        <option>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; إظهار النتائج للجميع</option>
+                                        <option>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; إظهار النتائج بعد التصويت</option>
+                                        <option>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; إخفاء النتائج للجميع</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row mt-4">
+                                <div class="col">
+                                    <div class="pb-4">
+                                        <input id="submit-poll" type="button" class="btn-solid-lg poll-btn"
+                                            value="إنشاء التصويت">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <hr class="result-footer mx-4">
-                <div class="row my-3">
-                    <div class="col mr-4">
-                        <div class="form-check  text-right">
-                            <label for="ip" class="form-check-label" data-toggle="tooltip" data-placement="top"
-                                title="صوت واحد لكل بيت , جامعة "> تصويت واحد لكل شبكة
-                            </label>
-                            <input type="checkbox" class="form-check-input custom-radio" name="option" id="ip">
-                        </div>
-                    </div>
-                </div>
-                <div class="row my-3">
-                    <div class="col mr-4">
-                        <div class="form-check  text-right">
-                            <label for="question" class="form-check-label" data-toggle="tooltip" data-placement="top"
-                                title="يجب على كل صوت الإجابة على هذا السؤال">إضافة سؤال عند التصويت
-                            </label>
-                            <input type="checkbox" class="form-check-input custom-radio" name="option" id="question">
-                        </div>
-                    </div>
-                </div>
-                <div class="row my-3">
-                    <div class="col mr-4">
-                        <div class="form-check  text-right">
-                            <label data-toggle="tooltip" data-placement="top" title="تحذير : لا ينصح باختيار هذا الخيار"
-                                for="vpn" class="form-check-label">
-                                بتصويت VPN السماح لـ
-                            </label>
-                            <input type="checkbox" class="form-check-input custom-radio" name="option" id="vpn">
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col mr-4">
-                        <select id="hidden" class="form-control border text-right select-hide w-auto  ml-auto">
-                            <option>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; إظهار النتائج للجميع</option>
-                            <option>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; إظهار النتائج بعد التصويت</option>
-                            <option>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; إخفاء النتائج للجميع</option>
-                        </select>
-                    </div>
-                </div>
-                <br>
-                <div class="row mt-4">
-                    <div class="col">
-                        <div class="pb-4">
-                            <input id="submit-poll" type="button" class="btn-solid-lg poll-btn" value="إنشاء التصويت">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    <%- include('partials/footer') %>
+                        <script src="/js/create.js"></script>
+    </body>
 
-
-
-
-        <%- include('partials/footer') %>
-        <script src="/js/create.js"></script>
-</body>
-
-</html>
+    </html>

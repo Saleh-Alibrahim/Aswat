@@ -1,170 +1,179 @@
 <%- include('partials/head') %>
-</head>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+    </script>
+    </head>
 
-<body data-spy="scroll" data-target=".fixed-top">
+    <body data-spy="scroll" data-target=".fixed-top">
 
-    <%- include('partials/preloader') %>
+        <%- include('partials/preloader') %>
 
-    <%- include('partials/navbar') %>
-    <!-- Header -->
-    <header id="header" class="header">
-        <div class="header-content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="text-container">
-                            <h1 class="turquoise text-xs-center text-sm-center text-lg-right">اصوات</h1>
-                            <h2 class="p-large text-xs-center text-sm-center text-lg-right">الطريقة الاسرع لإنشاء تصويت
-                            </h2>
-                            <a class="btn-solid-lg btn-solid-margin text-center" href="/create">إنشاء تصويت</a>
-                        </div> <!-- end of text-container -->
-                    </div> <!-- end of col -->
-                    <div class="col-lg-6">
-                        <div class="image-container">
-                            <img class="img-fluid" src="images/header-teamwork.svg" alt="alternative">
-                        </div> <!-- end of image-container -->
-                    </div> <!-- end of col -->
-                </div> <!-- end of row -->
-            </div> <!-- end of container -->
-        </div> <!-- end of header-content -->
-    </header> <!-- end of header -->
-    <!-- end of header -->
-
-    <!-- Services -->
-    <div id="services" class="cards-1">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>كيف يعمل</h2>
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-            <div class="row">
-                <!-- Card -->
-                <div class="col-lg-4 order-lg-3">
-                    <div class="card">
-                        <img class="card-image" src="images/services-icon-1.svg" alt="alternative">
-                        <div class="card-body">
-                            <h4 class="card-title">إنشاء تصويت</h4>
-                            <p>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;قم بـ إنشاء تصويت&nbsp; &nbsp; &nbsp;&nbsp;
-                                &nbsp;
-                                &nbsp;</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- end of card -->
-                <!-- Card -->
-                <div class="col-lg-4 order-lg-2">
-                    <div class="card">
-                        <img class="card-image" src="images/services-icon-2.svg" alt="alternative">
-                        <div class="card-body">
-                            <h4 class="card-title">نشر الرابط</h4>
-                            <p>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;انشر رابط التصويت &nbsp; &nbsp; &nbsp;&nbsp;
-                                &nbsp;
-                                &nbsp; </p>
-                        </div>
-                    </div>
-                </div>
-                <!-- end of card -->
-                <!-- Card -->
-                <div class="col-lg-4 order-lg-1">
-                    <div class="card">
-                        <img class="card-image" src="images/services-icon-3.svg" alt="alternative">
-                        <div class="card-body">
-                            <h4 class="card-title">تقييم النتائج</h4>
-                            <p>تحقق من نتائجك في الوقت الفعلي</p>
-                        </div>
-                    </div>
-                    <!-- end of card -->
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
-    </div> <!-- end of cards-1 -->
-    <!-- end of services -->
-
-    <!-- About -->
-    <div id="about" class="basic-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>فريق العمل</h2>
-                    <!-- <p class="p-heading p-large">تم إنشاء هذا الموقع من قبل</p> -->
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <!-- Team Member -->
-                    <div class="team-member">
-                        <div class="image-wrapper">
-                            <img class="img-fluid" src="images/team-member-2.svg" alt="alternative">
-                        </div> <!-- end of image wrapper -->
-                        <p class="p-large"><strong>صالح البراهيم</strong></p>
-                        <p class="job-title">Software Developer</p>
-                        <span class="social-icons">
-                            <span class="fa-stack">
-                                <a href="https://github.com/Saleh-Albrahim" target="_blank">
-                                    <i class="fas fa-circle fa-stack-2x github"></i>
-                                    <i class="fab fa-github fa-stack-1x"></i>
-                                </a>
-                            </span>
-                            <span class="fa-stack">
-                                <a href="https://www.linkedin.com/in/saleh--alibrahim" target="_blank">
-                                    <i class="fas fa-circle fa-stack-2x linkedin"></i>
-                                    <i class="fab fa-linkedin fa-stack-1x"></i>
-                                </a>
-                            </span>
-                            <span class="fa-stack">
-                                <a href="https://twitter.com/aswat_Live" target="_blank">
-                                    <i class="fas fa-circle fa-stack-2x twitter"></i>
-                                    <i class="fab fa-twitter fa-stack-1x"></i>
-                                </a>
-                            </span>
-                        </span> <!-- end of social-icons -->
-                    </div> <!-- end of team-member -->
-                    <!-- end of About -->
-
-
-                    <!-- Contact -->
-                    <div id="contact" class="form-2">
+            <%- include('partials/navbar') %>
+                <!-- Header -->
+                <header id="header" class="header">
+                    <div class="header-content">
                         <div class="container">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <h2>معلومات التواصل</h2>
-                                    <ul class="list-unstyled li-space-lg">
-                                        <li class="address">لا تتردد في الاتصال بنا</li>
-                                    </ul>
+                                <div class="col-lg-6">
+                                    <div class="text-container">
+                                        <h1 class="turquoise text-xs-center text-sm-center text-lg-right">اصوات</h1>
+                                        <h2 class="p-large text-xs-center text-sm-center text-lg-right">الطريقة الاسرع
+                                            لإنشاء تصويت
+                                        </h2>
+                                        <a class="btn-solid-lg btn-solid-margin text-center" href="/create">إنشاء
+                                            تصويت</a>
+                                    </div> <!-- end of text-container -->
                                 </div> <!-- end of col -->
-                            </div> <!-- end of row -->
-                            <div class="row text-center">
-                                <div class="col">
-                                    <!-- Contact Form -->
-                                    <form id="contactForm">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control-input" placeholder="العنوان"
-                                                id="cname" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="email" class="form-control-input" id="cemail"
-                                                placeholder="الأيميل" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <textarea class="form-control-textarea" id="cmessage" placeholder="الرسالة"
-                                                required></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="form-control-submit-button">إرسال
-                                                الرسالة</button>
-                                        </div>
-                                        <div class="form-message">
-                                            <div id="cmsgSubmit" class="h3 text-center hidden"></div>
-                                        </div>
-                                    </form>
-                                    <!-- end of contact form -->
+                                <div class="col-lg-6">
+                                    <div class="image-container">
+                                        <img class="img-fluid" src="images/header-teamwork.svg" alt="alternative">
+                                    </div> <!-- end of image-container -->
                                 </div> <!-- end of col -->
                             </div> <!-- end of row -->
                         </div> <!-- end of container -->
-                    </div> <!-- end of form-2 -->
-                    <!-- end of contact -->
-                    <%- include('partials/footer') %>
-</body>
+                    </div> <!-- end of header-content -->
+                </header> <!-- end of header -->
+                <!-- end of header -->
 
-</html>
+                <!-- Services -->
+                <div id="services" class="cards-1">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h2>كيف يعمل</h2>
+                            </div> <!-- end of col -->
+                        </div> <!-- end of row -->
+                        <div class="row">
+                            <!-- Card -->
+                            <div class="col-lg-4 order-lg-3">
+                                <div class="card">
+                                    <img class="card-image" src="images/services-icon-1.svg" alt="alternative">
+                                    <div class="card-body">
+                                        <h4 class="card-title">إنشاء تصويت</h4>
+                                        <p>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;قم بـ إنشاء تصويت&nbsp; &nbsp;
+                                            &nbsp;&nbsp;
+                                            &nbsp;
+                                            &nbsp;</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end of card -->
+                            <!-- Card -->
+                            <div class="col-lg-4 order-lg-2">
+                                <div class="card">
+                                    <img class="card-image" src="images/services-icon-2.svg" alt="alternative">
+                                    <div class="card-body">
+                                        <h4 class="card-title">نشر الرابط</h4>
+                                        <p>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;انشر رابط التصويت &nbsp; &nbsp;
+                                            &nbsp;&nbsp;
+                                            &nbsp;
+                                            &nbsp; </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end of card -->
+                            <!-- Card -->
+                            <div class="col-lg-4 order-lg-1">
+                                <div class="card">
+                                    <img class="card-image" src="images/services-icon-3.svg" alt="alternative">
+                                    <div class="card-body">
+                                        <h4 class="card-title">تقييم النتائج</h4>
+                                        <p>تحقق من نتائجك في الوقت الفعلي</p>
+                                    </div>
+                                </div>
+                                <!-- end of card -->
+                            </div> <!-- end of col -->
+                        </div> <!-- end of row -->
+                    </div> <!-- end of container -->
+                </div> <!-- end of cards-1 -->
+                <!-- end of services -->
+
+                <!-- About -->
+                <div id="about" class="basic-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h2>فريق العمل</h2>
+                                <!-- <p class="p-heading p-large">تم إنشاء هذا الموقع من قبل</p> -->
+                            </div> <!-- end of col -->
+                        </div> <!-- end of row -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <!-- Team Member -->
+                                <div class="team-member">
+                                    <div class="image-wrapper">
+                                        <img class="img-fluid" src="images/team-member-2.svg" alt="alternative">
+                                    </div> <!-- end of image wrapper -->
+                                    <p class="p-large"><strong>صالح البراهيم</strong></p>
+                                    <p class="job-title">Software Developer</p>
+                                    <span class="social-icons">
+                                        <span class="fa-stack">
+                                            <a href="https://github.com/Saleh-Alibrahim" target="_blank">
+                                                <i class="fas fa-circle fa-stack-2x github"></i>
+                                                <i class="fab fa-github fa-stack-1x"></i>
+                                            </a>
+                                        </span>
+                                        <span class="fa-stack">
+                                            <a href="https://www.linkedin.com/in/saleh--alibrahim" target="_blank">
+                                                <i class="fas fa-circle fa-stack-2x linkedin"></i>
+                                                <i class="fab fa-linkedin fa-stack-1x"></i>
+                                            </a>
+                                        </span>
+                                        <span class="fa-stack">
+                                            <a href="https://twitter.com/aswat_Live" target="_blank">
+                                                <i class="fas fa-circle fa-stack-2x twitter"></i>
+                                                <i class="fab fa-twitter fa-stack-1x"></i>
+                                            </a>
+                                        </span>
+                                    </span> <!-- end of social-icons -->
+                                </div> <!-- end of team-member -->
+                                <!-- end of About -->
+
+
+                                <!-- Contact -->
+                                <div id="contact" class="form-2">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <h2>معلومات التواصل</h2>
+                                                <ul class="list-unstyled li-space-lg">
+                                                    <li class="address">لا تتردد في الاتصال بنا</li>
+                                                </ul>
+                                            </div> <!-- end of col -->
+                                        </div> <!-- end of row -->
+                                        <div class="row text-center">
+                                            <div class="col">
+                                                <!-- Contact Form -->
+                                                <form id="contactForm">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control-input"
+                                                            placeholder="العنوان" id="cname" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="email" class="form-control-input" id="cemail"
+                                                            placeholder="الأيميل" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <textarea class="form-control-textarea" id="cmessage"
+                                                            placeholder="الرسالة" required></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <button type="submit" class="form-control-submit-button">إرسال
+                                                            الرسالة</button>
+                                                    </div>
+                                                    <div class="form-message">
+                                                        <div id="cmsgSubmit" class="h3 text-center hidden"></div>
+                                                    </div>
+                                                </form>
+                                                <!-- end of contact form -->
+                                            </div> <!-- end of col -->
+                                        </div> <!-- end of row -->
+                                    </div> <!-- end of container -->
+                                </div>
+                                <!-- end of form-2 -->
+                                <!-- end of contact -->
+                                <%- include('partials/footer') %>
+
+
+    </body>
+
+    </html>

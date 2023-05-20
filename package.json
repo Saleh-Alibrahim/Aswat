@@ -23,7 +23,7 @@
     "heroku-ssl-redirect": "0.0.4",
     "hpp": "^0.2.3",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.19",
+    "mongoose": "^7.1.1",
     "morgan": "~1.9.1",
     "ms": "^2.1.2",
     "node-fetch": "^2.6.7",

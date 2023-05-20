@@ -1,71 +1,77 @@
 <%- include('../partials/head2') %>
-</head>
+    </head>
 
-<body class="body-background">
-    <%- include('../partials/preloader') %>
+    <body class="body-background">
+        <%- include('../partials/preloader') %>
 
-    <%- include('../partials/navbar') %>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-9 col-lg-12 col-xl-10">
-                <div class="card shadow-lg o-hidden border-0 my-5">
-                    <div class="card-body p-0">
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-flex">
-                                <div class="text-center flex-grow-1 bg-register-image"
-                                    style="height: 100%;width: 100%;min-width: auto;background: url(&quot;/images/testimonials-2-men-talking.svg&quot;) center / auto no-repeat;">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h3 class="text-dark mb-4" data-bs-hover-animate="tada">مرحبا بعودتك<br></h3>
-                                    </div>
-                                    <form id="login-form" class="user">
-                                        <div class="form-group">
-                                            <input class="form-control form-control-user" type="email" id="email"
-                                                aria-describedby="emailHelp" placeholder="الإيميل" name="email"></div>
-                                        <div class="form-group"><input class="form-control form-control-user"
-                                                type="password" id="password" placeholder="كلمة المرور" name="password">
-                                        </div>
-                                        <div class="form-group">
-                                            <div
-                                                class="text-right text-sm-right text-md-right text-lg-right text-xl-right custom-control custom-checkbox small">
-                                                <div class="form-check"><input
-                                                        class="form-check-input custom-control-input" type="checkbox"
-                                                        id="formCheck"><label
-                                                        class="form-check-label custom-control-label" id="remeber-me"
-                                                        for="formCheck">تذكرني</label></div>
+            <%- include('../partials/navbar') %>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-9 col-lg-12 col-xl-10">
+                            <div class="card shadow-lg o-hidden border-0 my-5">
+                                <div class="card-body p-0">
+                                    <div class="row">
+                                        <div class="col-lg-6 d-none d-lg-flex">
+                                            <div class="text-center flex-grow-1 bg-register-image"
+                                                style="height: 100%;width: 100%;min-width: auto;background: 
+                                                url(&quot;/images/testimonials-2-men-talking.svg&quot;) center / auto no-repeat;">
                                             </div>
-                                        </div><button class="btn btn-primary btn-block text-white btn-user"
-                                            id="login-btn" type="submit">تسجيل الدخول</button>
-                                        <!-- <hr><a class="btn btn-primary btn-block text-white btn-google btn-user"
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="p-5">
+                                                <div class="text-center">
+                                                    <h3 class="text-dark mb-4" data-bs-hover-animate="tada">مرحبا
+                                                        بعودتك<br></h3>
+                                                </div>
+                                                <form id="login-form" class="user">
+                                                    <div class="form-group">
+                                                        <input class="form-control form-control-user" type="email"
+                                                            id="email" aria-describedby="emailHelp"
+                                                            placeholder="الإيميل" name="email">
+                                                    </div>
+                                                    <div class="form-group"><input
+                                                            class="form-control form-control-user" type="password"
+                                                            id="password" placeholder="كلمة المرور" name="password">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div
+                                                            class="text-right text-sm-right text-md-right text-lg-right text-xl-right custom-control custom-checkbox small">
+                                                            <div class="form-check"><input
+                                                                    class="form-check-input custom-control-input"
+                                                                    type="checkbox" id="formCheck"><label
+                                                                    class="form-check-label custom-control-label"
+                                                                    id="remeber-me" for="formCheck">تذكرني</label></div>
+                                                        </div>
+                                                    </div><button class="btn btn-primary btn-block text-white btn-user"
+                                                        id="login-btn" type="submit">تسجيل الدخول</button>
+                                                    <!-- <hr><a class="btn btn-primary btn-block text-white btn-google btn-user"
                                             role="button" id="google-btn"><i class="fab fa-google"></i>&nbsp;Google
                                             الدخول</a><a
                                             class="btn btn-primary btn-block text-white btn-facebook btn-user"
                                             role="button" id="facebook-btn"><i
                                                 class="fab fa-facebook-f"></i>&nbsp;Facebook
                                             الدخول</a> -->
-                                        <hr class="rem-hr">
-                                    </form>
-                                    <div class="text-center"><a class="small redirect-password"
-                                            href="/auth/forgotpassword">نسيت كلمة المرور ؟</a></div>
-                                    <div class="text-center">
-                                        <a href="/auth/register" class="small redirect-password">ما عندك حساب ؟ تفضل من
-                                            هنا</a>
+                                                    <hr class="rem-hr">
+                                                </form>
+                                                <div class="text-center"><a class="small redirect-password"
+                                                        href="/auth/forgotpassword">نسيت كلمة المرور ؟</a></div>
+                                                <div class="text-center">
+                                                    <a href="/auth/register" class="small redirect-password">ما عندك
+                                                        حساب ؟ تفضل من
+                                                        هنا</a>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <%- include('../partials/footer') %>
+                    <%- include('../partials/footer') %>
 
-        <!-- Scripts -->
-        <script src="/js_lib/bs-init.js"></script>
-        <script src="/js/auth.js"></script>
-</body>
+                        <!-- Scripts -->
+                        <script src="/js_lib/bs-init.js"></script>
+                        <script src="/js/auth.js"></script>
+    </body>
 
-</html>
+    </html>

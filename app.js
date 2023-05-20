@@ -48,39 +48,33 @@ app.use(cors());
 // Set security headers
 app.use(helmet());
 
-// Sanitize data 
+// Sanitize data
 app.use(mongoSanitize());
 
 // Cookie parser
 app.use(cookieParser());
 
-
-
 // Add libraries to the development environment
 if (process.env.NODE_ENV === 'development') {
-
   // Logging
   app.use(morgan('dev'));
-
 }
 
 // Add libraries to the production environment
 if (process.env.NODE_ENV === 'production') {
-
   // Redirect all the http to https
   app.use(sslRedirect());
 
   // Rate Limiting
   const Limiter = rateLimit({
     windowMs: 10 * 60 * 1000, // 10 mins
-    max: 100
+    max: 100,
   });
 
   app.use(Limiter);
 
   // Connect to redis cache
   cache.connectCache();
-
 }
 
 // Routes
@@ -95,7 +89,7 @@ app.use((req, res, next) => {
 // Handle all the errors
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on http://localhost:${PORT}`.yellow.bold));
 
