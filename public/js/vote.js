@@ -100,7 +100,7 @@ function runRecaptcha() {
   grecaptcha.ready(function () {
     // Do request for recaptcha token
     // Response is promise with passed token
-    grecaptcha.execute('6LfLpiYmAAAAAOExKSQ4EIFCO7CuIoQKrLpKc5b1', { action: 'validate_captcha' }).then(function (token) {
+    grecaptcha.execute('6Lei2yYmAAAAALl5oEi31XciMIbzGyiTgPCNAH1P', { action: 'validate_captcha' }).then(function (token) {
       // Add token value to form
       recaptchaToken = token;
     });

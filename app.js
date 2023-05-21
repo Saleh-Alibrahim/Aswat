@@ -27,6 +27,7 @@ connectDB();
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.set('trust proxy',1);
 
 // Body parser
 app.use(express.urlencoded({ extended: true }));
@@ -54,16 +55,14 @@ app.use(mongoSanitize());
 // Cookie parser
 app.use(cookieParser());
 
-// Add libraries to the development environment
-if (process.env.NODE_ENV === 'development') {
-  // Logging
-  app.use(morgan('dev'));
-}
+// Logging
+app.use(morgan('dev'));
+
 
 // Add libraries to the production environment
 if (process.env.NODE_ENV === 'production') {
   // Redirect all the http to https
-  app.use(sslRedirect());
+  //app.use(sslRedirect());
 
   // Rate Limiting
   const Limiter = rateLimit({
@@ -74,7 +73,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(Limiter);
 
   // Connect to redis cache
-  cache.connectCache();
+  // cache.connectCache();
 }
 
 // Routes
